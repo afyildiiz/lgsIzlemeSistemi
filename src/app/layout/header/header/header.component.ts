@@ -13,13 +13,13 @@ export class HeaderComponent {
   constructor(
     private dialogService: DialogService) { }
 
-
+    
   openRegisterForm() {
     var dialogref: NbDialogRef<any> = this.dialogService.openModal(RegisterComponent, true, true, 'right-modal')
     dialogref.onClose.subscribe(res => {
       console.log(res);
     })
   }
-  
+
 
 }

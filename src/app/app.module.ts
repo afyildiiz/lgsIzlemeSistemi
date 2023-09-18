@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NbThemeModule, NbDatepickerModule, NbLayoutModule, NbSidebarModule, NbUserModule, NbCardModule, NbInputModule, NbIconModule, NbButtonModule, NbMenuModule, NbDialogModule, NbWindowModule, NbToastrModule, NbSelectModule, NbStepperModule, NbContextMenuModule, NbListModule, NbToggleModule, NbCheckboxModule, NbRadioModule, NbTabsetModule, NbDialogRef, NbButton, NbTreeGridModule, NbAccordionModule, NbBadgeModule, NbTooltipModule, NbSpinnerModule } from '@nebular/theme';
+import { NbThemeModule, NbDatepickerModule, NbLayoutModule, NbSidebarModule, NbUserModule, NbCardModule, NbInputModule, NbIconModule, NbButtonModule, NbMenuModule, NbDialogModule, NbWindowModule, NbToastrModule, NbSelectModule, NbStepperModule, NbContextMenuModule, NbListModule, NbToggleModule, NbCheckboxModule, NbRadioModule, NbTabsetModule, NbDialogRef, NbButton, NbTreeGridModule, NbAccordionModule, NbBadgeModule, NbTooltipModule, NbSpinnerModule, NbLayoutHeaderComponent, NbLayoutFooterComponent } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header/header.component';
@@ -56,7 +56,9 @@ import { TeacherRegisterFormComponent } from './views/components/teacher-registe
     NbContextMenuModule,
     NbTabsetModule,
     NbTreeGridModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    NbCardModule,
+    NbLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
