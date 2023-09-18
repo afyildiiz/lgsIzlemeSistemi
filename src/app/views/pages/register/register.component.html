@@ -1,0 +1,36 @@
+<nb-card>
+    <nb-card-header class="d-flex justify-content-between">
+        <div>
+            Okul Kayıt
+        </div>
+        <nb-icon style="cursor: pointer" icon="close-outline">x</nb-icon>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-stepper orientation="horizontal" #stepper (stepChange)="stepperChange($event)">
+            <nb-step [label]="registerForm">
+                <ng-template #registerForm>Kayıt Formu</ng-template>
+                <app-register-form></app-register-form>
+            </nb-step>
+
+            <nb-step [label]="teacherRegisterForm">
+                <ng-template #teacherRegisterForm> Öğretmen Kayıt Formu</ng-template>
+                <app-teacher-register-form></app-teacher-register-form>
+            </nb-step>
+        </nb-stepper>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-center">
+        <div class="row">
+            <div class="col">
+                <button nbButton outline status="warning" [disabled]="stepperIndex <= 0"
+                    (click)="previousStep()">Önceki</button>
+            </div>
+            <!--<div class="col">
+                <button nbButton outline status="success" (click)="register()">Kayıt</button>
+            </div>-->
+            <div class="col">
+                <button nbButton outline status="primary" [disabled]="stepperIndex >= 1"
+                    (click)="nextStep()">Sonraki</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

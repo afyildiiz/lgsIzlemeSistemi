@@ -1,0 +1,43 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">Okul Adı</label>
+            <input nbInput type="text" class="form-control" formControlName="schoolName">
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">Şehir</label>
+            <input nbInput type="text" class="form-control" formControlName="city">
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">İlçe</label>
+            <input nbInput type="text" class="form-control" formControlName="district">
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">Cadde</label>
+            <input nbInput type="text" class="form-control" formControlName="street">
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">Açık Adres</label>
+            <textarea nbInput class="form-control" formControlName="fullAddress"></textarea>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">Telefon Numarası</label>
+            <input nbInput type="text" class="form-control" formControlName="phone">
+        </div>
+    </div>
+</form>

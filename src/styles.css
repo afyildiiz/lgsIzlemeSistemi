@@ -1,1 +1,70 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+li.nav-item>a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nb-theme-default nb-layout-header nav a {
+    color: white;
+}
+
+.nb-theme-default nb-layout-header nav {
+    height: 5.5rem !important;
+}
+
+._8icz {
+    align-items: center;
+    border-bottom: 1px solid #dadde1;
+    display: flex;
+    margin: 20px 16px;
+    text-align: center;
+}
+
 /* You can add global styles to this file, and also import other style files */
+@media screen and (max-width: 991px) {
+
+    .left-side .nb-theme-default nb-sidebar.expanded,
+    .nb-theme-default nb-sidebar.collapsed {
+        display: none;
+
+    }
+
+    app-leftbar {
+        display: none;
+
+    }
+
+    .main-panel {
+        width: 100%;
+    }
+
+    .welcome-text {
+        display: none;
+    }
+
+    .head-nav {
+        justify-content: flex-end !important;
+    }
+
+    .right-modal {
+        width: 100% !important;
+    }
+}
+
+.right-modal {
+    height: 100%;
+    width: 100%;
+}
+
+.right-modal nb-dialog-container {
+    width: 100%;
+}
