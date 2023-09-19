@@ -1,0 +1,31 @@
+.nav-tabs {
+    font-family: "Manrope", sans-serif;
+    border-bottom: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+  li{
+   border: 1px solid #dee2e6;
+  }
+  .nav-tabs .nav-item .nav-link {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    color: #212121;
+    padding: 12px 14px;
+    border: none;
+    /* border-right: 1px solid #dee2e6; */
+    font-family: "Manrope", sans-serif;
+    background: transparent;
+    /* padding-left: 0; */
+    text-decoration: none;
+    }
+  
+    ul{
+      margin-top: 0;
+    }
+  

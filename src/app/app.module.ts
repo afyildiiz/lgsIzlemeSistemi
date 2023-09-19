@@ -1,5 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { DataBySheetHelper } from './models/excel-models/dataBySheet';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import SheetHelper from './models/excel-models/sheet';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +17,19 @@ import { RegisterFormComponent } from './views/components/register-form/register
 import { FooterComponent } from './layout/footer/footer/footer.component';
 import { HomepageComponent } from './views/pages/homepage/homepage/homepage.component';
 import { TeacherRegisterFormComponent } from './views/components/teacher-register-form/teacher-register-form/teacher-register-form.component';
+import { HotTableModule } from '@handsontable/angular';
+import { registerAllModules } from 'handsontable/registry';
+import { RegisterTopBarComponent } from './views/components/register-top-bar/register-top-bar/register-top-bar.component';
+import { ExcelComponent } from './views/components/excel/excel/excel.component';
+import { StudentRegisterFormComponent } from './views/components/student-register-form/student-register-form/student-register-form.component';
+import { ExcelFormComponent } from './views/components/excel-form/excel-form/excel-form.component';
+import { DenemeComponent } from './views/pages/deneme/deneme/deneme.component';
+import { ConfirmationModalComponent } from './views/components/confirmation-modal/confirmation-modal/confirmation-modal.component';
+import { TextModalComponent } from './views/components/text-modal/text-modal/text-modal.component';
+import { AddSheetComponent } from './views/components/add-sheet/add-sheet/add-sheet.component';
+import { SheetFormComponent } from './views/components/sheet-form/sheet-form/sheet-form.component';
+
+registerAllModules()
 
 @NgModule({
   declarations: [
@@ -22,14 +39,24 @@ import { TeacherRegisterFormComponent } from './views/components/teacher-registe
     RegisterFormComponent,
     FooterComponent,
     HomepageComponent,
-    TeacherRegisterFormComponent
+    TeacherRegisterFormComponent,
+    RegisterTopBarComponent,
+    ExcelComponent,
+    StudentRegisterFormComponent,
+    ExcelFormComponent,
+    DenemeComponent,
+    ConfirmationModalComponent,
+    TextModalComponent,
+    AddSheetComponent,
+    SheetFormComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule, 
+    HttpClientModule,
     NbSpinnerModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
@@ -59,8 +86,9 @@ import { TeacherRegisterFormComponent } from './views/components/teacher-registe
     NbEvaIconsModule,
     NbCardModule,
     NbLayoutModule,
+    HotTableModule
   ],
-  providers: [],
+  providers: [DataBySheetHelper, SheetHelper],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

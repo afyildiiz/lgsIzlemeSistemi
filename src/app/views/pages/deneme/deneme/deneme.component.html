@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row d-flex justify-content-end">
+        <div class="col-5">
+            <nb-card>
+                <nb-card-body>
+                    <form [formGroup]="myForm">
+                        <div class="form-group" formArrayName="teachers">
+                            <div class="form-group" *ngFor="let hobby of teachers.controls; let i = index">
+                                <div [formGroupName]="i">
+                                    <label for="name">İsim:</label>
+                                    <input class="form-control" type="text" id="name" formControlName="name">
+
+                                    <label for="surname">Soyisim:</label>
+                                    <input class="form-control" type="text" id="surname" formControlName="surname">
+
+                                    <label for="age">Yaş:</label>
+                                    <input class="form-control" type="number" id="age" formControlName="age">
+                                </div>
+                                <p class="_8icz mt-5"></p>
+                            </div>
+                        </div>
+                    </form>
+                </nb-card-body>
+                <nb-card-footer>
+                    <div class="">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col">
+                                <button class=" btn btn-outline-success" (click)="save()">Kaydet</button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-outline-primary" (click)="addTeacher()"><nb-icon
+                                        icon="plus-outline"></nb-icon> Ekle</button>
+                            </div>
+                        </div>
+                    </div>
+                </nb-card-footer>
+            </nb-card>
+        </div>
+    </div>
+</div>
+<!--
+    
+<div class="container">
+    <div class="row d-flex justify-content-end">
+        <div class="col-5">
+            <nb-card>
+                <nb-card-body>
+                    <form [formGroup]="myForm">
+                        <div class="form-group" formArrayName="teachers">
+                            <div class="form-group">
+                                <div [formGroupName]="currentIndex">
+                                    <label for="name">İsim:</label>
+                                    <input class="form-control" type="text" id="name" formControlName="name"
+                                        [value]="teachers.controls[currentIndex].value.name">
+
+                                    <label for="surname">Soyisim:</label>
+                                    <input class="form-control" type="text" id="surname" formControlName="surname"
+                                        [value]="teachers.controls[currentIndex].value.surname">
+
+                                    <label for="age">Yaş:</label>
+                                    <input class="form-control" type="number" id="age" formControlName="age"
+                                        [value]="teachers.controls[currentIndex].value.age">
+                                </div>
+                                <p class="_8icz mt-5"></p>
+                            </div>
+                        </div>
+                    </form>
+                </nb-card-body>
+                <nb-card-footer>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-success" (click)="prev()"
+                            [disabled]="currentIndex == 0">geri</button>
+                        <button class="btn btn-outline-success" (click)="next()"
+                            [disabled]="currentIndex + 1 == toplam">ileri</button>
+
+                        <a style="text-decoration: none; cursor:pointer;" (click)="addTeacher()"><nb-icon
+                                icon="plus-outline"></nb-icon> Ekle</a>
+
+                    </div>
+                </nb-card-footer>
+            </nb-card>
+        </div>
+    </div>
+</div>
+-->

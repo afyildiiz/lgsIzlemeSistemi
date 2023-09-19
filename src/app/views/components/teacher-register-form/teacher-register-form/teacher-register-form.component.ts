@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-teacher-register-form',
@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class TeacherRegisterFormComponent {
 
+  @Input() data: any;
+
+  getData(event: any) {
+    this.data = event
+  }
+
 }
+

@@ -1,12 +1,12 @@
 <nb-card>
-    <nb-card-header class="d-flex justify-content-between">
+    <nb-card-header class="d-flex justify-content-center">
         <div>
             Okul Kayıt
         </div>
-        <nb-icon style="cursor: pointer" icon="close-outline">x</nb-icon>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body class="p-5">
         <nb-stepper orientation="horizontal" #stepper (stepChange)="stepperChange($event)">
+
             <nb-step [label]="registerForm">
                 <ng-template #registerForm>Kayıt Formu</ng-template>
                 <app-register-form></app-register-form>
@@ -16,6 +16,12 @@
                 <ng-template #teacherRegisterForm> Öğretmen Kayıt Formu</ng-template>
                 <app-teacher-register-form></app-teacher-register-form>
             </nb-step>
+
+            <nb-step [label]="studentRegisterForm">
+                <ng-template #studentRegisterForm> Öğrenci Kayıt Formu</ng-template>
+                <app-student-register-form></app-student-register-form>
+            </nb-step>
+
         </nb-stepper>
     </nb-card-body>
     <nb-card-footer class="d-flex justify-content-center">
@@ -24,11 +30,11 @@
                 <button nbButton outline status="warning" [disabled]="stepperIndex <= 0"
                     (click)="previousStep()">Önceki</button>
             </div>
-            <!--<div class="col">
-                <button nbButton outline status="success" (click)="register()">Kayıt</button>
-            </div>-->
             <div class="col">
-                <button nbButton outline status="primary" [disabled]="stepperIndex >= 1"
+                <button nbButton outline status="success" (click)="register()">Kayıt</button>
+            </div>
+            <div class="col">
+                <button nbButton outline status="primary" [disabled]="stepperIndex >= 2"
                     (click)="nextStep()">Sonraki</button>
             </div>
         </div>

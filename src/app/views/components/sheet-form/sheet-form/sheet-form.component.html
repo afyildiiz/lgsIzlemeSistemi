@@ -1,0 +1,39 @@
+<div>
+    <div class="input-group">
+        <label>SheetName</label>
+        <input type="text" [(ngModel)]="sheetName" nbInput fullWidth shape="semi-round" placeholder="Sheet name">
+    </div>
+    <small>Bilmem</small>
+    <form [formGroup]="sheetForm">
+
+        <div *ngFor="let col of cols; index as i">
+            <div style="display:flex;align-items: end;">
+                <div class="input-group" [id]="'group-'+col">
+                    <label>{{col}}. Sütun</label>
+                    <input type="text" [formControlName]="col" nbInput fullWidth shape="semi-round"
+                        placeholder="Sütun ismi">
+                </div>
+                <button nbButton outline status="warning"
+                    style="flex-basis: 20%; display: flex;  margin-left:2%; align-self: flex-end;"
+                    (click)="addBlankColumn()">
+                    <nb-icon icon="plus-circle-outline"></nb-icon>
+                </button>
+                <button nbButton outline status="danger"
+                    style="flex-basis: 20%; display: flex;  margin-left:2%; align-self: flex-end;"
+                    (click)="deleteColumn(i, col)"><nb-icon icon="minus-circle-outline"></nb-icon></button>
+            </div>
+            <div style="display:flex;flex-direction:column">
+                <label>{{col}}. Sütun Tip</label>
+                <!-- [(selected)]="selectedItem" -->
+                <nb-select placeholder="Tip" [formControlName]="'type-'+col">
+                    <nb-option value="undefined">Tanımsız</nb-option>
+                    <nb-option value="text">Metin</nb-option>
+                    <nb-option value="percent">Yüzde</nb-option>
+                    <nb-option value="numeric">Sayısal</nb-option>
+                    <nb-option value="date">Tarih</nb-option>
+                    <nb-option value="boolean">Boolean</nb-option>
+                </nb-select>
+            </div>
+        </div>
+    </form>
+</div>

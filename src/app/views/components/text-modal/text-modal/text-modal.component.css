@@ -1,0 +1,9 @@
+.header {
+    max-height: 80vh;
+    overflow: auto
+}
+
+.button {
+    position: absolute;
+    float: right;
+}
