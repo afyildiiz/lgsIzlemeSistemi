@@ -1,7 +1,7 @@
 <app-register-top-bar (dataBySheetsEmitter)="changeDataBySheets($event)" [sheetNames]="sheetNames"
-    (currentSheetNameEmitter)="changeCurrentSheetName($event)"></app-register-top-bar>
+    (currentSheetNameEmitter)="changeCurrentSheetName($event)" [dataBySheets]="dataBySheets"></app-register-top-bar>
 
-<app-excel style="margin: 4rem;" [sheetName]="sheetname" [columnNames]="currentColumnNames" [tableData]="currentData"
+<app-excel style="margin: 4rem;" [sheetName]="type" [columnNames]="currentColumnNames" [tableData]="currentData"
     [id]="type"></app-excel>
 
 <button nbButton outline status="info" shape="round" size="small" (click)="addRow()" style="margin-top:0.3rem;"><nb-icon

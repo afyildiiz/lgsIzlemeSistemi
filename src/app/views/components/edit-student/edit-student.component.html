@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="myForm">
+                <nb-select placeholder="Öğrenci Seç" formControlName="students" status="success" multiple fullWidth>
+                    <nb-option *ngFor="let student of students"
+                        [value]="student.e_posta">{{student.ad}}&nbsp;{{student.soyad}}</nb-option>
+                </nb-select>
+                <button nbButton outline status="primary" (click)="onSubmit()" class="mt-2">Kaydet</button>
+            </form>
+        </div>
+    </div>
+</div>

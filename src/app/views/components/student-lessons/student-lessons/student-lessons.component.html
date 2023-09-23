@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nb-accordion>
+                <nb-accordion-item *ngFor="let lesson of lesson_names">
+                    <nb-accordion-item-header (click)="getCategories(lesson)">
+                        {{lesson}}
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body *ngFor="let category of currentLesson">
+                        <div class="container">
+                            <div class="row border-bottom border-secondary pb-3">
+                                <div class="col-8">
+                                    {{category.kategori_adi}}
+                                </div>
+                                <div class="col-4">
+                                    <button nbButton status="primary"
+                                        (click)="getDataByCategoryId(category.kategori_id)">
+                                        Tabloyu Görüntüle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+            </nb-accordion>
+        </div>
+    </div>
+</div>

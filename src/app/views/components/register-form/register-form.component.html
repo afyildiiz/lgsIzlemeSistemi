@@ -1,5 +1,6 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <div class="d-flex flex-row align-items-center mb-4">
+
+    <!--<div class="d-flex flex-row align-items-center mb-4">
         <div class="form-outline flex-fill mb-0">
             <label class="form-label">Okul Adı</label>
             <input nbInput type="text" class="form-control" formControlName="schoolName">
@@ -32,12 +33,57 @@
             <label class="form-label">Adres</label>
             <textarea nbInput class="form-control" formControlName="fullAddress"></textarea>
         </div>
+    </div>-->
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">İl</label>
+            <br>
+            <nb-select (selectedChange)="onSelectCity($event)">
+                <nb-option *ngFor="let item of cities" [value]="item.il_kodu">{{ item.il_adi }}</nb-option>
+            </nb-select>
+        </div>
+    </div>
+
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">İlçe</label>
+            <br>
+            <nb-select (selectedChange)="onSelectDistrict($event)">
+                <nb-option *ngFor="let item of districts" [value]="item.ilce_adi">{{ item.ilce_adi }}</nb-option>
+            </nb-select>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4" *ngIf="schools.length">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">Okul</label>
+            <br>
+            <nb-select [(ngModel)]="selectedSchool" [ngModelOptions]="{standalone: true}">
+                <nb-option *ngFor="let item of schools" [value]="item">{{ item.okul_adi }}</nb-option>
+            </nb-select>
+        </div>
     </div>
 
     <div class="d-flex flex-row align-items-center mb-4">
         <div class="form-outline flex-fill mb-0">
             <label class="form-label">Telefon Numarası</label>
             <input nbInput type="text" class="form-control" formControlName="phone">
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">E-Posta</label>
+            <input nbInput type="text" class="form-control" formControlName="e_posta">
+        </div>
+    </div>
+
+    <div class="d-flex flex-row align-items-center mb-4">
+        <div class="form-outline flex-fill mb-0">
+            <label class="form-label">Şifre</label>
+            <input nbInput type="password" class="form-control" formControlName="password">
         </div>
     </div>
 </form>

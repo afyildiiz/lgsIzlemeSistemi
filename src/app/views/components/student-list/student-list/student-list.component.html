@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nb-accordion>
+                <nb-accordion-item *ngFor="let student of students">
+                    <nb-accordion-item-header>
+                        {{student.ad}} {{student.soyad}}
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+                        <app-student-profile [currentStudent]="student"></app-student-profile>
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+            </nb-accordion>
+        </div>
+    </div>
+</div>

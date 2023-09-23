@@ -28,6 +28,18 @@ import { ConfirmationModalComponent } from './views/components/confirmation-moda
 import { TextModalComponent } from './views/components/text-modal/text-modal/text-modal.component';
 import { AddSheetComponent } from './views/components/add-sheet/add-sheet/add-sheet.component';
 import { SheetFormComponent } from './views/components/sheet-form/sheet-form/sheet-form.component';
+import { LoginComponent } from './views/pages/login/login/login.component';
+import { LoginFormComponent } from './views/components/login-form/login-form/login-form.component';
+import { StudentHomeComponent } from './views/pages/LoggedInHomepage/logged-in/student-home.component';
+import { TeacherHomeComponent } from './views/pages/teacherHomepage/teacher/teacher-home.component';
+import { ProfileComponent } from './views/components/profil/profile/profile.component';
+import { EditStudentComponent } from './views/components/edit-student/edit-student.component';
+import { StudentProfileComponent } from './views/components/student-profile/student-profile/student-profile.component';
+import { StudentLessonsComponent } from './views/components/student-lessons/student-lessons/student-lessons.component';
+import { SchoolHomeComponent } from './views/pages/schoolHomepage/school-home/school-home.component';
+import { SchoolProfileComponent } from './views/components/school-profile/school-profile/school-profile.component';
+import { TeacherListComponent } from './views/components/teacher-list/teacher-list/teacher-list.component';
+import { StudentListComponent } from './views/components/student-list/student-list/student-list.component';
 
 registerAllModules()
 
@@ -48,7 +60,19 @@ registerAllModules()
     ConfirmationModalComponent,
     TextModalComponent,
     AddSheetComponent,
-    SheetFormComponent
+    SheetFormComponent,
+    LoginComponent,
+    LoginFormComponent,
+    StudentHomeComponent,
+    TeacherHomeComponent,
+    ProfileComponent,
+    EditStudentComponent,
+    StudentProfileComponent,
+    StudentLessonsComponent,
+    SchoolHomeComponent,
+    SchoolProfileComponent,
+    TeacherListComponent,
+    StudentListComponent
   ],
   imports: [
     BrowserModule,
