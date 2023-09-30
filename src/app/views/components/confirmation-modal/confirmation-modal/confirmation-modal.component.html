@@ -1,8 +1,33 @@
-<nb-card>
-    <nb-card-header>{{ title }}</nb-card-header>
-    <nb-card-body>{{ message }}</nb-card-body>
-    <nb-card-footer>
-        <button nbButton (click)="action(true)">Evet</button>
-        <button nbButton (click)="action(false)">Hayır</button>
+<nb-card class="p-2 border-primary rounded">
+    <nb-card-header class=" d-flex justify-content-between">
+        <div>
+            Çalışmalarım
+        </div>
+        <nb-icon style="cursor: pointer" (click)="close()" icon="close-outline">x</nb-icon>
+    </nb-card-header>
+    <nb-card-body>
+
+        <form [formGroup]="myForm">
+            <div class="col d-flex justify-content-end">
+
+
+                <input class="form-control mb-1" type="date" formControlName="tarih" (change)="getGoals()">
+            </div>
+            <br>
+            <p>Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>
+            <label class="mb-1">Çözülen Soru</label>
+            <input class="form-control mb-1" nbInput type="number" formControlName="cozulen_soru">
+            <label class="mb-1">Doğru Sayısı</label>
+            <input class="form-control mb-1" nbInput type="number" formControlName="dogru_sayisi">
+            <label class=" mb-1">Yanlış Sayısı</label>
+            <input class="form-control" nbInput type="number" formControlName="yanlis_sayisi">
+
+        </form>
+    </nb-card-body>
+
+
+    <nb-card-footer class="d-flex justify-content-center">
+        <button nbButton outline status="primary" (click)="action(true)">Kaydet</button>
+        <button class="ml-2" nbButton outline status="warning" (click)="action(false)">Çıkış</button>
     </nb-card-footer>
 </nb-card>

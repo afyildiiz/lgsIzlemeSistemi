@@ -1,13 +1,22 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <form [formGroup]="myForm">
-                <nb-select placeholder="Öğrenci Seç" formControlName="students" status="success" multiple fullWidth>
-                    <nb-option *ngFor="let student of students"
-                        [value]="student.e_posta">{{student.ad}}&nbsp;{{student.soyad}}</nb-option>
-                </nb-select>
-                <button nbButton outline status="primary" (click)="onSubmit()" class="mt-2">Kaydet</button>
-            </form>
+<nb-card accent="primary">
+    <nb-card-header>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <nb-select placeholder="Öğrenci Seç" status="success" fullWidth multiple shape="semi-round"
+                        (ngModelChange)="selectionChange($event)" [(ngModel)]="selectedStudents">
+                        <nb-option value="all">Tümünü seç</nb-option>
+                        <nb-option *ngFor="let student of students"
+                            [value]="student">{{student.ad}}&nbsp;{{student.soyad}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <!--<app-log-page [currentStudent]="selectedStudent"></app-log-page>-->
+            <app-teacher-log [students]="selectedStudents"></app-teacher-log>
+        </div>
+    </nb-card-body>
+</nb-card>

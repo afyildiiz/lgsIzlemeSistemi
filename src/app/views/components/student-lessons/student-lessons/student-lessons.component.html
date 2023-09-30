@@ -1,7 +1,21 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <nb-accordion>
+<div class="grid-container">
+    <nb-card *ngFor="let lesson of lessons" (click)="chooseLesson(lesson.ders_id)">
+        <nb-card-header>
+            <div style="overflow: hidden;  text-overflow: ellipsis; max-height:2.4em">
+                <h1>{{lesson.ders_adi}}</h1>
+            </div>
+        </nb-card-header>
+        <nb-card-body>
+            <nb-menu [items]="lesson.perform">
+            </nb-menu>
+        </nb-card-body>
+    </nb-card>
+</div>
+
+<router-outlet></router-outlet>
+<!--
+
+    <nb-accordion>
                 <nb-accordion-item *ngFor="let lesson of lesson_names">
                     <nb-accordion-item-header (click)="getCategories(lesson)">
                         {{lesson}}
@@ -22,6 +36,4 @@
                     </nb-accordion-item-body>
                 </nb-accordion-item>
             </nb-accordion>
-        </div>
-    </div>
-</div>
+-->

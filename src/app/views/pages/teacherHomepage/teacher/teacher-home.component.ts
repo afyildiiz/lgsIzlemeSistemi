@@ -11,7 +11,9 @@ export class TeacherHomeComponent {
 
   constructor(private studentService: StudentService) { }
 
+  currentTeacher: any;
   ngOnInit() {
+    this.currentTeacher = localStorage.getItem('currentTeacher')
   }
 
   items: NbMenuItem[] = [
@@ -21,7 +23,7 @@ export class TeacherHomeComponent {
       children: [
         {
           title: 'Hesap Ayarlarım',
-          link: '/teacherhomepage/profile',
+          link: '/teacher/profile',
         },
 
         {
@@ -30,8 +32,8 @@ export class TeacherHomeComponent {
       ],
     },
     {
-      title: 'Öğrenciler',
-      link: '/teacherhomepage/students'
+      title: 'Hedef Soru Kayıt',
+      link: '/teacher/students'
     },
   ];
 }

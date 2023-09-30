@@ -1,0 +1,561 @@
+<!--<nb-card>
+    <nb-card-header class="p-1">
+        <div class="container">
+            <div class="row d-flex justify-content-between">
+                <div class="col-4">
+                    <label>Ders:</label>
+                    <br>
+                    <nb-select (selectedChange)="selectLesson($event)">
+                        <nb-option *ngFor="let lesson of lessons" [value]="lesson">{{lesson.ders_adi}}</nb-option>
+                    </nb-select>
+                </div>
+                <div class="col-8" *ngIf="selectedLesson">
+                    <label>Konu:</label>
+                    <br>
+                    <nb-select fullWidth [(selected)]="selectedCategory">
+                        <nb-option *ngFor="let category of filteredCategories"
+                            [value]="category">{{category.kategori_adi}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="myForm">
+            <div class="row">
+                <div class="col">
+                    <table class="mt-1" *ngIf="formArray.value.length">
+                        <thead>
+                            <tr>
+                                <th>Hedef Soru</th>
+                                <th>Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="formArray">
+                            <ng-container *ngFor="let group of formArray.controls; let i = index">
+                                <tr [formGroupName]="i">
+                                    <td>
+                                        <input nbInput type="number" formControlName="hedef_soru">
+                                    </td>
+                                    <td>
+                                        <input nbInput type="date" formControlName="tarih">
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+        <div class="row d-flex justify-content-end">
+            <div class="col-3">
+                <button nbButton outline status="info" (click)="addGroup()">Kayıt Ekle</button>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>-->
+
+
+
+
+<!--
+<div class="container mb-3">
+    <div class="row d-flex justify-content-between">
+        <div class="col-4">
+            <label>Ders:</label>
+            <br>
+            <nb-select (selectedChange)="selectLesson($event)">
+                <nb-option *ngFor="let lesson of lessons" [value]="lesson">{{lesson.ders_adi}}</nb-option>
+            </nb-select>
+        </div>
+        <div class="col-8" *ngIf="selectedLesson">
+            <label>Konu:</label>
+            <br>
+            <nb-select fullWidth [(selected)]="selectedCategory">
+                <nb-option *ngFor="let category of filteredCategories"
+                    [value]="category">{{category.kategori_adi}}</nb-option>
+            </nb-select>
+        </div>
+    </div>
+</div>
+-->
+
+
+
+<!--
+<nb-tabset>
+    <nb-tab tabTitle="Aylık">
+        <form [formGroup]="myForm">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <table class="mt-1" *ngIf="monthForm.value.length">
+                        <thead>
+                            <tr>
+                                <th>Ders</th>
+                                <th>Hedef Soru</th>
+                                <th>Ay</th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="monthForm">
+                            <ng-container *ngFor="let group of monthForm.controls; let i = index">
+                                <tr [formGroupName]="i">
+                                    <td>
+                                        <nb-select [disabled]="true" formControlName="ders" fullWidth>
+                                            <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                {{lesson.ders_adi}}
+                                            </nb-option>
+                                        </nb-select>
+                                    </td>
+
+                                    <td>
+                                        <input nbInput type="number" formControlName="hedef_soru">
+                                    </td>
+                                    <td>
+                                        <nb-select fullWidth formControlName="tarih">
+                                            <nb-option *ngFor="let month of months; index as i"
+                                                [value]="i + 1">{{month}}</nb-option>
+                                        </nb-select>
+                                    </td>
+                                    <td>
+                                        <button nbButton status="danger">X</button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                        <button nbButton outline status="success" (click)="save(1)">Kaydet</button>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </nb-tab>
+
+    <nb-tab tabTitle="Haftalık">
+
+        <form [formGroup]="myForm">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <table class="mt-1" *ngIf="weekForm.value.length">
+                        <thead>
+                            <tr>
+                                <th>Ders</th>
+                                <th>Hedef Soru</th>
+                                <th>Hafta</th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="weekForm">
+                            <ng-container *ngFor="let group of weekForm.controls; let i = index">
+                                <tr [formGroupName]="i">
+                                    <td>
+                                        <nb-select formControlName="ders" fullWidth>
+                                            <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                {{lesson.ders_adi}}</nb-option>
+                                        </nb-select>
+                                    </td>
+                                    <td>
+                                        <input nbInput type="number" formControlName="hedef_soru">
+                                    </td>
+                                    <td>
+                                        <nb-select fullWidth formControlName="tarih">
+                                            <nb-option *ngFor="let week of weeks; index as i"
+                                                [value]="i + 1">{{week}}</nb-option>
+                                        </nb-select>
+                                    </td>
+                                    <td>
+                                        <button nbButton status="danger">X</button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                        <button nbButton outline status="success" (click)="save(2)">Kaydet</button>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </nb-tab>
+
+    <nb-tab tabTitle="Günlük">
+        <form [formGroup]="myForm">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <table class="mt-1" *ngIf="dayForm.value.length">
+                        <thead>
+                            <tr>
+                                <th>Ders</th>
+                                <th>Hedef Soru</th>
+                                <th>Gün</th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="dayForm">
+                            <ng-container *ngFor="let group of dayForm.controls; let i = index">
+                                <tr [formGroupName]="i">
+                                    <td>
+                                        <nb-select formControlName="ders" fullWidth>
+                                            <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                {{lesson.ders_adi}}</nb-option>
+                                        </nb-select>
+                                    </td>
+                                    <td>
+                                        <input nbInput type="number" formControlName="hedef_soru">
+                                    </td>
+                                    <td>
+                                        <input nbInput type="date" formControlName="tarih">
+                                    </td>
+                                    <td>
+                                        <button nbButton status="danger">X</button>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </nb-tab>
+</nb-tabset>
+
+
+        <nb-tabset tabTitle="Konuya göre ekle">
+            <nb-tab tabTitle="Aya göre ekle">
+                <form [formGroup]="myForm">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <table class="mt-1" *ngIf="monthForm.value.length">
+                                <thead>
+                                    <tr>
+                                        <th>Ders</th>
+                                        <th>Konu</th>
+                                        <th>Hedef Soru</th>
+                                        <th>Ay</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="formArray">
+                                    <ng-container *ngFor="let group of monthForm.controls; let i = index">
+                                        <tr [formGroupName]="i">
+                                            <td>
+                                                <nb-select formControlName="ders" fullWidth>
+                                                    <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                        {{lesson.ders_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <nb-select formControlName="konu">
+                                                    <nb-option *ngFor="let category of filteredCategories"
+                                                        [value]="category">{{category.kategori_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <input nbInput type="number" formControlName="hedef_soru">
+                                            </td>
+                                            <td>
+                                                <nb-select fullWidth>
+                                                    <nb-option *ngFor="let month of months; index as i"
+                                                        [value]="i + 1">{{month}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </nb-tab>
+
+            <nb-tab tabTitle="Haftaya göre ekle">
+
+                <form [formGroup]="myForm">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <table class="mt-1" *ngIf="weekForm.value.length">
+                                <thead>
+                                    <tr>
+                                        <th>Ders</th>
+                                        <th>Konu</th>
+                                        <th>Hedef Soru</th>
+                                        <th>Hafta</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="formArray">
+                                    <ng-container *ngFor="let group of weekForm.controls; let i = index">
+                                        <tr [formGroupName]="i">
+                                            <td>
+                                                <nb-select formControlName="ders" fullWidth>
+                                                    <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                        {{lesson.ders_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <nb-select formControlName="konu">
+                                                    <nb-option *ngFor="let category of filteredCategories"
+                                                        [value]="category">{{category.kategori_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <input nbInput type="number" formControlName="hedef_soru">
+                                            </td>
+                                            <td>
+                                                <nb-select fullWidth>
+                                                    <nb-option *ngFor="let week of weeks; index as i"
+                                                        [value]="i + 1">{{week}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </nb-tab>
+
+            <nb-tab tabTitle="Güne göre ekle">
+
+                <form [formGroup]="myForm">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <table class="mt-1" *ngIf="dayForm.value.length">
+                                <thead>
+                                    <tr>
+                                        <th>Ders</th>
+                                        <th>Konu</th>
+                                        <th>Hedef Soru</th>
+                                        <th>Gün</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="formArray">
+                                    <ng-container *ngFor="let group of dayForm.controls; let i = index">
+                                        <tr [formGroupName]="i">
+                                            <td>
+                                                <nb-select formControlName="ders" fullWidth>
+                                                    <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                        {{lesson.ders_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <nb-select formControlName="konu">
+                                                    <nb-option *ngFor="let category of filteredCategories"
+                                                        [value]="category">{{category.kategori_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <input nbInput type="number" formControlName="hedef_soru">
+                                            </td>
+                                            <td>
+                                                <input nbInput type="date" formControlName="tarih">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </nb-tab>
+        </nb-tabset>
+
+-->
+<!--
+
+<td>
+    <input nbInput type="date" formControlName="tarih">
+</td>
+
+
+<div class="row d-flex justify-content-end mt-3">
+    <div class="col-3">
+        <button nbButton outline status="info" (click)="addGroup()">Kayıt Ekle</button>
+    </div>
+</div>
+
+-->
+
+<!--
+            <nb-step [label]="weekly">
+                <ng-template #weekly>Haftalık</ng-template>
+                <form [formGroup]="myForm">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <table class="mt-1" *ngIf="weekForm.value.length">
+                                <thead>
+                                    <tr>
+                                        <th>Ders</th>
+                                        <th>Hedef Soru</th>
+                                        <th>Hafta</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="weekForm">
+                                    <ng-container *ngFor="let group of weekForm.controls; let i = index">
+                                        <tr [formGroupName]="i">
+                                            <td>
+                                                <nb-select formControlName="ders" fullWidth>
+                                                    <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                        {{lesson.ders_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <input nbInput type="number" formControlName="hedef_soru">
+                                            </td>
+                                            <td>
+                                                <nb-select fullWidth formControlName="tarih">
+                                                    <nb-option *ngFor="let week of weeks; index as i"
+                                                        [value]="i + 1">{{week}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <button nbButton status="danger" (click)="deleteWeekGroup(i)">X</button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button nbButton status="primary" (click)="addWeekGroup()">+</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <button nbButton outline status="success" (click)="save(2)">Kaydet</button>
+            </nb-step>
+        -->
+
+
+<!--
+
+<nb-card>
+    <nb-card-body class="p-5">
+        <nb-stepper orientation="horizontal" #stepper (stepChange)="stepperChange($event)">
+            <nb-step [label]="daily">
+                <ng-template #daily>Günlük</ng-template>
+                <form [formGroup]="myForm">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <table class="mt-1" *ngIf="dayForm.value.length">
+                                <thead>
+                                    <tr>
+                                        <th>Ders</th>
+                                        <th>Günlük Hedef Soru</th>
+                                        <th>Gün</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="dayForm">
+                                    <ng-container *ngFor="let group of dayForm.controls; let i = index">
+                                        <tr [formGroupName]="i">
+                                            <td>
+                                                <nb-select formControlName="ders" fullWidth>
+                                                    <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                        {{lesson.ders_adi}}</nb-option>
+                                                </nb-select>
+                                            </td>
+                                            <td>
+                                                <input nbInput type="number" formControlName="hedef_soru">
+                                            </td>
+                                            <td>
+                                                <input nbInput type="date" formControlName="tarih">
+                                            </td>
+                                            <td>
+                                                <button nbButton status="danger" (click)="deleteDayGroup(i)">X</button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <button nbButton status="primary" (click)="addDayGroup()">+</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <button nbButton outline status="success" (click)="save(3)">Kaydet</button>
+            </nb-step>
+
+        </nb-stepper>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-center">
+        <div class="row">
+            <div class="col">
+                <button nbButton outline status="warning" [disabled]="stepperIndex <= 0"
+                    (click)="previousStep()">Önceki</button>
+            </div>
+
+            <div class="col">
+                <button nbButton outline status="primary" [disabled]="stepperIndex >= 2"
+                    (click)="nextStep()">Sonraki</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>
+
+-->
+
+
+
+<div class="container">
+    <div class="row d-flex justify-content-end">
+        <div class="col-3">
+            <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz">
+                <nb-option *ngFor="let month of months; index as i" [value]="i + 1">{{month}}</nb-option>
+            </nb-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="myForm">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <table class="mt-1" *ngIf="monthForm.value.length">
+                            <thead>
+                                <tr>
+                                    <th>Ders</th>
+                                    <th>Günlük Hedef Soru</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="monthForm">
+                                <ng-container *ngFor="let group of monthForm.controls; let i = index">
+                                    <tr [formGroupName]="i">
+                                        <td>
+                                            <nb-select formControlName="ders" fullWidth>
+                                                <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                    {{lesson.ders_adi}}
+                                                </nb-option>
+                                            </nb-select>
+                                        </td>
+
+                                        <td>
+                                            <input nbInput type="number" formControlName="hedef_soru">
+                                        </td>
+                                        <td>
+                                            <button nbButton outline status="success" (click)="save(i)">Konuları
+                                                Belirle</button>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--<div class="row mt-3">
+        <div class="col d-flex justify-content-center">
+            <button nbButton outline status="success" (click)="save()">Konuları Belirle</button>
+        </div>
+    </div>-->
+</div>

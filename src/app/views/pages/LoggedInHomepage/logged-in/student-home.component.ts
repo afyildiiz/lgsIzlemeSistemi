@@ -8,6 +8,13 @@ import { NbMenuItem } from '@nebular/theme';
 })
 export class StudentHomeComponent {
 
+  currentStudent: any;
+
+  ngOnInit() {
+    this.currentStudent = localStorage.getItem('currentStudent');
+    this.currentStudent = JSON.parse(this.currentStudent);
+  }
+
   items: NbMenuItem[] = [
     {
       title: 'Profil',
@@ -15,7 +22,7 @@ export class StudentHomeComponent {
       children: [
         {
           title: 'Hesap Ayarlarım',
-          link: '/studenthomepage/profile',
+          link: '/student/profile',
         },
 
         {
@@ -23,10 +30,5 @@ export class StudentHomeComponent {
         },
       ],
     },
-    {
-      title: 'Derslerim',
-      expanded: true,
-      link: '/studenthomepage/lessons'
-    }
   ];
 }

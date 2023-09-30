@@ -39,7 +39,7 @@ export class StudentService {
     }
     return this.http.post(Endpoints.dataops, body).pipe(
       map((response: any) => {
-        return response
+        return response.message
       })
     );
   }
@@ -79,7 +79,7 @@ export class StudentService {
       "Token": this.token,
       "DataStoreId": Endpoints.studentDataStoreid,
       "Operation": "read",
-      "Data": `select ad, soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, e_posta, sifre from lgs_students where e_posta='${e_posta}' and sifre='${sifre}'`,
+      "Data": `select cast(ogrenci_id as text), ad, soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, e_posta, sifre from lgs_students where e_posta='${e_posta}' and sifre='${sifre}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -94,7 +94,7 @@ export class StudentService {
       "Token": this.token,
       "DataStoreId": Endpoints.studentDataStoreid,
       "Operation": "read",
-      "Data": `select ad, soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, e_posta, sifre from lgs_students where teacher_id='${teacher_id}'`,
+      "Data": `select cast(ogrenci_id as text), ad, soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, e_posta, sifre from lgs_students where teacher_id='${teacher_id}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -109,7 +109,7 @@ export class StudentService {
       "Token": this.token,
       "DataStoreId": Endpoints.studentDataStoreid,
       "Operation": "read",
-      "Data": `select ad, soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, e_posta, sifre from lgs_students where okul_id='${schoolId}'`,
+      "Data": `select cast(teacher_id as text), cast(ogrenci_id as text), ad, soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, e_posta, sifre from lgs_students where okul_id='${schoolId}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -119,17 +119,47 @@ export class StudentService {
     );
   }
 
-  setTeacher(teacher_id: string) {
+  getStudentsAndTeachersBySchoolId(schoolId: string) {
     const body = {
       "Token": this.token,
       "DataStoreId": Endpoints.studentDataStoreid,
-      "Operation": "update",
-      "Data": `update from lgs_students set teacher_id='${teacher_id}'`,
+      "Operation": "read",
+      "Data": `select lgs_teachers.ad, lgs_teachers.soyad, cast(lgs_students.teacher_id as text), cast(ogrenci_id as text), lgs_students.ad, lgs_students.soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, lgs_students.e_posta, lgs_students.sifre from lgs_students inner join lgs_teachers on lgs_teachers.id = lgs_students.teacher_id where lgs_students.okul_id='${schoolId}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
       map((response: any) => {
         return response.message
+      })
+    );
+  }
+
+  setTeacher(student_id: string, teacher_id: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.studentDataStoreid,
+      "Operation": "update",
+      "Data": `update lgs_students set teacher_id='${teacher_id}' where ogrenci_id='${student_id}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
+  isThere(e_posta: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.studentDataStoreid,
+      "Operation": "read",
+      "Data": `select count(e_posta) from lgs_students where e_posta='${e_posta}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message[0]
       })
     );
   }

@@ -15,15 +15,19 @@ export class SchoolHomeComponent {
       children: [
         {
           title: 'Hesap Ayarları',
-          link: '/schoolhomepage/profile',
+          link: '/school/profile',
         },
         {
           title: 'Öğretmenler',
-          link: '/schoolhomepage/teachers',
+          link: '/school/teachers',
         },
         {
           title: 'Öğrenciler',
-          link: '/schoolhomepage/students',
+          link: '/school/students',
+        },
+        {
+          title: 'Mentor Ata',
+          link: '/school/assign',
         },
         {
           title: 'Çıkış Yap',

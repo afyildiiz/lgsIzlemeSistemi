@@ -43,7 +43,7 @@ export class LoginFormComponent {
               if (res.length) {
                 this.authService.login();
                 localStorage.setItem('currentTeacher', JSON.stringify(res[0]));
-                setTimeout(() => this.router.navigate(['teacherhomepage'], { state: { teacher: res[0] } }), 500);
+                setTimeout(() => this.router.navigate(['teacher'], { state: { teacher: res[0] } }), 500);
               }
               else
                 this.toastService.showToast('danger', 'Giriş bilgileri yanlış.');
@@ -55,7 +55,7 @@ export class LoginFormComponent {
               if (res.length) {
                 this.authService.login();
                 localStorage.setItem('currentStudent', JSON.stringify(res[0]));
-                setTimeout(() => this.router.navigate(['studenthomepage'], { state: { student: res[0] } }), 500);
+                setTimeout(() => this.router.navigate(['student/lessons'], { state: { student: res[0] } }), 500);
               }
               else
                 this.toastService.showToast('danger', 'Giriş bilgileri yanlış.');
@@ -67,7 +67,7 @@ export class LoginFormComponent {
               if (res.length) {
                 this.authService.login();
                 localStorage.setItem('schoolAdmin', JSON.stringify(res[0]));
-                setTimeout(() => this.router.navigate(['schoolhomepage'], { state: { school: res[0] } }), 500);
+                setTimeout(() => this.router.navigate(['school'], { state: { school: res[0] } }), 500);
               }
               else
                 this.toastService.showToast('danger', 'Giriş bilgileri yanlış.');

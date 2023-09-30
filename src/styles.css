@@ -23,7 +23,7 @@ li.nav-item>a {
 
 .nb-theme-default nb-layout-header nav {
     height: 4.5rem !important;
-    background-color: transparent !important;
+    background-color: white !important;
 }
 
 .nb-theme-default nb-card {

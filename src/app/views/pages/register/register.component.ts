@@ -21,8 +21,7 @@ export class RegisterComponent {
     private toastService: ToastService,
     private teacherService: TeacherService,
     private studentService: StudentService,
-    private schoolService: SchoolService,
-    private router: Router) { }
+    private schoolService: SchoolService) { }
 
   @ViewChild('stepper') stepper!: NbStepperComponent;
   @ViewChild(RegisterFormComponent) registerFormComponent!: RegisterFormComponent;

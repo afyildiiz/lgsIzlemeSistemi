@@ -1,12 +1,10 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-4">
-            <nb-card>
-                <nb-menu [items]="items">
-                </nb-menu>
-            </nb-card>
+        <div class="col-3">
+            <nb-menu [items]="items">
+            </nb-menu>
         </div>
-        <div class="col-8">
+        <div class="col-9">
             <router-outlet></router-outlet>
         </div>
     </div>

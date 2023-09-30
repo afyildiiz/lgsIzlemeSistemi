@@ -1,0 +1,66 @@
+<div class="grid-container">
+    <!--<div class="card" *ngFor="let category of categories">
+        <div class="card-header">
+            <h1 class="card-title" style="overflow: hidden;  text-overflow: ellipsis; max-height:2.4em">
+                {{category.kategori_adi}}</h1>
+        </div>
+        <div class="card-body">
+            <img [src]="category.image_url" width="400px" style="max-width: 100%; height: auto;">
+            <div class="card-text mt-2">Sözcükte Anlam kelimeleri ve cümleleri doğru bir şekilde anlamayı amaçlar.
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary mt-3" (click)="insertLog(category.kategori_id)">Çalışma
+                Ekle</button>
+            <button class="ml-2 btn btn-primary mt-3" (click)="goLogPage(category.kategori_id)">Geçmiş Çalışmalarım
+            </button>
+        </div>
+    </div>-->
+
+
+    <nb-flip-card *ngFor="let category of categories">
+        <nb-card-front>
+            <nb-card>
+                <nb-card-header>
+                    <h1 class="card-title" style="overflow: hidden;  text-overflow: ellipsis; max-height:2.4em">
+                        {{category.kategori_adi}}</h1>
+                </nb-card-header>
+                <nb-card-body>
+                    <img [src]="category.image_url" width="400px" style="max-width: 100%; height: auto;">
+                    <div class="card-text mt-2">Sözcükte Anlam kelimeleri ve cümleleri doğru bir şekilde anlamayı
+                        amaçlar.
+                    </div>
+                    <div class="col d-flex justify-content-end mt-3" *ngIf="category.performans">
+                        Performansım:&nbsp;<b>{{category.performans[2].badge.text | number: '1.0-2'}}</b>
+                    </div>
+                    <div class="col d-flex justify-content-end mt-3" *ngIf="!category.performans">
+                        Performansım:&nbsp;<b>0</b>
+                    </div>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button class="btn btn-primary" (click)="insertLog(category.kategori_id)">Çalışma
+                        Ekle</button>
+                    <button class=" ml-1 btn btn-primary" (click)="goLogPage(category.kategori_id)">Geçmiş
+                        Çalışmalarım
+                    </button>
+                </nb-card-footer>
+            </nb-card>
+        </nb-card-front>
+
+
+        <nb-card-back>
+            <nb-card>
+                <nb-card-header>
+                    Performansım
+                </nb-card-header>
+                <nb-card-body *ngIf="category.performans">
+                    <nb-menu [items]="category.performans">
+                    </nb-menu>
+                </nb-card-body>
+                <nb-card-body *ngIf="!category.performans">
+                    Bu kategoride çözülmüş bir soru yok.
+                </nb-card-body>
+            </nb-card>
+        </nb-card-back>
+    </nb-flip-card>
+</div>

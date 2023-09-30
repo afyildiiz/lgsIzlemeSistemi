@@ -24,7 +24,7 @@ export class TeacherService {
     }
     return this.http.post(Endpoints.dataops, body).pipe(
       map((response: any) => {
-        return response
+        return response.message
       })
     );
   }
@@ -85,6 +85,21 @@ export class TeacherService {
     return this.http.post(Endpoints.dataops, body).pipe(
       map((response: any) => {
         return response.message
+      })
+    );
+  }
+
+  isThere(e_posta: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.teacherDataStoreid,
+      "Operation": "read",
+      "Data": `select count(e_posta) from lgs_teachers where e_posta='${e_posta}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message[0]
       })
     );
   }

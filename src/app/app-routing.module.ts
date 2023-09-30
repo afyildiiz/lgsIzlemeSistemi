@@ -13,6 +13,11 @@ import { SchoolHomeComponent } from './views/pages/schoolHomepage/school-home/sc
 import { SchoolProfileComponent } from './views/components/school-profile/school-profile/school-profile.component';
 import { TeacherListComponent } from './views/components/teacher-list/teacher-list/teacher-list.component';
 import { StudentListComponent } from './views/components/student-list/student-list/student-list.component';
+import { LogPageComponent } from './views/components/logPage/log-page/log-page.component';
+import { AssignMentorComponent } from './views/components/assign-mentor/assign-mentor/assign-mentor.component';
+import { AddTeacherComponent } from './views/components/add-teacher/add-teacher/add-teacher.component';
+import { AddStudentComponent } from './views/components/add-student/add-student/add-student.component';
+import { LessonsCategoriesComponent } from './views/components/lessons-categories/lessons-categories/lessons-categories.component';
 
 const routes: Routes = [
   {
@@ -25,25 +30,29 @@ const routes: Routes = [
     path: 'login', component: LoginFormComponent
   },
   {
-    path: 'teacherhomepage', component: TeacherHomeComponent, children: [
-
+    path: 'teacher', component: TeacherHomeComponent, children: [
       { path: 'profile', component: ProfileComponent },
       { path: 'students', component: EditStudentComponent },
 
     ]
   },
   {
-    path: 'studenthomepage', component: StudentHomeComponent, children: [
-      { path: 'profile', component: StudentProfileComponent },
-      { path: 'lessons', component: StudentLessonsComponent }
+    path: 'student', component: StudentHomeComponent, children: [
+      //{ path: 'profile', component: StudentProfileComponent },
+      { path: 'lessons', component: StudentLessonsComponent },
+      { path: 'categories', component: LessonsCategoriesComponent },
+      { path: 'logpage', component: LogPageComponent }
 
     ]
   },
   {
-    path: 'schoolhomepage', component: SchoolHomeComponent, children: [
+    path: 'school', component: SchoolHomeComponent, children: [
       { path: 'profile', component: SchoolProfileComponent },
       { path: 'teachers', component: TeacherListComponent },
+      { path: 'addteacher', component: AddTeacherComponent },
       { path: 'students', component: StudentListComponent },
+      { path: 'addstudent', component: AddStudentComponent },
+      { path: 'assign', component: AssignMentorComponent },
     ]
   }
 ];

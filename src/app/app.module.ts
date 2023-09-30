@@ -40,6 +40,12 @@ import { SchoolHomeComponent } from './views/pages/schoolHomepage/school-home/sc
 import { SchoolProfileComponent } from './views/components/school-profile/school-profile/school-profile.component';
 import { TeacherListComponent } from './views/components/teacher-list/teacher-list/teacher-list.component';
 import { StudentListComponent } from './views/components/student-list/student-list/student-list.component';
+import { LogPageComponent } from './views/components/logPage/log-page/log-page.component';
+import { AssignMentorComponent } from './views/components/assign-mentor/assign-mentor/assign-mentor.component';
+import { AddStudentComponent } from './views/components/add-student/add-student/add-student.component';
+import { AddTeacherComponent } from './views/components/add-teacher/add-teacher/add-teacher.component';
+import { LessonsCategoriesComponent } from './views/components/lessons-categories/lessons-categories/lessons-categories.component';
+import { TeacherLogComponent } from './views/components/teacher-log/teacher-log.component';
 
 registerAllModules()
 
@@ -72,7 +78,13 @@ registerAllModules()
     SchoolHomeComponent,
     SchoolProfileComponent,
     TeacherListComponent,
-    StudentListComponent
+    StudentListComponent,
+    LogPageComponent,
+    AssignMentorComponent,
+    AddStudentComponent,
+    AddTeacherComponent,
+    LessonsCategoriesComponent,
+    TeacherLogComponent
   ],
   imports: [
     BrowserModule,

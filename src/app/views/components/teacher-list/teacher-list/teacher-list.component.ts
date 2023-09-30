@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TeacherService } from 'src/app/services/teacher/teacher.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { TeacherService } from 'src/app/services/teacher/teacher.service';
 })
 export class TeacherListComponent {
 
-  constructor(private teacherService: TeacherService) { }
+  constructor(private teacherService: TeacherService,
+    private router: Router) { }
 
   schoolAdmin: any;
   teachers: any[] = [];
@@ -22,5 +24,9 @@ export class TeacherListComponent {
   getTeachers() {
     if (this.schoolAdmin.okul_id)
       this.teacherService.getTeacherBySchoolId(this.schoolAdmin.okul_id).subscribe(res => this.teachers = res);
+  }
+
+  addTeacher() {
+    this.router.navigate(['/school/addteacher']);
   }
 }

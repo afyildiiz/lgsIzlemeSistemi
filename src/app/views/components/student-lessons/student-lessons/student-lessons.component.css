@@ -1,0 +1,35 @@
+.grid-container {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.blog-card {
+    display: block;
+    position: relative;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    max-width: 600px;
+    height: 200px;
+    box-shadow: 4px 8px 28px rgba(39, 44, 49, .1), 1px 3px 8px rgba(39, 44, 49, .075);
+    margin-top: 10px;
+    overflow: hidden !important;
+}
+
+.blog-card:hover {
+    transform: scale(103%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+.blog-card .content-mask {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    height: 100%;
+    padding: 1.75em 0 0.75em 2.5em;
+    overflow: hidden;
+    opacity: 0.8;
+}

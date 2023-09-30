@@ -1,5 +1,8 @@
-import { NbDialogService, NbDialogRef } from '@nebular/theme';
+import { NbDialogRef } from '@nebular/theme';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { LogService } from 'src/app/services/log/log.service';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -8,16 +11,54 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ConfirmationModalComponent implements OnInit {
 
-  title = "";
-  message = "";
+  constructor(private dialogRef: NbDialogRef<ConfirmationModalComponent>,
+    private fb: FormBuilder,
+    private toastService: ToastService,
+    private logService: LogService) { }
 
-  constructor(private dialogRef: NbDialogRef<ConfirmationModalComponent>) { }
+  @Input() category_id: any;
+  @Input() student_id: any;
+  myForm!: FormGroup;
+  hedef_soru: any;
+  selectedDate: any;
 
   ngOnInit(): void {
+    this.myForm = this.fb.group({
+      cozulen_soru: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      dogru_sayisi: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      yanlis_sayisi: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      tarih: [new Date().toISOString().split('T')[0], [Validators.required]],
+    });
+
+    this.getGoals();
+  }
+
+  getGoals() {
+    this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.category_id, this.myForm.value.tarih).subscribe(res => {
+      if (res.length)
+        this.hedef_soru = res[0].hedef_soru
+      else
+        this.hedef_soru = 0;
+    })
   }
 
   action(type: boolean): void {
-    this.dialogRef.close(type);
+    if (type == true) {
+      if (this.myForm.valid) {
+        if (this.myForm.value.cozulen_soru >= this.myForm.value.dogru_sayisi + this.myForm.value.yanlis_sayisi) {
+          this.myForm.value.hedef_soru = this.hedef_soru;
+          this.dialogRef.close(this.myForm.value);
+        }
+      } else {
+        this.toastService.showToast('warning', 'form verileri geçerli değil');
+      }
+    } else {
+      this.close();
+    }
+  }
+
+  close() {
+    this.dialogRef.close()
   }
 
 }
