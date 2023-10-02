@@ -2,6 +2,10 @@ import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { LessonCategoryService } from 'src/app/services/lesson-category/lesson-category.service';
 import { tap } from 'rxjs'
+import { NbDialogRef } from '@nebular/theme';
+import { LogService } from 'src/app/services/log/log.service';
+import { StudentService } from 'src/app/services/student/student.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-text-modal',
@@ -11,61 +15,219 @@ import { tap } from 'rxjs'
 export class TextModalComponent {
 
   constructor(private lessonCategoryService: LessonCategoryService,
+    private dialogRef: NbDialogRef<TextModalComponent>,
+    private studentService: StudentService,
+    private toastService: ToastService,
+    private logService: LogService,
     private fb: FormBuilder) {
+
   }
 
   @Input() formValues: any
-  @Input() students: any
   myForm!: FormGroup
+  isUpdate: boolean = false
   categories: any[] = []
+  currentTeacher: any
+  selectedMonth: any
+  students: any[] = []
+  selectedStudent: any
+  studentids: string = ''
+  months: any[] = [
+    'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
+  ]
 
   ngOnInit() {
+    this.currentTeacher = localStorage.getItem('currentTeacher')
+    this.currentTeacher = JSON.parse(this.currentTeacher)
+
     this.myForm = this.fb.group({
-      lessonsArray: this.fb.array([])
+      //lessonsArray: this.fb.array([]),
+      subjects: this.fb.array([])
     })
     this.getCategories()
+    this.getStudents()
 
-    this.myForm.valueChanges.subscribe(newFormValue => this.change(newFormValue))
+    //this.myForm.valueChanges.subscribe(newFormValue => this.change(newFormValue))
+
+
+    this.subjects.valueChanges.subscribe(newValue => this.formChange(newValue))
   }
 
-  get lessonsArray() {
+
+  /*get lessonsArray() {
     return this.myForm.get('lessonsArray') as FormArray
+  }
+  */
+
+  get subjects() {
+    return this.myForm.get('subjects') as FormArray
+
   }
 
   getCategories() {
-    this.lessonCategoryService.getLessonsAndCategories().pipe(
+    this.lessonCategoryService.getCategoriesByLessonid(this.formValues.ders.ders_id).pipe(
       tap(res => this.categories = res),
-    ).subscribe(() => this.createForm())
+    ).subscribe()    //() => this.createForm()
+    //() => this.filteredCategories = this.categories.filter(category => category.ders_id == this.formValues.ders.ders_id)
   }
 
   filteredCategories: any[] = []
 
-  createForm() {
 
+  /*
+  createForm() {
     this.filteredCategories = this.categories.filter(category => category.ders_id == this.formValues.ders.ders_id)
     let count = Math.floor(this.formValues.hedef_soru / this.filteredCategories.length)
 
     this.filteredCategories.map(category => {
       const group = this.fb.group({
-        kategori: [category.kategori_adi],
+        [category.kategori_id]: [category.kategori_adi],
         hedef_soru: [count],
       })
-
       this.lessonsArray.push(group)
+    })
+  }
+  */
+  addSubject(data?: any) {
+    if (data) {
+      data.map((d: any) => {
+        const group = this.fb.group({
+          subject: [d.kategori_adi],
+          goal: [d.hedef_soru],
+        })
+        this.subjects.push(group)
+      })
+    }
+    else {
+      const group = this.fb.group({
+        subject: [''],
+        goal: [''],
+      })
+      this.subjects.push(group)
+    }
 
+  }
+
+  isGreater() {
+    if (this.formValues.hedef_soru < this.toplam)
+      this.toastService.showToast("danger", "Toplam hedef soru kategori bazlı hedef sorulardan küçük olamaz.")
+    this.formValues.hedef_soru = this.toplam
+  }
+
+  toplam: number = 0
+
+  formChange(value: any) {
+
+    this.toplam = 0
+
+    let array: any[] = []
+    let subjects: any[] = value.map((val: any) => val.subject)
+
+    this.subjects.controls.map((e: any) => this.toplam += e.value.goal)
+
+    this.categories.map((cat: any) => {
+      if (!subjects.includes(cat.kategori_id))
+        array.push(cat)
+    })
+    this.filteredCategories = array
+
+    this.formValues.hedef_soru = this.toplam
+  }
+  /*
+    change(event: any) {
+  
+      let toplam: number = 0
+      event.lessonsArray.map((e: any) => {
+        toplam += e.hedef_soru
+      })
+      this.formValues.hedef_soru = toplam
+    }
+    */
+
+  getStudents() {
+    this.studentService.getStudentsByTeacherId(this.currentTeacher.id).pipe(
+      tap(res => this.students = res)
+    ).subscribe(() => this.studentids = this.students.map(student => `'${student.ogrenci_id}'`).join(','))
+  }
+
+  data: any[] = []
+
+  updateMonth() {
+    this.toplam = 0
+    this.subjects.clear()
+
+    let month = this.selectedMonth + 1
+    this.isUpdate = false
+    this.formValues.hedef_soru = 0
+
+    this.logService.getGoalsByLessonId(this.selectedStudent, this.formValues.ders.ders_id, month).pipe(
+      tap(res => {
+        this.data = res
+        if (res.length) {
+          this.formValues.hedef_soru = res[0]?.aylik_hedef_soru // toplam hedef soruyu al dbden
+          this.isUpdate = true
+        }
+      }),
+    ).subscribe(() => {
+      if (this.data.length)
+        this.addSubject(this.data)
     })
   }
 
-  change(event: any) {
-
-    let toplam: number = 0
-    event.lessonsArray.map((e: any) => {
-      toplam += e.hedef_soru
-    })
-    this.formValues.hedef_soru = toplam
+  updateStudent() {
+    this.selectedMonth = null
+    this.toplam = 0
+    this.subjects.clear()
   }
 
+  close() {
+    this.dialogRef.close()
+  }
+
+  update() {
+    let array: any[] = []
+    /*this.lessonsArray.controls.map(c => {
+      array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru })
+    })
+    */
+
+    this.subjects.controls.map(sub => console.log(sub))
+  }
+
+  save() {
+    /*let array: any[] = []
+    this.lessonsArray.controls.map(c => {
+      array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru })
+    })
+
+    this.students.map(student => {
+      array.map(array => {
+        this.logService.insertNote(student.ogrenci_id, this.formValues.ders.ders_id, this.selectedMonth + 1, array).subscribe(res => console.log(res))
+        //console.log(this.selectedMonth + 1 )
+        //console.log(student.ogrenci_id, this.formValues.ders.ders_id, array)
+      })
+    })*/
+    let array: any[] = []
+    this.subjects.controls.map(c => {
+      array.push({ kategori_id: c.value.subject, hedef_soru: c.value.goal })
+    })
+
+    console.log(array, this.selectedMonth, this.selectedStudent, this.formValues)
+    /*
+        this.students.map(student => {
+          array.map(array => {
+            this.logService.insertNote(student.ogrenci_id, this.formValues.ders.ders_id, this.selectedMonth + 1, array).subscribe(res => console.log(res))
+            //console.log(this.selectedMonth + 1 )
+            //console.log(student.ogrenci_id, this.formValues.ders.ders_id, array)
+          })
+        })*/
+  }
 }
+
+
+
+
+
 
 /*
   son gecerli olan

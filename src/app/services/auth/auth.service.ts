@@ -8,17 +8,11 @@ import { Endpoints } from 'src/app/constants/Endpoints';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  isLoggedIn: Observable<boolean> = this.loggedIn.asObservable();
 
   constructor(
     private http: HttpClient,
     private router: Router,
   ) { }
-
-  login() {
-    this.loggedIn.next(true);
-  }
 
   getToken() {
     return localStorage.getItem('token');
@@ -30,12 +24,31 @@ export class AuthService {
     };
     return this.http.post(Endpoints.logout, param).pipe(
       map((response: any) => {
-        this.loggedIn.next(false);
         localStorage.clear();
         this.router.navigate(['/login']);
         return response;
       })
     );
+  }
+
+  public isLoggedIn: boolean = false; // Kullanıcı oturum durumu, başlangıçta false olarak ayarlanır
+
+
+  // Kullanıcıyı oturum açık olarak işaretle
+  login(): void {
+    this.isLoggedIn = true;
+    // Burada gerekirse kullanıcı bilgilerini veya token'ı saklayabilirsiniz
+  }
+
+  // Kullanıcıyı oturumdan çıkart
+  logout(): void {
+    this.isLoggedIn = false;
+    // Kullanıcı bilgilerini veya token'ı temizleme işlemi yapabilirsiniz
+  }
+
+  // Kullanıcının oturum durumunu kontrol et
+  isAuthenticated(): boolean {
+    return this.isLoggedIn;
   }
 
 

@@ -1,5 +1,5 @@
-<nb-card accent="primary">
-    <nb-card-header>
+<nb-card accent="success">
+    <!--<nb-card-header>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -12,11 +12,28 @@
                 </div>
             </div>
         </div>
-    </nb-card-header>
+    </nb-card-header>-->
     <nb-card-body>
         <div class="row">
-            <!--<app-log-page [currentStudent]="selectedStudent"></app-log-page>-->
-            <app-teacher-log [students]="selectedStudents"></app-teacher-log>
+            <div class="grid-container">
+                <nb-card *ngFor="let lesson of lessons">
+                    <nb-card-header class="d-flex justify-content-center">
+                        {{lesson.ders_adi}}
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div class="row pb-3">
+                            <div class="col">
+                                <button nbButton outline status="success" (click)="goLogPage(lesson.ders_id)">Çalışma
+                                    Gir</button>
+                            </div>
+                            <div class="col">
+                                <button nbButton outline status="success"
+                                    (click)="getLogPage(lesson.ders_id)">Çalışmaları Gör</button>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
         </div>
     </nb-card-body>
 </nb-card>

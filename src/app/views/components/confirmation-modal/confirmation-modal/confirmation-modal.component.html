@@ -6,20 +6,23 @@
         <nb-icon style="cursor: pointer" (click)="close()" icon="close-outline">x</nb-icon>
     </nb-card-header>
     <nb-card-body>
-
+        <div class="col mb-2 d-flex justify-content-end">
+            <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç">
+                <nb-option [value]="category.kategori_id"
+                    *ngFor="let category of categories">{{category.kategori_adi}}</nb-option>
+            </nb-select>
+        </div>
         <form [formGroup]="myForm">
             <div class="col d-flex justify-content-end">
-
-
-                <input class="form-control mb-1" type="date" formControlName="tarih" (change)="getGoals()">
+                <input class="form-control mb-1" type="date" formControlName="tarih">
             </div>
             <br>
-            <p>Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>
-            <label class="mb-1">Çözülen Soru</label>
-            <input class="form-control mb-1" nbInput type="number" formControlName="cozulen_soru">
-            <label class="mb-1">Doğru Sayısı</label>
-            <input class="form-control mb-1" nbInput type="number" formControlName="dogru_sayisi">
-            <label class=" mb-1">Yanlış Sayısı</label>
+            <!--<p>Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>-->
+            <label class="mb-2">Çözülen Soru</label>
+            <input class="form-control mb-2" nbInput type="number" formControlName="cozulen_soru">
+            <label class="mb-2">Doğru Sayısı</label>
+            <input class="form-control mb-2" nbInput type="number" formControlName="dogru_sayisi">
+            <label class="mb-2">Yanlış Sayısı</label>
             <input class="form-control" nbInput type="number" formControlName="yanlis_sayisi">
 
         </form>

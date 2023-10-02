@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { DialogService } from '../../../services/dialog/dialog.service';
 import { RegisterComponent } from '../../../views/pages/register/register.component';
@@ -13,19 +13,21 @@ export class HeaderComponent {
 
   constructor(
     private dialogService: DialogService,
-    private authService: AuthService) { }
-
-  isLoggedIn: boolean = false;
-
-  ngOnInit() {
-    this.authService.isLoggedIn.subscribe(res => {
-      this.isLoggedIn = res
-    });
-  }
+    private authService: AuthService,
+    private cdRef: ChangeDetectorRef) { }
 
   ngOnChanges() {
-    this.authService.isLoggedIn.subscribe(res => this.isLoggedIn = res);
-    console.log(this.isLoggedIn)
+    this.isLoggedIn()
+  }
+
+  isLoggedIn(): boolean {
+    console.log('headerisloggedin')
+    return this.authService.isLoggedIn; // Kullanıcı oturum durumu kontrolü
+  }
+
+  logout(): void {
+    this.authService.logout(); // Kullanıcıyı oturumdan çıkartma işlemi
+    this.cdRef.detectChanges();
   }
 
   openRegisterForm() {

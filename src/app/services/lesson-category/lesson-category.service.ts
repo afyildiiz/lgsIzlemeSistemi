@@ -34,7 +34,7 @@ export class LessonCategoryService {
       "Token": this.token,
       "DataStoreId": Endpoints.lessonCategoryDataStoreid,
       "Operation": "read",
-      "Data": `select cast(ders_id as text), cast(kategori_id as text), kategori_adi, image_url from lgs_categories where ders_id='${lessonid}' order by kategori_adi asc`,
+      "Data": `select cast(ders_id as text), cast(kategori_id as text), kategori_adi from lgs_categories where ders_id='${lessonid}' order by kategori_adi asc`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

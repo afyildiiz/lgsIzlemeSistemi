@@ -18,6 +18,9 @@ import { AssignMentorComponent } from './views/components/assign-mentor/assign-m
 import { AddTeacherComponent } from './views/components/add-teacher/add-teacher/add-teacher.component';
 import { AddStudentComponent } from './views/components/add-student/add-student/add-student.component';
 import { LessonsCategoriesComponent } from './views/components/lessons-categories/lessons-categories/lessons-categories.component';
+import { LogByTeacherComponent } from './views/components/log-by-teacher/log-by-teacher/log-by-teacher.component';
+import { GoLogPageComponent } from './views/components/go-log-page/go-log-page/go-log-page.component';
+import { GetLogPageComponent } from './views/components/get-log-page/get-log-page/get-log-page.component';
 
 const routes: Routes = [
   {
@@ -33,6 +36,11 @@ const routes: Routes = [
     path: 'teacher', component: TeacherHomeComponent, children: [
       { path: 'profile', component: ProfileComponent },
       { path: 'students', component: EditStudentComponent },
+      { path: 'logbyteacher', component: LogByTeacherComponent },
+      { path: 'gologpage', component: GoLogPageComponent },
+      { path: 'getlogpage', component: GetLogPageComponent },
+      { path: 'logpage', component: LogPageComponent },
+
 
     ]
   },
@@ -54,7 +62,7 @@ const routes: Routes = [
       { path: 'addstudent', component: AddStudentComponent },
       { path: 'assign', component: AssignMentorComponent },
     ]
-  }
+  },
 ];
 
 @NgModule({

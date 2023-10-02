@@ -1,3 +1,4 @@
+<!--
 <div class="grid-container">
     <nb-card *ngFor="let lesson of lessons" (click)="chooseLesson(lesson.ders_id)">
         <nb-card-header>
@@ -11,7 +12,7 @@
         </nb-card-body>
     </nb-card>
 </div>
-
+-->
 <router-outlet></router-outlet>
 <!--
 
@@ -37,3 +38,31 @@
                 </nb-accordion-item>
             </nb-accordion>
 -->
+
+
+
+<section class="lis-bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 wow fadeInUp mb-5 mb-lg-5 text-center"
+                style="visibility: visible; animation-name: fadeInUp;" *ngFor="let lesson of lessons">
+                <div class="price-table">
+                    <div class="price-header lis-bg-light lis-rounded-top py-4 border border-bottom-0 lis-brd-light">
+                        <p class="display-4 lis-font-weight-600">{{lesson.ders_adi}}</p>
+                    </div>
+                    <div class="border border-top-0 lis-brd-light bg-white lis-rounded-bottom">
+                        <nb-menu [items]="lesson.perform" class="mb-3">
+                        </nb-menu>
+                        <div class="col mb-2 d-flex justify-content-between">
+                            <button nbButton status="primary" (click)="insertLog(lesson.ders_id)">Çalışma
+                                Ekle</button>
+                            <button nbButton status="primary" (click)="goLogPage(lesson.ders_id)">
+                                Çalışmalarım
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

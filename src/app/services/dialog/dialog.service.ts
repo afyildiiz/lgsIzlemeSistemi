@@ -20,25 +20,25 @@ export class DialogService {
     return dialogRef
   }
 
-  openConfirmationModal(category_id: string, ogrenci_numarasi: string) {
+  openConfirmationModal(lesson_id: string, ogrenci_numarasi: string) {
     const dialogRef = this.nbdialogService.open(ConfirmationModalComponent, {
       hasBackdrop: true,
       hasScroll: true,
       context: {
-        category_id: category_id,
+        lesson_id: lesson_id,
         student_id: ogrenci_numarasi
       },
     })
     return dialogRef;
   }
 
-  openTextModal(data: any, students: any) {
+  openTextModal(data: any, customclassName?: string,) {
     const dialogRef = this.nbdialogService.open(TextModalComponent, {
       hasBackdrop: true,
       hasScroll: true,
+      dialogClass: customclassName,
       context: {
         formValues: data,
-        students: students
       }
     })
     return dialogRef;

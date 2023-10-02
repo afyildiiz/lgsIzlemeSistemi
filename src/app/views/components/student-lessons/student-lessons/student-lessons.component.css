@@ -33,3 +33,191 @@
     overflow: hidden;
     opacity: 0.8;
 }
+
+.lis-bg-light {
+    background-color: #00000005;
+}
+
+section {
+    padding-top: 1em;
+    padding-bottom: 2em;
+    position: relative;
+}
+
+.pb-4,
+.py-4 {
+    padding-bottom: 1.5rem !important;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #222222;
+    margin: 0 0 15px;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.75rem;
+}
+
+.lis-light {
+    color: #707070;
+}
+
+.font-weight-normal {
+    font-weight: 400 !important;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+.price-table {
+    -webkit-transition: 0.3s ease;
+}
+
+.lis-brd-light {
+    border-color: #dadada !important;
+}
+
+.lis-rounded-top {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.lis-bg-light {
+    background-color: #f7f7f7;
+}
+
+.pb-4,
+.py-4 {
+    padding-bottom: 1.5rem !important;
+}
+
+.lis-latter-spacing-2 {
+    letter-spacing: 2px;
+}
+
+.text-uppercase {
+    text-transform: uppercase !important;
+}
+
+.lis-font-weight-600 {
+    font-weight: 600;
+}
+
+.display-4 {
+    font-size: 1.5rem;
+}
+
+.price-table sup {
+    top: -1.5em;
+}
+
+.price-table sup,
+.price-table small {
+    font-size: 1.25rem;
+}
+
+.price-table small {
+    font-size: 1.25rem;
+}
+
+.mb-0,
+.my-0 {
+    margin-bottom: 0 !important;
+}
+
+sup {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+}
+
+.lis-brd-light {
+    border-color: #dadada !important;
+}
+
+.bg-white {
+    background-color: #fff !important;
+}
+
+.py-5 {
+    padding-bottom: 3rem !important;
+}
+
+.lis-line-height-3 {
+    line-height: 3 !important;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.lis-line-height-3 {
+    line-height: 3 !important;
+}
+
+.btn-primary-outline {
+    background-color: transparent;
+    color: #ff214f !important;
+    border-color: #ff214f;
+}
+
+.btn {
+    color: #fff;
+    padding: .5rem 1.3rem;
+    font-size: 1rem;
+    word-wrap: break-word;
+}
+
+.lis-rounded-circle-50 {
+    border-radius: 50px;
+}
+
+.pl-2,
+.px-2 {
+    padding-right: .5rem !important;
+}
+
+.btn-primary-outline:hover,
+.btn-primary-outline:focus {
+    background-color: #ff214f;
+    border-color: #ff214f;
+    color: #fff !important;
+}
+
+.lis-bg-primary {
+    background-color: #ff214f;
+}
+
+.btn-primary {
+    background-color: #ff214f;
+    border-color: #ff214f;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #ff214f;
+    border-color: #ff214f;
+}
+
+.price-table.active {
+    transform: scale(1.045);
+    -webkit-transform: scale(1.045);
+}
+
+.price-table {
+    -webkit-transition: 0.3s ease;
+}
+
+.lis-rounded-bottom {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}

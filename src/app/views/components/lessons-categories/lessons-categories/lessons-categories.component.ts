@@ -91,7 +91,7 @@ export class LessonsCategoriesComponent {
         if (res.hedef_soru == 0)
           this.logService.insertStudentNote(this.student.ogrenci_id, {
             kategori_id: category_id,
-            hedef_soru: res.hedef_soru,
+            hedef_soru: 0,
             cozulen_soru: res.cozulen_soru,
             dogru_sayisi: res.dogru_sayisi,
             yanlis_sayisi: res.yanlis_sayisi,

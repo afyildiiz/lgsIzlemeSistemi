@@ -68,6 +68,11 @@ li.nav-item>a {
     .right-modal {
         width: 100% !important;
     }
+
+    .text-modal {
+        width: 100% !important;
+
+    }
 }
 
 .right-modal {
@@ -77,4 +82,8 @@ li.nav-item>a {
 
 .right-modal nb-dialog-container {
     width: 100%;
+}
+
+.text-modal {
+    /*overflow: scroll;*/
 }

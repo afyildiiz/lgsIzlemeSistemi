@@ -32,7 +32,7 @@ export class TeacherHomeComponent {
       ],
     },
     {
-      title: 'Hedef Soru Kayıt',
+      title: 'Dersler',
       link: '/teacher/students'
     },
   ];
