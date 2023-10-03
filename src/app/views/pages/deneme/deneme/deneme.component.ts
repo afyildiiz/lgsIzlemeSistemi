@@ -30,7 +30,6 @@ export class DenemeComponent {
     });
   }
 
-
   addTeacher() {
     this.teachers.push(this.createTeacher());
     console.log(this.teachers)

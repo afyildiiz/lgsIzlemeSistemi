@@ -1,0 +1,48 @@
+<nb-card>
+    <nb-card-header class="d-flex justify-content-center">
+        Profil Ayarlarım
+    </nb-card-header>
+    <nb-card-body>
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <nb-toggle status="success" (change)="onSelectChange($event)">Düzenle</nb-toggle>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <form [formGroup]="myForm">
+                        <div class="form-group">
+                            <label>İsim</label>
+                            <input nbInput fullWidth status="primary" type="text" formControlName="ad">
+                        </div>
+                        <div class="form-group">
+                            <label>Soyisim</label>
+                            <input nbInput fullWidth status="primary" type="text" formControlName="soyad">
+                        </div>
+                        <div class="form-group">
+                            <label>Şifre</label>
+                            <input nbInput fullWidth status="primary" type="text" formControlName="sifre">
+                        </div>
+                        <div class="form-group">
+                            <label>Veli Ad</label>
+                            <input nbInput fullWidth status="primary" type="text" formControlName="veli_ad">
+                        </div>
+                        <div class="form-group">
+                            <label>Veli Soyad</label>
+                            <input nbInput fullWidth status="primary" type="text" formControlName="veli_soyad">
+                        </div>
+                        <div class="form-group">
+                            <label>Veli Tc Kimlik</label>
+                            <input nbInput fullWidth status="primary" type="text" formControlName="veli_tc">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button nbButton status="primary" (click)="saveChanges()">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

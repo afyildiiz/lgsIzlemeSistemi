@@ -1,9 +1,157 @@
+<!--<form [formGroup]="myForm">
+    <nb-accordion formArrayName="lessonsArray">
+        <nb-accordion-item *ngFor="let group of lessonsArray.controls; let i = index" [formGroupName]="i">
+            <nb-accordion-item-header>
+                <input nbInput type="text" formControlName="ders_adi">
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <nb-select formControlName="secilen">
+                    <nb-option *ngFor="let category of group.get('kategoriler')?.value"
+                        [value]="category.kategori_id">{{
+                        category.kategori_adi
+                        }}</nb-option>
+                </nb-select>
+                <input nbInput type="text" formControlName="hedef_soru">
+
+                <button nbButton outline status="primary" (click)="addControl(i)">+</button>
+            </nb-accordion-item-body>
+        </nb-accordion-item>
+    </nb-accordion>
+</form>
+-->
+
+
+
+
+
+
+
+
+
+
+
+<!--
+    son gecerli olan
+
+
+<form [formGroup]="myForm">
+    <nb-accordion formArrayName="lessonsArray">
+        <nb-accordion-item *ngFor="let group of lessonsArray.controls; let i = index" [formGroupName]="i">
+            <nb-accordion-item-header>
+                <input nbInput type="text" formControlName="ders_adi">
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+                <input nbInput type="text" formControlName="hedef_soru">
+
+                <div formArrayName="kategoriler">
+                    <div *ngFor="let innerGroup of group.get('kategoriler').controls; let j = index">
+                        <input nbInput type="text" [formControlName]="j">
+                    </div>
+                </div>
+            </nb-accordion-item-body>
+        </nb-accordion-item>
+    </nb-accordion>
+</form>
+-->
+
+
+
+
+
 <nb-card>
-    <nb-card-header>{{ title }}</nb-card-header>
-    <nb-card-body class="header">
-        <div [innerHtml]="html(message)"></div>
+    <nb-card-header>
+        <div class="row mb-2">
+            <div class="col">
+                <nb-select placeholder="Öğrenci seçiniz" fullWidth [(ngModel)]="selectedStudent"
+                    (ngModelChange)="updateStudent()">
+                    <nb-option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}
+                        {{student.soyad}}</nb-option>
+                </nb-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()">
+                    <nb-option *ngFor="let month of months; index as i" [value]="i">{{month}}</nb-option>
+                </nb-select>
+            </div>
+            <div class="col">
+                <input type="text" nbInput [(ngModel)]="formValues.hedef_soru" (blur)="isGreater()">
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="myForm">
+            <div formArrayName="subjects" *ngIf="data.length">
+                <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
+                    <div class="row p-2 mb-1">
+                        <div class="col-6">
+                            <input formControlName="subject" nbInput>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" nbInput formControlName="goal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div formArrayName="subjects" *ngIf="!data.length">
+                <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
+                    <div class="row p-2 mb-1">
+                        <div class="col-6">
+                            <nb-select formControlName="subject" fullWidth>
+                                <nb-option *ngFor="let category of filteredCategories" [value]="category.kategori_id">
+                                    {{category.kategori_adi}}
+                                </nb-option>
+                            </nb-select>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" nbInput formControlName="goal">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button nbButton status="primary" (click)="addSubject()">Konu Ekle</button>
+                    </div>
+                </div>
+            </div>
+            <!--<div formArrayName="lessonsArray">
+                <div *ngFor="let group of lessonsArray.controls; let i = index" [formGroupName]="i">
+                    <div class="row p-2 mb-1">
+                        <div class="col">
+                            <input type="text" nbInput [formControlName]="filteredCategories[i].kategori_id">
+                        </div>
+                        <div class="col">
+                            <input type="number" nbInput formControlName="hedef_soru">
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </form>
     </nb-card-body>
     <nb-card-footer>
-        <button style="text-align: right;" class="button" nbButton (click)="action(true)">Kapat</button>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <button nbButton status="success" (click)="isUpdate? update() : save()">{{isUpdate? 'Güncelle' :
+                    'Kaydet'}}</button>
+            </div>
+        </div>
     </nb-card-footer>
 </nb-card>
+
+
+
+<!--
+<form [formGroup]="myForm">
+    <div formArrayName="lessonsArray">
+        <div *ngFor="let group of lessonsArray.controls; let i = index" [formGroupName]="i">
+            <input nbInput type="text" formControlName="ders_adi">
+            <input nbInput type="text" formControlName="hedef_soru">
+            <button nbButton outline status="primary">+</button>
+        </div>
+    </div>
+</form>
+-->
+
+<!-- her dersi bir nbmenu tarzı yapıp altında formcontrol nesnesiyle kategori ve heedef soru ve yanında da sil butonu
+    -->

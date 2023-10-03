@@ -15,9 +15,14 @@ export class ExcelComponent {
   @Input() sheetName!: string;
   @Input() columnTypes: ParameterTypes[] = []
   @Input() id: any;
-  columns: any[] = []
+  columns: any[] = [];
 
   private hotRegisterer = new HotTableRegisterer();
+
+  ngOnInit() {
+
+  }
+
 
   swapHotData(data: any, columns: any) {
     this.hotRegisterer.getInstance(this.id).updateSettings({
@@ -145,8 +150,6 @@ export class ExcelComponent {
           data: item
         }
     })
-    console.log(this.columnNames)
-
     this.swapHotData(this.tableData, this.columns)
   }
 

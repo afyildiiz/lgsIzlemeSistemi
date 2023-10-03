@@ -1,0 +1,96 @@
+<!--
+
+    <div class="container">
+    <div class="row">
+        <div class="col-2 d-flex justify-content-start">
+            <button nbButton status="danger" (click)="removeFilters()">Filtreleri Temizle</button>
+        </div>
+        <div class="col-4 d-flex justify-content-end">
+            <nb-select [(ngModel)]="selectedStudent" (ngModelChange)="onSelectedStudent($event)"
+                placeholder="Öğrenciye Göre Filtrele">
+                <nb-option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}
+                    {{student.soyad}}</nb-option>
+            </nb-select>
+        </div>
+        <div class="col-4 d-flex justify-content-end">
+            <nb-select [(ngModel)]="selectedCategory" (ngModelChange)="onSelectedCategory($event)"
+                placeholder="Konuya Göre Filtrele">
+                <nb-option *ngFor="let category of categories"
+                    [value]="category.kategori_id">{{category.kategori_adi}}</nb-option>
+            </nb-select>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="p-1">
+                        <th>Kategori Adi</th>
+                        <th>Hedef Soru</th>
+                        <th>Çözülen Soru</th>
+                        <th>Doğru Sayısı</th>
+                        <th>Yanlış Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-1 mb-2" *ngFor="let note of filteredNotes">
+                        <td>{{note.kategori_adi}}</td>
+                        <td>{{note.hedef_soru}}</td>
+                        <td>{{note.cozulen_soru}}</td>
+                        <td>{{note.dogru_sayisi}}</td>
+                        <td>{{note.yanlis_sayisi}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+-->
+
+
+
+<section class="pricing-section">
+    <div class="container">
+        <div class="row justify-content-md-center mb-3">
+
+            <div class="col-xl-4 col-lg-6 col-md-8">
+                <nb-select [(ngModel)]="selectedStudent" (ngModelChange)="onSelectedStudent($event)"
+                    placeholder="Öğrenciye Göre Filtrele">
+                    <nb-option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}
+                        {{student.soyad}}</nb-option>
+                </nb-select>
+            </div>
+
+            <div class="col-xl-4 col-lg-6 col-md-8">
+                <nb-select [(ngModel)]="selectedCategory" (ngModelChange)="onSelectedCategory($event)"
+                    placeholder="Konuya Göre Filtrele">
+                    <nb-option *ngFor="let category of categories"
+                        [value]="category.kategori_id">{{category.kategori_adi}}</nb-option>
+                </nb-select>
+            </div>
+
+            <div class="col-xl-4 col-lg-6 col-md-8">
+                <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()">
+                    <nb-option *ngFor="let month of months; index as i" [value]="i">{{month}}</nb-option>
+                </nb-select>
+            </div>
+
+        </div>
+    </div>
+    <!-- Pricing Table starts -->
+    <div class="row">
+        <div class="col-md-4 mb-2" *ngFor="let note of filteredNotes">
+            <div class="price-card">
+                <h2>{{note.kategori_adi}}</h2>
+                <ul class="pricing-offers">
+                    <li>Hedef Soru: {{note.hedef_soru}}</li>
+                    <li>Çözülen Soru: {{note.hedef_soru}}</li>
+                    <li>Doğru Sayısı: {{note.dogru_sayisi}}</li>
+                    <li>Yanlış Sayısı: {{note.yanlis_sayisi}}</li>
+                </ul>
+                <!--<a href="#" class="btn btn-primary btn-mid">Buy Now</a>-->
+            </div>
+        </div>
+    </div>
+</section>

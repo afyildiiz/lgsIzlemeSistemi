@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row d-flex justify-content-end">
+        <div class="col-3">
+            <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz">
+                <nb-option *ngFor="let month of months; index as i" [value]="i + 1">{{month}}</nb-option>
+            </nb-select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="myForm">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between">
+                        <table class="mt-1" *ngIf="monthForm.value.length">
+                            <thead>
+                                <tr>
+                                    <th>Ders</th>
+                                    <th>Günlük Hedef Soru</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="monthForm">
+                                <ng-container *ngFor="let group of monthForm.controls; let i = index">
+                                    <tr [formGroupName]="i">
+                                        <td>
+                                            <nb-select formControlName="ders" fullWidth>
+                                                <nb-option *ngFor="let lesson of lessons" [value]="lesson">
+                                                    {{lesson.ders_adi}}
+                                                </nb-option>
+                                            </nb-select>
+                                        </td>
+
+                                        <td>
+                                            <input nbInput type="number" formControlName="hedef_soru">
+                                        </td>
+                                        <td>
+                                            <button nbButton outline status="success" (click)="save(i)">Konuları
+                                                Belirle</button>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--<div class="row mt-3">
+        <div class="col d-flex justify-content-center">
+            <button nbButton outline status="success" (click)="save()">Konuları Belirle</button>
+        </div>
+    </div>-->
+</div>

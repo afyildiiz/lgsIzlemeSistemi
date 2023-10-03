@@ -1,6 +1,5 @@
-import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DataBySheet, DataBySheetHelper } from 'src/app/models/excel-models/dataBySheet';
-import { ParameterTypes } from 'src/app/models/excel-models/sheet';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { AddSheetComponent } from '../../add-sheet/add-sheet/add-sheet.component';
@@ -17,29 +16,27 @@ export class ExcelFormComponent {
     private dialogService: DialogService
   ) { }
 
+  @Input() currentColumnNames: string[] = [];
+  @Input() sheetNames: string[] = [];
   @Input() type: any;
-  @Output() exportData: EventEmitter<any> = new EventEmitter<any>();
-
   @Input() dataBySheets: DataBySheet[] = [];
+  @Output() exportData: EventEmitter<any> = new EventEmitter<any>();
   currentDataBySheet!: DataBySheet;
-  currentColumnNames: string[] = [];
   currentData: any[] = [];
   currentSheetName: string = '';
   currentSheetIndex: number = 0;
-  sheetNames: string[] = [];
+  sheetname: string = ''
 
   ngOnInit() {
-
+    this.changeSheetNames(this.sheetNames);
   }
 
   changeDataBySheets(data: any) {
     this.handleChangeDataBySheets(data);
     this.changeCurrentDataBySheet(data[0]);
   }
-  sheetname: string = ''
 
   handleChangeDataBySheets(dataBySheets: any[]) {
-
     this.dataBySheets = dataBySheets;
     this.changeSheetNamesByDataBySheets();
     this.currentSheetName = this.sheetNames[0];

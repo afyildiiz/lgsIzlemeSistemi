@@ -1,0 +1,43 @@
+<nb-card accent="success">
+    <!--<nb-card-header>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <nb-select placeholder="Öğrenci Seç" status="success" fullWidth multiple shape="semi-round"
+                        (ngModelChange)="selectionChange($event)" [(ngModel)]="selectedStudents">
+                        <nb-option value="all">Tümünü seç</nb-option>
+                        <nb-option *ngFor="let student of students"
+                            [value]="student">{{student.ad}}&nbsp;{{student.soyad}}</nb-option>
+                    </nb-select>
+                </div>
+            </div>
+        </div>
+    </nb-card-header>-->
+    <nb-card-body>
+        <div class="row">
+            <div class="grid-container">
+                <div class="card" *ngFor="let lesson of lessons">
+                    <!-- <img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="..."> -->
+                    <div class="card-body text-center">
+                      <h5 style="font-family: 'Young Serif', serif;font-size: 24px; font-weight: 900;" class="card-title">{{lesson.ders_adi}}</h5>
+                      <hr>
+                          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <div class="buttons">
+                         <a href="#" class="btn mr-2" (click)="goLogPage(lesson.ders_id)"> Çalışma Gir</a>
+                      <a href="#" class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+
+
+
+
+
+
+
+

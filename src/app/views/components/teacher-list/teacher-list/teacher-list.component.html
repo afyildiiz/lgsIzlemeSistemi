@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row mb-2">
+        <div class="col d-flex justify-content-end">
+            <button nbButton status="primary" (click)="addTeacher()">Öğretmen Ekle</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <nb-accordion>
+                <nb-accordion-item *ngFor="let teacher of teachers">
+                    <nb-accordion-item-header>
+                        {{teacher.ad}} {{teacher.soyad}}
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+                        <app-profile [currentTeacher]="teacher"></app-profile>
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+            </nb-accordion>
+        </div>
+    </div>
+</div>

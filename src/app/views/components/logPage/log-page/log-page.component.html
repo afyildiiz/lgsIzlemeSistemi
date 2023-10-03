@@ -1,0 +1,48 @@
+<!--<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="mt-3">
+                <thead>
+                    <tr>
+                        <th>Ders</th>
+                        <th>Hedef Soru</th>
+                        <th>Çözülen Soru</th>
+                        <th>Doğru Sayısı</th>
+                        <th>Yanlış Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of datas">
+                        <td>{{data.ders_adi}}</td>
+                        <td>{{data.hedef_soru}}</td>
+                        <td>{{data.cozulen_soru}}</td>
+                        <td>{{data.dogru_sayisi}}</td>
+                        <td>{{data.yanlis_sayisi}}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>-->
+
+
+
+<section class="pricing-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-2" *ngFor="let data of datas">
+                <div class="price-card">
+                    <h2>{{data.kategori_adi}}</h2>
+                    <ul class="pricing-offers">
+                        <li>Hedef Soru: {{data.hedef_soru}}</li>
+                        <li>Çözülen Soru: {{data.hedef_soru}}</li>
+                        <li>Doğru Sayısı: {{data.dogru_sayisi}}</li>
+                        <li>Yanlış Sayısı: {{data.yanlis_sayisi}}</li>
+                        <!--<li>Ay: {{data.ay}}</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

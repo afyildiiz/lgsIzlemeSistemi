@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@300;400&family=Oswald:wght@200;400;500&family=Rubik+Iso&family=Teko:wght@300&family=Young+Serif&display=swap');
+
+.grid-container {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+:root {
+    --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+  }
+  
+  
+  .card {
+    background: #ffffff;
+    border: 1px solid #c7c7c7;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 2rem;
+    box-shadow: 2px 2px 2px 2px;
+    
+  }
+  
+  .btn {
+    border: 2px solid;
+    border-image-slice: 1;
+    /* background: var(--gradient) !important; */
+    /* -webkit-background-clip: text !important; */
+    /* -webkit-text-fill-color: transparent !important; */
+    /* border-image-source:  var(--gradient) !important;  */
+    text-decoration: none;
+    transition: all .4s ease;
+  }
+  
+  .btn:hover, .btn:focus {
+        /* background: var(--gradient) !important; */
+    /* -webkit-background-clip: none !important;
+    -webkit-text-fill-color: #fff !important; */
+    border: 5px solid #fff;
+    box-shadow: #222 1px 0 10px;
+    text-decoration: none;
+  }
+  .buttons{
+    display: flex;
+    justify-content: space-around;
+    height: 40px;
+  }
