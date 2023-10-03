@@ -1,27 +1,23 @@
-<div class="container">
+<!-- <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="col-5">
             <nb-card>
                 <nb-card-header>Giriş Yap</nb-card-header>
                 <nb-card-body>
                     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                        <!-- Email input -->
+
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example1">Email</label>
                             <input type="email" id="form2Example1" class="form-control mt-1" formControlName="email" />
                         </div>
 
-                        <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="form2Example2">Şifre</label>
-                            <input type="password" id="form2Example2" class="form-control mt-1"
-                                formControlName="password" />
+                            <input type="password" id="form2Example2" class="form-control mt-1" formControlName="password" />
                         </div>
 
-                        <!-- Submit button -->
                         <button type="submit" class="btn btn-primary btn-block mb-4">Giriş Yap</button>
 
-                        <!-- Register buttons -->
                         <div class="text-center">
                             <p>Üye değil misiniz <a href="register">Kayıt olun</a></p>
                             <p>ya da:</p>
@@ -45,5 +41,29 @@
                 </nb-card-body>
             </nb-card>
         </div>
+    </div>
+</div> -->
+
+
+<div class="wrapper">
+    <!-- <div class="logo">
+        <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="">
+    </div> -->
+    <div class="text-center mt-4 name">
+        Giriş Yap
+    </div>
+    <form class="p-4 mt-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-field d-flex align-items-center">
+            <!-- <span class="far fa-user"></span> -->
+            <input type="email" id="form2Example1" class="form-control mt-1" formControlName="email" placeholder="E-mail">
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <!-- <span class="fas fa-key"></span> -->
+            <input type="password" id="form2Example2" class="form-control mt-1" formControlName="password" placeholder="Sifre">
+        </div>
+        <button class="btn mt-3">Giriş</button>
+    </form>
+    <div class="text-center fs-6">
+        <!-- <a href="register">Şifremi Unuttum</a> -->
     </div>
 </div>

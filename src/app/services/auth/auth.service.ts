@@ -15,7 +15,8 @@ export class AuthService {
   ) { }
 
   getToken() {
-    return localStorage.getItem('token');
+    // return localStorage.getItem('token');
+    return "16755447334864836234"
   }
 
   getLogout() {

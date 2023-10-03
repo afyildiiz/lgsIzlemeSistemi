@@ -71,7 +71,6 @@ li.nav-item>a {
 
     .text-modal {
         width: 100% !important;
-
     }
 }
 
@@ -85,5 +84,5 @@ li.nav-item>a {
 }
 
 .text-modal {
-    overflow: scroll;   
+    /* overflow-y: scroll; */
 }

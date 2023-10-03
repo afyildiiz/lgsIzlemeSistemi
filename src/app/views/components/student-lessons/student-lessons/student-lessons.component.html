@@ -13,7 +13,36 @@
     </nb-card>
 </div>
 -->
-<router-outlet></router-outlet>
+
+<div class="nav" style="font-family: 'Bebas Neue', sans-serif;">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+      <div class="nav-title">
+        <!-- <img src="../../../../assets/pictures/yds1.jpg" width="50px"  alt=""> -->
+      </div>
+    </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+    
+    <div class="nav-links">
+        <a  [routerLink]="['/student/lessons']" >Dersler</a>
+        <li class="nav-item dropdown" >
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Profil</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" >Kategoriler</a>
+                    <a class="dropdown-item" href="#">Çıkış</a>
+                    <!-- <div class="dropdown-divider"></div> -->
+                    <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+                  </div>
+        </li>
+    </div>
+  </div>
 <!--
 
     <nb-accordion>
@@ -39,7 +68,7 @@
             </nb-accordion>
 -->
 
-
+<!-- 
 
 <section class="lis-bg-light">
     <div class="container">
@@ -65,4 +94,39 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
+
+
+
+
+
+
+
+
+
+<div class="container">
+
+<nb-card accent="primary" style="margin-top: 2rem;">
+    <nb-card-body>
+        <div class="row">
+            <div class="grid-container" >
+                <div class="card" *ngFor="let lesson of lessons">
+                    <!-- <img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="..."> -->
+                    <div class="card-body text-center">
+                      <h5 style="font-family: 'Bebas Neue', sans-serif;;font-size: 24px; font-weight: 900;" class="card-title">{{lesson.ders_adi}}</h5>
+                      <hr>
+                          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <div class="buttons">
+                        <button nbButton hero status="primary" shape="round" (click)="insertLog(lesson.ders_id)">Çalışma Gir</button>
+                        <button nbButton hero status="primary" shape="round" (click)="goLogPage(lesson.ders_id)">Çalışmaları Gör</button>
+                         <!-- <a  class=" but mr-2" (click)="insertLog(lesson.ders_id)"> Çalışma Gir</a>
+                         <a class="btn but" (click)="goLogPage(lesson.ders_id)"> Çalışmaları Gör</a> -->
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+</div>
