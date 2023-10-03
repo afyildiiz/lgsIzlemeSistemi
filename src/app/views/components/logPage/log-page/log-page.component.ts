@@ -153,6 +153,7 @@ export class LogPageComponent {
   currentStudent: any;
   datas: any[] = []
   currentLessonId: any;
+  selectedMonth: any
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
   ]
@@ -162,25 +163,25 @@ export class LogPageComponent {
 
     this.currentStudent = localStorage.getItem('currentStudent');
     this.currentStudent = JSON.parse(this.currentStudent);
-
-    this.getNotes();
   }
 
   ngOnChanges() {
-    //this.teacher = localStorage.getItem('currentTeacher');
-    //if (this.currentStudent)
-    //this.getNotes(this.currentStudent.ogrenci_numarasi);
+
   }
 
   getNotes() {
-    let studentids = `'${this.currentStudent.ogrenci_id}'`
-    this.logService.getNotesByLessonId(studentids, this.currentLessonId).pipe(
-      tap(res => this.datas = res)
-    ).subscribe() // ay bilgisi dbde 10, 07 diye dönüyor onu cevir
+    if (this.selectedMonth) {
+      this.logService.getNotesByStudentIdAndLessonId(this.currentStudent.ogrenci_id, this.currentLessonId, this.selectedMonth).pipe(
+        tap(res => this.datas = res),
+        tap(res => console.log(res))
+      ).subscribe()
+      console.log(this.selectedMonth)
+    }
   }
 
-
-
+  updateMonth() {
+    this.getNotes()
+  }
 
 
 }
