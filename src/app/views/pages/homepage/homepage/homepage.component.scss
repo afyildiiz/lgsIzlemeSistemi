@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@300;400&family=Oswald:wght@200;400;500&family=Rubik+Iso&family=Teko:wght@300&family=Young+Serif&display=swap');
+.split {
+    height: 94vh;
+    width: 50%;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 150px;
+    box-shadow: rgb(8 49 112 / 24%) 0px 2px 8px 0px;
+
+  }
+  
+  .left {
+    left: 0;
+    background-color: #fff8f8d4;
+  }
+  
+  .right {
+    right: 0;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  
+  .ozel-buton {
+    margin-left: 2rem;
+    display: flex; 
+    align-items: center; 
+    width: 75%; 
+    height: 80px; 
+    padding: 10px; 
+    background-color: #9f9d9d;
+    color: #fff;
+    border: none;
+    // border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    overflow: hidden; /* Resim dışarı taşarsa kesmek için */
+
+  }
+  
+  .ozel-buton img {
+    max-width: 100%; /* Resmi butonun genişliğine sığdır */
+    max-height: 100%; /* Resmi butonun yüksekliğine sığdır */
+    margin-right: 10px;
+  }
+  
+  .ozel-buton span {
+    flex: 1; /* Metin alanının esnekliğini ayarlayarak sağ tarafta genişlemesini sağlar */
+  }
+
+  .ozel-buton:hover{
+    border: 2px solid #f39c12; /* Butonun border'ı üzerine gelince ışıldasın */
+    border-radius: 10px;
+    transform: translateX(10px); /* Hover olduğunda sağa kaydırma efekti */
+  }
+  
+.col-12{
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  /* 768 pikselden küçük ekranlar için butonu yeniden düzenle */
+  .ozel-buton, .ozel-buton img, .ozel-buton img span  {
+    width: 75%; /* Butonu ekran genişliği kadar yap */
+  }
+  .ozel-buton svg,.ozel-buton img{
+    width: 50%;
+  }
+}

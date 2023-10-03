@@ -10,7 +10,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
 
@@ -43,7 +43,7 @@ export class LoginFormComponent {
               if (res.length) {
                 this.authService.login();
                 localStorage.setItem('currentTeacher', JSON.stringify(res[0]));
-                setTimeout(() => this.router.navigate(['teacher'], { state: { teacher: res[0] } }), 500);
+                setTimeout(() => this.router.navigate(['/teacher/profile'], { state: { teacher: res[0] } }), 500);
               }
               else
                 this.toastService.showToast('danger', 'Giriş bilgileri yanlış.');

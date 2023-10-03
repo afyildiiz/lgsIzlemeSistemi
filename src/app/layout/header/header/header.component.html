@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top bg-dark">
+<!-- <nav class="navbar navbar-expand-lg fixed-top bg-dark">
     <div class="container">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,4 +14,34 @@
         </div> 
 
     </div>
-</nav>
+</nav> -->
+
+<div class="nav">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+      <div class="nav-title">
+        <!-- <img src="../../../../assets/pictures/yds1.jpg" width="50px"  alt=""> -->
+      </div>
+    </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+    
+    <div class="nav-links">
+        <a  [routerLink]="['/teacher/students']">Dersler</a>
+        <li class="nav-item dropdown" >
+            <a class="nav-link dropdown-toggle"  [routerLink]="['/homepage/profile']" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Profil</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#" [routerLink]="['/teacher/profile']">Hesap Ayarlarim</a>
+                    <a class="dropdown-item" href="#">Çıkış</a>
+                    <!-- <div class="dropdown-divider"></div> -->
+                    <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+                  </div>
+        </li>
+    </div>
+  </div>

@@ -1,13 +1,14 @@
 <nb-layout class="page">
-  <nb-layout-header>
-    <app-header></app-header>
-  </nb-layout-header>
+
   <nb-layout-column>
-    <div class="nb-theme-default">
+    <!-- <div style="width: 100%;z-index: 3 ;">
+      <app-header ></app-header>
+    </div> -->
+    <div  class="nb-theme-default">
       <router-outlet></router-outlet>
     </div>
   </nb-layout-column>
-  <nb-layout-footer>
-    <app-footer></app-footer>
+  <nb-layout-footer style="z-index: 2;">
+    <app-footer ></app-footer>
   </nb-layout-footer>
 </nb-layout>
