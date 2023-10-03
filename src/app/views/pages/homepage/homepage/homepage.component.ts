@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,10 +9,25 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent {
 
+
   constructor(private router: Router) { }
 
-  navigate(path: string) {
-    this.router.navigate(['/login'], { state: { path: path } })
+  navigate(path: string,loggedFor?:string) {
+    switch (path){
+      case 'student':
+        loggedFor='Öğrenci'
+        break;
+      case 'teacher':
+        loggedFor='Öğretmen'
+        break;
+      case 'admin':
+        loggedFor='Yönetici'
+        break
+    }
+    this.router.navigate(['/login'], { state: { path: path, loggedFor:loggedFor}})
+
+
+    
   }
 
 }

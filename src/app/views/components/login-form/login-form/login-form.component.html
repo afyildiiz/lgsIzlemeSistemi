@@ -50,7 +50,7 @@
         <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="">
     </div> -->
     <div class="text-center mt-4 name">
-        Giriş Yap
+        {{loggedFor}} olarak Giriş Yap
     </div>
     <form class="p-4 mt-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-field d-flex align-items-center">

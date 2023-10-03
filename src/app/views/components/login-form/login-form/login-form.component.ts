@@ -24,8 +24,10 @@ export class LoginFormComponent {
 
   loginForm!: FormGroup;
   path: string = '';
+  loggedFor:string=''
 
   ngOnInit() {
+    this.loggedFor=history.state.loggedFor;
     this.path = history.state.path;
 
     this.loginForm = this.fb.group({
