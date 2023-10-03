@@ -81,7 +81,7 @@ export class GetLogPageComponent {
   updateMonth() {
     let month = this.selectedMonth + 1
 
-    this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory)
+    this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent || note.kategori_id == this.selectedCategory)
 
   }
 }

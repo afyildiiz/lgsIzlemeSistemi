@@ -30,26 +30,37 @@ export class ConfirmationModalComponent implements OnInit {
       cozulen_soru: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
       dogru_sayisi: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
       yanlis_sayisi: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      tarih: [new Date().toISOString().split('T')[0], [Validators.required]],
+      tarih: [''],
     })
+
+    this.myForm.get('tarih')?.valueChanges.subscribe(changes => {
+      let tarih = new Date(changes).getMonth() + 1
+      this.getGoals(tarih)
+    });
 
     this.getCategories()
-
-    //this.getGoals();
   }
 
-  /*getGoals() {
-    this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.category_id, this.myForm.value.tarih).subscribe(res => {
-      if (res.length)
-        this.hedef_soru = res[0].hedef_soru
-      else
-        this.hedef_soru = 0;
-    })
+  getGoals(changes?: any) {
+    let tarih = new Date(this.myForm.value.tarih).getMonth() + 1
+
+    if (changes && changes == tarih)
+      return
+    else
+      this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, changes).subscribe(res => {
+        if (res.length)
+          this.hedef_soru = res[0].hedef_soru
+        else
+          this.hedef_soru = 0;
+      })
   }
-*/
 
   getCategories() {
     this.lessonCategoryService.getCategoriesByLessonid(this.lesson_id).subscribe(res => this.categories = res)
+  }
+
+  updateCategory() {
+    this.myForm.reset()
   }
 
   action(type: boolean): void {

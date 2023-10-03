@@ -86,8 +86,8 @@ h5 {
 }
 
 .lis-rounded-top {
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
 }
 
 .lis-bg-light {
@@ -218,6 +218,6 @@ sup {
 }
 
 .lis-rounded-bottom {
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
 }

@@ -85,5 +85,5 @@ li.nav-item>a {
 }
 
 .text-modal {
-    /*overflow: scroll;*/
+    overflow: scroll;   
 }

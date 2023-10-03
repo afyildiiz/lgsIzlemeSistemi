@@ -27,7 +27,9 @@ export class TextModalComponent {
   myForm!: FormGroup
   isUpdate: boolean = false
   categories: any[] = []
+  categoriesLen: number = 0
   currentTeacher: any
+  selectedYear: any
   selectedMonth: any
   students: any[] = []
   selectedStudent: any
@@ -88,15 +90,22 @@ export class TextModalComponent {
     })
   }
   */
+
+
+
   addSubject(data?: any) {
     if (data) {
+      let array: any[] = []
+      this.filteredCategories = data
       data.map((d: any) => {
+        array.push({ ders_id: d.ders_id, kategori_id: d.kategori_id, kategori_adi: d.kategori_adi })
         const group = this.fb.group({
-          subject: [d.kategori_adi],
+          [d.kategori_id]: [d.kategori_adi],
           goal: [d.hedef_soru],
         })
         this.subjects.push(group)
       })
+      this.filteredCategories = array
     }
     else {
       const group = this.fb.group({
@@ -104,20 +113,22 @@ export class TextModalComponent {
         goal: [''],
       })
       this.subjects.push(group)
+      this.categoriesLen++
     }
 
+    console.log(this.filteredCategories)
   }
 
   isGreater() {
-    if (this.formValues.hedef_soru < this.toplam)
+    if (this.formValues.hedef_soru < this.toplam) {
       this.toastService.showToast("danger", "Toplam hedef soru kategori bazlı hedef sorulardan küçük olamaz.")
-    this.formValues.hedef_soru = this.toplam
+      this.formValues.hedef_soru = this.toplam
+    }
   }
 
   toplam: number = 0
 
   formChange(value: any) {
-
     this.toplam = 0
 
     let array: any[] = []
@@ -131,7 +142,8 @@ export class TextModalComponent {
     })
     this.filteredCategories = array
 
-    this.formValues.hedef_soru = this.toplam
+    if (!this.isUpdate)
+      this.formValues.hedef_soru = this.toplam
   }
   /*
     change(event: any) {
@@ -152,26 +164,23 @@ export class TextModalComponent {
 
   data: any[] = []
 
+  updateYear() {
+    this.toplam = 0
+    this.formValues.hedef_soru = 0
+    this.selectedMonth = null
+    this.isUpdate = false
+
+    this.subjects.clear()
+  }
+
   updateMonth() {
     this.toplam = 0
+    this.formValues.hedef_soru = 0
+    this.isUpdate = false
+
     this.subjects.clear()
 
-    let month = this.selectedMonth + 1
-    this.isUpdate = false
-    this.formValues.hedef_soru = 0
-
-    this.logService.getGoalsByLessonId(this.selectedStudent, this.formValues.ders.ders_id, month).pipe(
-      tap(res => {
-        this.data = res
-        if (res.length) {
-          this.formValues.hedef_soru = res[0]?.aylik_hedef_soru // toplam hedef soruyu al dbden
-          this.isUpdate = true
-        }
-      }),
-    ).subscribe(() => {
-      if (this.data.length)
-        this.addSubject(this.data)
-    })
+    this.getGoals()
   }
 
   updateStudent() {
@@ -180,18 +189,35 @@ export class TextModalComponent {
     this.subjects.clear()
   }
 
+  getGoals() {
+    if (this.selectedStudent && this.selectedYear)
+      this.logService.getGoalsByLessonId(this.selectedStudent, this.formValues.ders.ders_id, { year: this.selectedYear, month: this.selectedMonth + 1 }).pipe(
+        tap(res => {
+          this.data = res
+          if (res.length) {
+            console.log(res)
+            this.formValues.hedef_soru = res[0]?.aylik_hedef_soru // toplam hedef soruyu al dbden
+            this.isUpdate = true
+          }
+        }),
+      ).subscribe(() => {
+        if (this.data.length)
+          this.addSubject(this.data)
+      })
+  }
+
   close() {
     this.dialogRef.close()
   }
 
   update() {
     let array: any[] = []
-    /*this.lessonsArray.controls.map(c => {
+    this.subjects.controls.map(c => {
       array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru })
+      console.log(c)
     })
-    */
 
-    this.subjects.controls.map(sub => console.log(sub))
+    console.log(array)
   }
 
   save() {
@@ -207,12 +233,20 @@ export class TextModalComponent {
         //console.log(student.ogrenci_id, this.formValues.ders.ders_id, array)
       })
     })*/
+
     let array: any[] = []
     this.subjects.controls.map(c => {
-      array.push({ kategori_id: c.value.subject, hedef_soru: c.value.goal })
+      array.push({ kategori_id: c.value.subject, hedef_soru: c.value.goal, aylik_hedef_soru: this.formValues.hedef_soru })
     })
 
-    console.log(array, this.selectedMonth, this.selectedStudent, this.formValues)
+    //console.log(array, this.selectedMonth, this.selectedStudent, this.formValues)
+
+    array.map(array => {
+      console.log(array)
+      this.logService.insertNote(this.selectedStudent, this.formValues.ders.ders_id, this.selectedYear,
+        this.selectedMonth + 1, array).subscribe(res => console.log(res))
+    })
+
     /*
         this.students.map(student => {
           array.map(array => {

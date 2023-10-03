@@ -7,7 +7,7 @@
     </nb-card-header>
     <nb-card-body>
         <div class="col mb-2 d-flex justify-content-end">
-            <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç">
+            <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç" (ngModelChange)="updateCategory()">
                 <nb-option [value]="category.kategori_id"
                     *ngFor="let category of categories">{{category.kategori_adi}}</nb-option>
             </nb-select>
@@ -17,7 +17,7 @@
                 <input class="form-control mb-1" type="date" formControlName="tarih">
             </div>
             <br>
-            <!--<p>Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>-->
+            <p>Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>
             <label class="mb-2">Çözülen Soru</label>
             <input class="form-control mb-2" nbInput type="number" formControlName="cozulen_soru">
             <label class="mb-2">Doğru Sayısı</label>
