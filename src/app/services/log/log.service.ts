@@ -49,7 +49,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT cast(ln2.kategori_id as text), EXTRACT(month FROM gun) as ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids})`,
+      "Data": `SELECT cast(ln2.kategori_id as text), ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids})`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -104,6 +104,24 @@ export class LogService {
     );
   }
 
+
+
+  getNotesByStudentIdAndLessonId(student_id: string, lesson_id: string, month: number) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.noteDataStoreid,
+      "Operation": "read",
+      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY'), ay, yil FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.ders_id = '${lesson_id}' and ay='${month}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
+
   insertStudentNote(student_id: string, lesson: any) {
     const body = {
       "Token": this.token,
@@ -124,7 +142,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "update",
-      "Data": `update lgs_notes set cozulen_soru = '${lesson.cozulen_soru}', dogru_sayisi = '${lesson.dogru_sayisi}', yanlis_sayisi = '${lesson.yanlis_sayisi}' where ogrenci_id = '${ogrenci_id}' and ders_id = '${lesson.lesson_id}' and kategori_id = '${lesson.kategori_id}' and ay = '${lesson.ay}' and gun = '${lesson.tarih}'`,
+      "Data": `UPDATE lgs_notes SET hedef_soru = '${lesson.hedef_soru}', cozulen_soru = '${lesson.cozulen_soru}', dogru_sayisi = '${lesson.dogru_sayisi}', yanlis_sayisi = '${lesson.yanlis_sayisi}' WHERE ogrenci_id = '${ogrenci_id}' AND ders_id = '${lesson.lesson_id}' AND kategori_id = '${lesson.kategori_id}' AND ay = '${lesson.ay}' AND yil = '${lesson.yil}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

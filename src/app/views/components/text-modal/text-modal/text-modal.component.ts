@@ -91,21 +91,28 @@ export class TextModalComponent {
   }
   */
 
-
+  //cat: any[] = []
 
   addSubject(data?: any) {
     if (data) {
       let array: any[] = []
-      this.filteredCategories = data
+      //let kategoriids: any[] = [] 
+      //this.cat = data
       data.map((d: any) => {
         array.push({ ders_id: d.ders_id, kategori_id: d.kategori_id, kategori_adi: d.kategori_adi })
+        console.log(d)
+        //kategoriids.push(d.kategori_id)
         const group = this.fb.group({
           [d.kategori_id]: [d.kategori_adi],
           goal: [d.hedef_soru],
         })
         this.subjects.push(group)
+        console.log(this.subjects.controls)
       })
-      this.filteredCategories = array
+      /*this.filteredCategories = array
+      this.categories = this.categories.filter(category => !kategoriids.includes(category.kategori_id))
+
+      console.log(this.categories)*/
     }
     else {
       const group = this.fb.group({
@@ -115,8 +122,6 @@ export class TextModalComponent {
       this.subjects.push(group)
       this.categoriesLen++
     }
-
-    console.log(this.filteredCategories)
   }
 
   isGreater() {
@@ -213,11 +218,16 @@ export class TextModalComponent {
   update() {
     let array: any[] = []
     this.subjects.controls.map(c => {
-      array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru })
-      console.log(c)
+      array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.goal })
     })
-
     console.log(array)
+    array.map(item => {
+      this.logService.updateStudentNote(this.selectedStudent, {
+        cozulen_soru: 0, dogru_sayisi: 0, yanlis_sayisi: 0, hedef_soru: item.hedef_soru,
+        lesson_id: this.formValues.ders.ders_id, aylik_hedef_soru: this.formValues.hedef_soru,
+        kategori_id: item.kategori_id, ay: this.selectedMonth + 1, yil: this.selectedYear
+      }).subscribe(res => console.log(res))
+    })
   }
 
   save() {

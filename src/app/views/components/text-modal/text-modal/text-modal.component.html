@@ -95,9 +95,8 @@
                 <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
                     <div class="row p-2 mb-1">
                         <div class="col-6">
-                            <!--<input formControlName="subject" nbInput>-->
+                            <input [formControlName]="data[i].kategori_id" nbInput>
 
-                            <input nbInput [formControlName]="filteredCategories[i].kategori_id" fullWidth>
                         </div>
                         <div class="col-6">
                             <input type="number" nbInput formControlName="goal"
@@ -105,12 +104,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-center">
+                <!--<div class="row d-flex justify-content-center">
                     <div class="col d-flex justify-content-end">
                         <button nbButton status="primary" (click)="addSubject()"
                             [disabled]="categoriesLen == categories.length">Konu Ekle</button>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div formArrayName="subjects" *ngIf="!data.length">
                 <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">

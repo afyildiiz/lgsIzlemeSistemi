@@ -98,6 +98,7 @@ export class StudentLessonsComponent {
             tarih: res.tarih,
             aylik_hedef_soru: 0,
             ay: ay,
+            yil: '2023'
           }).subscribe(res => console.log(res))
         }
         else {
@@ -109,7 +110,9 @@ export class StudentLessonsComponent {
             kategori_id: res.kategori_id,
             tarih: res.tarih,
             lesson_id: lesson_id,
-            ay: ay
+            hedef_soru: res.hedef_soru,
+            ay: ay,
+            yil: '2023'
           }).subscribe(res => console.log(res))
         }
       }
