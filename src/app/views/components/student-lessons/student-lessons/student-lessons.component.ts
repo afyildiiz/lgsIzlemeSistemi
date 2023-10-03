@@ -85,26 +85,37 @@ export class StudentLessonsComponent {
 
 
     this.dialogService.openConfirmationModal(lesson_id, this.currentStudent.ogrenci_id).onClose.subscribe((res: any) => {
-      if (res)
-        //if (res.hedef_soru == 0)
-        this.logService.insertStudentNote(this.currentStudent.ogrenci_id, {
-          lesson_id: lesson_id,
-          hedef_soru: 0,
-          kategori_id: res.kategori_id,
-          cozulen_soru: res.cozulen_soru,
-          dogru_sayisi: res.dogru_sayisi,
-          yanlis_sayisi: res.yanlis_sayisi,
-          tarih: res.tarih
-        }).subscribe(res => console.log(res))
-      /*else
-        this.logService.updateStudentNote(this.currentStudent.ogrenci_id, {
-          cozulen_soru: res.cozulen_soru,
-          dogru_sayisi: res.dogru_sayisi,
-          yanlis_sayisi: res.yanlis_sayisi,
-          kategori_id: res.kategori_id,
-          tarih: res.tarih,
-          lesson_id: lesson_id
-        }).subscribe(res => console.log(res))*/
+      if (res) {
+        let ay = res.tarih.split('-')[1]
+        if (res.hedef_soru == 0) {
+          this.logService.insertStudentNote(this.currentStudent.ogrenci_id, {
+            lesson_id: lesson_id,
+            hedef_soru: 0,
+            kategori_id: res.kategori_id,
+            cozulen_soru: res.cozulen_soru,
+            dogru_sayisi: res.dogru_sayisi,
+            yanlis_sayisi: res.yanlis_sayisi,
+            tarih: res.tarih,
+            aylik_hedef_soru: 0,
+            ay: ay,
+            yil: '2023'
+          }).subscribe(res => console.log(res))
+        }
+        else {
+          let ay = res.tarih.split('-')[1]
+          this.logService.updateStudentNote(this.currentStudent.ogrenci_id, {
+            cozulen_soru: res.cozulen_soru,
+            dogru_sayisi: res.dogru_sayisi,
+            yanlis_sayisi: res.yanlis_sayisi,
+            kategori_id: res.kategori_id,
+            tarih: res.tarih,
+            lesson_id: lesson_id,
+            hedef_soru: res.hedef_soru,
+            ay: ay,
+            yil: '2023'
+          }).subscribe(res => console.log(res))
+        }
+      }
     });
   }
 }

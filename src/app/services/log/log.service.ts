@@ -14,12 +14,12 @@ export class LogService {
 
   token: string | null = this.authService.getToken();
 
-  insertNote(student_id: string, lesson_id: string, month: any, lesson: any) {
+  insertNote(student_id: string, lesson_id: string, year: string, month: string, lesson: any) {
     const body = {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `insert into lgs_notes(ogrenci_id, ders_id, kategori_id, hedef_soru, gun) values ('${student_id}', '${lesson_id}', '${lesson.kategori_id}', '${lesson.hedef_soru}', '2023-${month}-07')`,
+      "Data": `insert into lgs_notes(ogrenci_id, ders_id, kategori_id, aylik_hedef_soru, hedef_soru, yil, ay, gun_) values ('${student_id}', '${lesson_id}', '${lesson.kategori_id}', '${lesson.aylik_hedef_soru}', '${lesson.hedef_soru}', ${year}, '${month}', '')`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -49,7 +49,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT cast(ln2.kategori_id as text), EXTRACT(month FROM gun) as ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids})`,
+      "Data": `SELECT cast(ln2.kategori_id as text), ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids})`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -59,12 +59,12 @@ export class LogService {
     ); //ogrenci idlere göre filtrele ve ders idye göre filtrele
   }
 
-  getGoalsByLessonId(student_id: string, lesson_id: string, month: string) {
+  getGoalsByLessonId(student_id: string, lesson_id: string, date: any) {
     const body = {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT cast(ln2.kategori_id as text), cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.aylik_hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND gun >= '2023-${month}-01' AND gun <= '2023-${month}-28' AND ogrenci_id = '${student_id}'`,
+      "Data": `SELECT cast(ln2.ders_id as text), cast(ln2.kategori_id as text), cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.aylik_hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, ll.ders_adi, ln2.yil, ln2.ay FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND yil = '${date.year}' AND ay = '${date.month}' AND ogrenci_id = '${student_id}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -89,12 +89,12 @@ export class LogService {
     );
   }
 
-  getNotesByStudentIdAndCategoryId(student_id: string, category_id: string, date: string) {
+  getNotesByStudentIdAndCategoryId(student_id: string, category_id: string, month: number) {
     const body = {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.kategori_id = '${category_id}' and gun='${date}'`,
+      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.kategori_id = '${category_id}' and ay='${month}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -104,12 +104,30 @@ export class LogService {
     );
   }
 
+
+
+  getNotesByStudentIdAndLessonId(student_id: string, lesson_id: string, month: number) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.noteDataStoreid,
+      "Operation": "read",
+      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY'), ay, yil FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.ders_id = '${lesson_id}' and ay='${month}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
+
   insertStudentNote(student_id: string, lesson: any) {
     const body = {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "insert",
-      "Data": `insert into lgs_notes(ogrenci_id, kategori_id, hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, gun) values ('${student_id}', '${lesson.kategori_id}',  '${lesson.hedef_soru}', '${lesson.cozulen_soru}', '${lesson.dogru_sayisi}', '${lesson.yanlis_sayisi}', '${lesson.tarih}')`,
+      "Data": `insert into lgs_notes(ogrenci_id, kategori_id, ders_id, hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, gun, ay, aylik_hedef_soru) values ('${student_id}', '${lesson.kategori_id}', '${lesson.lesson_id}', '${lesson.hedef_soru}', '${lesson.cozulen_soru}', '${lesson.dogru_sayisi}', '${lesson.yanlis_sayisi}', '${lesson.tarih}', '${lesson.ay}', '${lesson.aylik_hedef_soru}')`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -124,7 +142,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "update",
-      "Data": `update lgs_notes set cozulen_soru = '${lesson.cozulen_soru}', dogru_sayisi = '${lesson.dogru_sayisi}', yanlis_sayisi = '${lesson.yanlis_sayisi}' where ogrenci_id = '${ogrenci_id}' and kategori_id = '${lesson.kategori_id}' and gun = '${lesson.tarih}'`,
+      "Data": `UPDATE lgs_notes SET hedef_soru = '${lesson.hedef_soru}', cozulen_soru = '${lesson.cozulen_soru}', dogru_sayisi = '${lesson.dogru_sayisi}', yanlis_sayisi = '${lesson.yanlis_sayisi}' WHERE ogrenci_id = '${ogrenci_id}' AND ders_id = '${lesson.lesson_id}' AND kategori_id = '${lesson.kategori_id}' AND ay = '${lesson.ay}' AND yil = '${lesson.yil}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

@@ -60,7 +60,7 @@
 
 <nb-card style="margin-bottom:-1.875em">
     <nb-card-header>
-        <div class="row mb-2">
+        <div class="row mb-3">
             <div class="col">
                 <nb-select placeholder="Öğrenci seçiniz" fullWidth [(ngModel)]="selectedStudent"
                     (ngModelChange)="updateStudent()">
@@ -71,28 +71,45 @@
         </div>
         <div class="row">
             <div class="col">
+                <nb-select [(ngModel)]="selectedYear" placeholder="Yıl seçiniz" (ngModelChange)="updateYear()">
+                    <nb-option value="2023">2023</nb-option>
+                    <nb-option value="2024">2024</nb-option>
+                    <nb-option value="2025">2025</nb-option>
+                    <nb-option value="2026">2026</nb-option>
+
+                </nb-select>
+            </div>
+            <div class="col">
                 <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()">
                     <nb-option *ngFor="let month of months; index as i" [value]="i">{{month}}</nb-option>
                 </nb-select>
             </div>
             <div class="col">
-                <input type="text" nbInput [(ngModel)]="formValues.hedef_soru" (blur)="isGreater()">
+                <input type="number" nbInput [(ngModel)]="formValues.hedef_soru" (blur)="isGreater()">
             </div>
         </div>
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="myForm">
-            <div formArrayName="subjects" *ngIf="data.length">
+            <div formArrayName="subjects" *ngIf="data.length && subjects.controls">
                 <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
                     <div class="row p-2 mb-1">
                         <div class="col-6">
-                            <input formControlName="subject" nbInput>
+                            <input [formControlName]="data[i].kategori_id" nbInput>
+
                         </div>
                         <div class="col-6">
-                            <input type="number" nbInput formControlName="goal">
+                            <input type="number" nbInput formControlName="goal"
+                                [value]="filteredCategories[i].hedef_soru">
                         </div>
                     </div>
                 </div>
+                <!--<div class="row d-flex justify-content-center">
+                    <div class="col d-flex justify-content-end">
+                        <button nbButton status="primary" (click)="addSubject()"
+                            [disabled]="categoriesLen == categories.length">Konu Ekle</button>
+                    </div>
+                </div>-->
             </div>
             <div formArrayName="subjects" *ngIf="!data.length">
                 <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
@@ -109,9 +126,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                     <div class="col d-flex justify-content-end">
-                        <button nbButton status="primary" (click)="addSubject()">Konu Ekle</button>
+                        <button nbButton status="primary" (click)="addSubject()"
+                            [disabled]="categoriesLen == categories.length">Konu Ekle</button>
                     </div>
                 </div>
             </div>
