@@ -52,6 +52,7 @@ import { GetLogPageComponent } from './views/components/get-log-page/get-log-pag
 import { ResultCardComponent } from './views/components/result-card/result-card/result-card.component';
 import { StudentPerformComponent } from './views/components/student-perform/student-perform/student-perform.component';
 import { DeleteUserComponent } from './views/components/delete/delete-user/delete-user.component';
+import { StudentNavbarComponent } from './views/components/student-navbar/student-navbar.component';
 
 registerAllModules()
 
@@ -96,7 +97,8 @@ registerAllModules()
     GetLogPageComponent,
     ResultCardComponent,
     StudentPerformComponent,
-    DeleteUserComponent
+    DeleteUserComponent,
+    StudentNavbarComponent
   ],
   imports: [
     BrowserModule,
