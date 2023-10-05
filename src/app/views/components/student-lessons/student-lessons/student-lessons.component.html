@@ -67,35 +67,7 @@
 </section> -->
 
 
-<div class="nav" style="font-family: 'Bebas Neue', sans-serif;">
-    <input type="checkbox" id="nav-check">
-    <div class="nav-header">
-        <div class="nav-title">
-            <!-- <img src="../../../../assets/pictures/yds1.jpg" width="50px"  alt=""> -->
-        </div>
-    </div>
-    <div class="nav-btn">
-        <label for="nav-check">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-    </div>
-
-    <div class="nav-links">
-        <a [routerLink]="['/student/lessons']">Dersler</a>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Profil</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/student/profile">Hesap Ayarları</a>
-                <a class="dropdown-item" href="#">Çıkış</a>
-                <!-- <div class="dropdown-divider"></div> -->
-                <!-- <a class="dropdown-item" href="#">Something else here</a> -->
-            </div>
-        </li>
-    </div>
-</div>
+<app-student-navbar></app-student-navbar>
 
 
 

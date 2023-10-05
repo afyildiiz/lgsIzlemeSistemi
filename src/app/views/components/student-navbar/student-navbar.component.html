@@ -1,0 +1,29 @@
+<div class="nav" style="font-family: 'Bebas Neue', sans-serif;">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+        <div class="nav-title">
+            <!-- <img src="../../../../assets/pictures/yds1.jpg" width="50px"  alt=""> -->
+        </div>
+    </div>
+    <div class="nav-btn">
+        <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </div>
+
+    <div class="nav-links">
+        <a routerLink="/student/lessons" routerLinkActive="active-link">Dersler</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" style="font-weight: 500; cursor: pointer;" routerLinkActive="active-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Profil</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" routerLinkActive="active-link" routerLink="/student/profile">Hesap Ayarları</a>
+                <a class="dropdown-item" href="#">Çıkış</a>
+                <!-- <div class="dropdown-divider"></div> -->
+                <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+            </div>
+        </li>
+    </div>
+</div>
