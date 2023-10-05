@@ -6,22 +6,30 @@
         <nb-icon style="cursor: pointer" (click)="close()" icon="close-outline">x</nb-icon>
     </nb-card-header>
     <nb-card-body>
-        <div class="col mb-2 d-flex justify-content-end">
-            <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç" (ngModelChange)="updateCategory()">
+        <div class="col mb-3 d-flex justify-content-end">
+            <form [formGroup]="myForm">
+                <div class="col">
+                    <input class="form-control" type="date" formControlName="tarih">
+                </div>
+            </form>
+        </div>
+        <div class="_8icz"></div>
+        <div class="col mb-3">
+            <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç" (ngModelChange)="updateCategory()"
+                fullWidth>
                 <nb-option [value]="category.kategori_id"
                     *ngFor="let category of categories">{{category.kategori_adi}}</nb-option>
             </nb-select>
         </div>
+        <div class="_8icz"></div>
         <form [formGroup]="myForm">
-            <div class="col d-flex justify-content-end">
-                <input class="form-control mb-1" type="date" formControlName="tarih">
-            </div>
-            <br>
-            <p>Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>
+            <p class="mb-3">Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>
             <label class="mb-2">Çözülen Soru</label>
-            <input class="form-control mb-2" nbInput type="number" formControlName="cozulen_soru">
+            <input class="form-control mb-3" nbInput type="number" formControlName="cozulen_soru">
+            <div class="_8icz"></div>
             <label class="mb-2">Doğru Sayısı</label>
-            <input class="form-control mb-2" nbInput type="number" formControlName="dogru_sayisi">
+            <input class="form-control mb-3" nbInput type="number" formControlName="dogru_sayisi">
+            <div class="_8icz"></div>
             <label class="mb-2">Yanlış Sayısı</label>
             <input class="form-control" nbInput type="number" formControlName="yanlis_sayisi">
 

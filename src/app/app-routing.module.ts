@@ -21,6 +21,7 @@ import { LessonsCategoriesComponent } from './views/components/lessons-categorie
 import { LogByTeacherComponent } from './views/components/log-by-teacher/log-by-teacher/log-by-teacher.component';
 import { GoLogPageComponent } from './views/components/go-log-page/go-log-page/go-log-page.component';
 import { GetLogPageComponent } from './views/components/get-log-page/get-log-page/get-log-page.component';
+import { StudentPerformComponent } from './views/components/student-perform/student-perform/student-perform.component';
 
 const routes: Routes = [
   {
@@ -40,13 +41,13 @@ const routes: Routes = [
       { path: 'gologpage', component: GoLogPageComponent },
       { path: 'getlogpage', component: GetLogPageComponent },
       { path: 'logpage', component: LogPageComponent },
-
+      { path: 'studentperform', component: StudentPerformComponent },
 
     ]
   },
   {
     path: 'student', component: StudentHomeComponent, children: [
-      //{ path: 'profile', component: StudentProfileComponent },
+      { path: 'profile', component: StudentProfileComponent },
       { path: 'lessons', component: StudentLessonsComponent },
       { path: 'categories', component: LessonsCategoriesComponent },
       { path: 'logpage', component: LogPageComponent }

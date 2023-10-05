@@ -67,7 +67,7 @@ export class LoginFormComponent {
               if (res.length) {
                 this.authService.login();
                 localStorage.setItem('schoolAdmin', JSON.stringify(res[0]));
-                setTimeout(() => this.router.navigate(['school'], { state: { school: res[0] } }), 500);
+                setTimeout(() => this.router.navigate(['school/profile'], { state: { school: res[0] } }), 500);
               }
               else
                 this.toastService.showToast('danger', 'Giriş bilgileri yanlış.');

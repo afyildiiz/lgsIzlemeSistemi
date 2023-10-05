@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { TeacherService } from 'src/app/services/teacher/teacher.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { TeacherService } from 'src/app/services/teacher/teacher.service';
 export class TeacherListComponent {
 
   constructor(private teacherService: TeacherService,
+    private dialogService: DialogService,
     private router: Router) { }
 
   schoolAdmin: any;
@@ -28,5 +30,9 @@ export class TeacherListComponent {
 
   addTeacher() {
     this.router.navigate(['/school/addteacher']);
+  }
+
+  deleteTeacher(teacher: any) {
+    this.dialogService.openDeleteModal(teacher).onClose.subscribe(() => console.log('t'))
   }
 }

@@ -22,7 +22,7 @@ export class GetLogPageComponent {
   notes: any[] = []
   categories: any[] = []
   lesson_id: any
-  selectedMonth: any
+  selectedMonth: any = new Date().getMonth()
 
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
@@ -68,8 +68,12 @@ export class GetLogPageComponent {
 
     if (this.selectedStudent && this.selectedMonth)
       this.filteredNotes = this.notes.filter(note => note.ay == this.selectedMonth + 1 && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory)
-    else
+    else if (this.selectedStudent)
       this.filteredNotes = this.notes.filter(note => (note.kategori_id == this.selectedCategory && note.ogrenci_id == this.selectedStudent))
+    /*else if (this.selectedMonth)
+      this.filteredNotes = this.notes.filter(note => note.kategori_id == this.selectedCategory && note.ay == this.selectedMonth + 1)
+    else
+      this.filteredNotes = this.notes.filter(note => note.kategori_id == this.selectedCategory)*/
   }
 
   removeFilters() {
@@ -78,10 +82,11 @@ export class GetLogPageComponent {
     this.filteredNotes = this.notes
   }
 
-  updateMonth() {
+  onSelectedMonth() {
     let month = this.selectedMonth + 1
 
-    this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent || note.kategori_id == this.selectedCategory)
-
+    this.filteredNotes = this.notes.filter(note => {//note.ay == month && note.ogrenci_id == this.selectedStudent || note.kategori_id == this.selectedCategory)
+      note.ay == month
+    })
   }
 }

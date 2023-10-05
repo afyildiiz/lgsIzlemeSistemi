@@ -30,29 +30,37 @@ export class ConfirmationModalComponent implements OnInit {
       cozulen_soru: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
       dogru_sayisi: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
       yanlis_sayisi: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      tarih: [''],
+      tarih: [new Date().toISOString().split('T')[0]],
     })
 
     this.myForm.get('tarih')?.valueChanges.subscribe(changes => {
-      let tarih = new Date(changes).getMonth() + 1
-      this.getGoals(tarih)
+      this.getGoals(changes)
     });
 
     this.getCategories()
   }
 
   getGoals(changes?: any) {
-    let tarih = new Date(this.myForm.value.tarih).getMonth() + 1
+    this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, this.myForm.value.tarih).subscribe(res => {
+      console.log(res)
+      if (res.length) {
+        this.hedef_soru = res[0].hedef_soru
+        this.myForm.get('cozulen_soru')?.setValue(res[0].cozulen_soru)
+        this.myForm.get('dogru_sayisi')?.setValue(res[0].dogru_sayisi)
+        this.myForm.get('yanlis_sayisi')?.setValue(res[0].yanlis_sayisi)
+      }
+      else
+        this.hedef_soru = 0;
+    })
+    /*
+    kodun calısma mantıgı:
+    tarihte veya konularda herhangi bir değişiklik oldugunda gidiyor ve notlar tablosuna mevcut ogrenci id'si ile mevcut kategoride
+    ve mevcut tarihte bir hedef soru var mı diye sorgu atıyor.
 
-    if (changes && changes == tarih)
-      return
-    else
-      this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, changes).subscribe(res => {
-        if (res.length)
-          this.hedef_soru = res[0].hedef_soru
-        else
-          this.hedef_soru = 0;
-      })
+    bu sorguda ayı vererek önce secilen konuda bu aya ait hedeflenen soru var mı onu döndür hedef_soru olarak
+    ardından günü vererek kullanıcı belir
+
+    */
   }
 
   getCategories() {
@@ -60,7 +68,10 @@ export class ConfirmationModalComponent implements OnInit {
   }
 
   updateCategory() {
-    this.myForm.reset()
+    this.myForm.get('cozulen_soru')?.reset()
+    this.myForm.get('dogru_sayisi')?.reset()
+    this.myForm.get('yanlis_sayisi')?.reset()
+    this.getGoals()
   }
 
   action(type: boolean): void {

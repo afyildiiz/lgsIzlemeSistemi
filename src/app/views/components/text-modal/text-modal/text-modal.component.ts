@@ -94,34 +94,52 @@ export class TextModalComponent {
   //cat: any[] = []
 
   addSubject(data?: any) {
+    // this.data dizisinden tüm kategori_id'leri içeren bir dizi oluşturun
+    const dataKategoriIds = this.data.map(dataItem => dataItem.kategori_id);
+
+    // filteredCategories dizisini dataKategoriIds kullanarak filtreleyin
+    this.filteredCategories = this.filteredCategories.filter(fC => {
+      return !dataKategoriIds.includes(fC.kategori_id);
+    });
+
+    this.filteredCategories.map(f => console.log(f))
+
     if (data) {
-      let array: any[] = []
-      //let kategoriids: any[] = [] 
-      //this.cat = data
-      data.map((d: any) => {
-        array.push({ ders_id: d.ders_id, kategori_id: d.kategori_id, kategori_adi: d.kategori_adi })
-        console.log(d)
-        //kategoriids.push(d.kategori_id)
+      let array: any[] = [];
+      data.forEach((d: any) => {
+        array.push({ ders_id: d.ders_id, kategori_id: d.kategori_id, kategori_adi: d.kategori_adi });
         const group = this.fb.group({
           [d.kategori_id]: [d.kategori_adi],
           goal: [d.hedef_soru],
-        })
-        this.subjects.push(group)
-        console.log(this.subjects.controls)
-      })
-      /*this.filteredCategories = array
-      this.categories = this.categories.filter(category => !kategoriids.includes(category.kategori_id))
+        });
+        this.subjects.push(group);
+        this.categoriesLen++;
+      });
+    }
+    else if (this.filteredCategories.length > 0) { // this.data.length yerine filteredCategories.length kullanıldı
+      let first = this.filteredCategories[0]
 
-      console.log(this.categories)*/
+      const group = this.fb.group({
+        [first.kategori_id]: [first.kategori_adi],
+        goal: [''],
+      });
+
+      this.subjects.push(group);
+      this.data.push(first);
+      this.categoriesLen++;
+      //this.filteredCategories.shift(); // Ekledikten sonra ilk elemanı kaldırın
     }
     else {
       const group = this.fb.group({
         subject: [''],
         goal: [''],
-      })
-      this.subjects.push(group)
-      this.categoriesLen++
+      });
+      this.subjects.push(group);
+      this.categoriesLen++;
     }
+
+    console.log(this.filteredCategories);
+    console.log(this.data);
   }
 
   isGreater() {
@@ -200,7 +218,6 @@ export class TextModalComponent {
         tap(res => {
           this.data = res
           if (res.length) {
-            console.log(res)
             this.formValues.hedef_soru = res[0]?.aylik_hedef_soru // toplam hedef soruyu al dbden
             this.isUpdate = true
           }
@@ -220,7 +237,8 @@ export class TextModalComponent {
     this.subjects.controls.map(c => {
       array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.goal })
     })
-    console.log(array)
+
+
     array.map(item => {
       this.logService.updateStudentNote(this.selectedStudent, {
         cozulen_soru: 0, dogru_sayisi: 0, yanlis_sayisi: 0, hedef_soru: item.hedef_soru,
@@ -249,23 +267,25 @@ export class TextModalComponent {
       array.push({ kategori_id: c.value.subject, hedef_soru: c.value.goal, aylik_hedef_soru: this.formValues.hedef_soru })
     })
 
-    //console.log(array, this.selectedMonth, this.selectedStudent, this.formValues)
+    console.log(array, this.selectedMonth, this.selectedStudent, this.formValues)
+
 
     array.map(array => {
-      console.log(array)
       this.logService.insertNote(this.selectedStudent, this.formValues.ders.ders_id, this.selectedYear,
         this.selectedMonth + 1, array).subscribe(res => console.log(res))
     })
-
-    /*
-        this.students.map(student => {
-          array.map(array => {
-            this.logService.insertNote(student.ogrenci_id, this.formValues.ders.ders_id, this.selectedMonth + 1, array).subscribe(res => console.log(res))
-            //console.log(this.selectedMonth + 1 )
-            //console.log(student.ogrenci_id, this.formValues.ders.ders_id, array)
-          })
-        })*/
   }
+}
+
+/*
+    this.students.map(student => {
+      array.map(array => {
+        this.logService.insertNote(student.ogrenci_id, this.formValues.ders.ders_id, this.selectedMonth + 1, array).subscribe(res => console.log(res))
+        //console.log(this.selectedMonth + 1 )
+        //console.log(student.ogrenci_id, this.formValues.ders.ders_id, array)
+      })
+    })
+}
 }
 
 
@@ -274,10 +294,10 @@ export class TextModalComponent {
 
 
 /*
-  son gecerli olan
+son gecerli olan
 
 constructor(private fb: FormBuilder,
-  private lessonCategoryService: LessonCategoryService) { }
+private lessonCategoryService: LessonCategoryService) { }
 
 @Input() formValues: any
 @Input() students: any
@@ -285,52 +305,52 @@ myForm!: FormGroup
 categories: any[] = []
 
 ngOnInit() {
-  this.myForm = this.fb.group({
-    lessonsArray: this.fb.array([])
-  })
-  this.getCategories()
+this.myForm = this.fb.group({
+lessonsArray: this.fb.array([])
+})
+this.getCategories()
 }
 
 get lessonsArray() {
-  return this.myForm.get('lessonsArray') as FormArray
+return this.myForm.get('lessonsArray') as FormArray
 }
 
 getCategories() {
-  this.lessonCategoryService.getLessonsAndCategories().pipe(
-    tap(res => this.categories = res),
-  ).subscribe(() => this.createFormObjects())
+this.lessonCategoryService.getLessonsAndCategories().pipe(
+tap(res => this.categories = res),
+).subscribe(() => this.createFormObjects())
 }
 
 createFormObjects() {
-  this.formValues.map((fv: any) => {
-    let categories = this.categories.filter(category => category.ders_id == fv.ders.ders_id);
+this.formValues.map((fv: any) => {
+let categories = this.categories.filter(category => category.ders_id == fv.ders.ders_id);
 
-    const kategorilerArray = this.fb.array(
-      categories.map((category: any, indis: number) => {
-        return this.fb.group({
-          [indis]: [category.kategori_adi]
-        });
-      })
-    )
-
-    const studentGroup = this.fb.group({
-      ders_adi: [fv.ders.ders_adi],
-      ders_id: [fv.ders.ders_id],
-      hedef_soru: [fv.hedef_soru],
-      kategoriler: kategorilerArray
+const kategorilerArray = this.fb.array(
+  categories.map((category: any, indis: number) => {
+    return this.fb.group({
+      [indis]: [category.kategori_adi]
     });
+  })
+)
 
-    this.lessonsArray.push(studentGroup);
-  });
+const studentGroup = this.fb.group({
+  ders_adi: [fv.ders.ders_adi],
+  ders_id: [fv.ders.ders_id],
+  hedef_soru: [fv.hedef_soru],
+  kategoriler: kategorilerArray
+});
 
-  this.lessonsArray.controls.forEach(la => la.get('ders_adi')?.disable());
+this.lessonsArray.push(studentGroup);
+});
+
+this.lessonsArray.controls.forEach(la => la.get('ders_adi')?.disable());
 }
 
 addControl(indis: any) {
-  let group = this.lessonsArray.at(indis) as FormGroup;
-  let len = Object.keys(group.controls).length;
+let group = this.lessonsArray.at(indis) as FormGroup;
+let len = Object.keys(group.controls).length;
 
-  group.addControl(`add_${len}`, this.fb.control(''));
+group.addControl(`add_${len}`, this.fb.control(''));
 }
 }
 

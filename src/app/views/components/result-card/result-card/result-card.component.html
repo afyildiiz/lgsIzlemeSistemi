@@ -1,0 +1,40 @@
+<!--<nb-card>
+    <nb-card-body>
+        <ul class="list-group">
+            <li class="list-group-item mb-2">
+                Toplam Çözülen Soru: <b>{{data.cozulen_soru}}</b>
+            </li>
+            <li class="list-group-item mb-2">
+                Toplam Doğru Sayısı: <b>{{data.dogru_sayisi}}</b>
+            </li>
+            <li class="list-group-item mb-2">
+                Toplam Yanlış Sayısı: <b>{{data.yanlis_sayisi}}</b>
+            </li>
+            <li class="list-group-item mb-2">
+                Performans: <b>{{data.performans}}</b>
+            </li>
+        </ul>
+    </nb-card-body>
+</nb-card>-->
+
+<div class="card radius-15 bg-{{status}}">
+    <div class="card-body text-center">
+        <div class="p-4 radius-15">
+            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="110" height="110"
+                class="rounded-circle shadow p-1 bg-white" alt="">
+            <h5 class="mb-0 mt-3 text-white d-flex justify-content-start">Toplam Çözülen Soru:
+                <b class="d-flex justify-content-end">{{data.cozulen_soru}}</b>
+            </h5>
+            <h5 class="mb-0 mt-3 text-white d-flex justify-content-start"> Toplam Doğru Sayısı:
+                <b class="d-flex justify-content-end">{{data.dogru_sayisi}}</b>
+            </h5>
+            <h5 class="mb-0 mt-3 text-white d-flex justify-content-start"> Toplam Yanlış Sayısı:
+                <b class="d-flex justify-content-end">{{data.yanlis_sayisi}}</b>
+            </h5>
+            <h5 class="mb-0 mt-3 text-white d-flex justify-content-start"> Performans: <b
+                    class="d-flex justify-content-end">{{data.performans}}</b>
+            </h5>
+
+        </div>
+    </div>
+</div>

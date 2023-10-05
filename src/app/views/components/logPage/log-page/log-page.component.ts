@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { LessonCategoryService } from 'src/app/services/lesson-category/lesson-category.service';
 import { LessonService } from 'src/app/services/lesson/lesson.service';
 import { LogService } from 'src/app/services/log/log.service';
@@ -148,12 +149,13 @@ export class LogPageComponent {
     */
 
 
-  constructor(private logService: LogService) { }
+  constructor(private logService: LogService,
+    private dialogService: DialogService) { }
 
   currentStudent: any;
   datas: any[] = []
   currentLessonId: any;
-  selectedMonth: any
+  selectedMonth: any = new Date().getMonth() + 1
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
   ]
@@ -163,6 +165,8 @@ export class LogPageComponent {
 
     this.currentStudent = localStorage.getItem('currentStudent');
     this.currentStudent = JSON.parse(this.currentStudent);
+
+    this.getNotes()
   }
 
   ngOnChanges() {
@@ -175,13 +179,34 @@ export class LogPageComponent {
         tap(res => this.datas = res),
         tap(res => console.log(res))
       ).subscribe()
-      console.log(this.selectedMonth)
     }
   }
 
+  showMonthlyPerform() {
+    if (this.datas.length) {
+      let cozulen_soru: number = 0
+      let dogru_sayisi: number = 0
+      let yanlis_sayisi: number = 0
+      let performans: string = ''
+
+      this.datas.map(data => {
+        cozulen_soru += data.cozulen_soru
+        dogru_sayisi += data.dogru_sayisi
+        yanlis_sayisi += data.yanlis_sayisi
+      })
+      performans = ((dogru_sayisi / cozulen_soru) * 100).toFixed(2)
+      this.dialogService.openPerformModal({
+        cozulen_soru, dogru_sayisi,
+        yanlis_sayisi, performans
+      })
+    }
+  }
+
+
+  /*
   updateMonth() {
     this.getNotes()
   }
-
+  */
 
 }

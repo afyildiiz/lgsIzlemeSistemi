@@ -18,7 +18,7 @@ export class EditStudentComponent {
     private router: Router) { }
 
   @ViewChild(TeacherLogComponent) teacherLogComponent!: TeacherLogComponent;
-  //students: any[] = []
+  students: any[] = []
   //selectedStudents: any[] = []
   currentTeacher: any;
   lessons: any[] = []
@@ -26,17 +26,16 @@ export class EditStudentComponent {
   ngOnInit() {
     this.currentTeacher = localStorage.getItem('currentTeacher');
 
-    //this.getTeachersStudents();
+    this.getStudents();
     this.getLessons()
   }
 
 
-  /*getTeachersStudents() {
+  getStudents() {
     let teacherId = JSON.parse(this.currentTeacher).id;
     this.studentService.getStudentsByTeacherId(teacherId).subscribe(res => this.students = res)
-    //this.selectedStudents = this.students
   }
-  */
+
 
   /*
   selectionChange(event: any[]) {
@@ -62,5 +61,13 @@ export class EditStudentComponent {
 
     this.dialogService.openTextModal({ ders: { ders_id: ders }, hedef_soru: hedef_soru }, 'text-modal').onClose.subscribe(res => console.log(res))
     //this.router.navigate(['/teacher/gologpage'], { state: { lesson_id: lesson_id } }) //gologpage
+  }
+
+  selectStudent(index: any) {
+    let currentStudent = this.students[index]
+
+    this.router.navigate(['/teacher/studentperform'], { state: { student: currentStudent, lessons: this.lessons } })
+    //tıklandıgında bir modal acılsın orda kullanıcı adı title olarak girilsin ardından result table gibi veya bir
+    //dashboard gibi kullanıcının verileri okunsun her ders için aylık tıklandııgnda haftalık ve gunluk istatistikler
   }
 }

@@ -1,4 +1,11 @@
-nb-card{
+nb-card {
     box-shadow: rgb(8 49 112 / 24%) 0px 2px 8px 0px;
+}
 
+._8icz {
+    align-items: center;
+    border-bottom: 1px solid #dadde1;
+    display: flex;
+    margin: 20px 16px;
+    text-align: center;
 }

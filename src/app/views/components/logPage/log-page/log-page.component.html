@@ -31,27 +31,31 @@
 <section class="pricing-section">
     <div class="container">
         <div class="row">
-            <div class="col d-flex justify-content-end mb-2">
-                <nb-select [(ngModel)]="selectedMonth" (ngModelChange)="updateMonth()">
+            <div class="col d-flex justify-content-end mb-5" *ngIf="datas.length">
+                <button nbButton outline status="success" (click)="showMonthlyPerform()">Aylık Performansı
+                    Görüntüle</button>
+            </div>
+            <div class="col d-flex justify-content-end mb-5">
+                <nb-select [(ngModel)]="selectedMonth" (ngModelChange)="getNotes()">
                     <nb-option *ngFor="let month of months; index as i" [value]="i + 1">{{month}}</nb-option>
                 </nb-select>
             </div>
         </div>
         <div class="row" *ngIf="datas.length">
-            <div class="col-md-4 mb-2" *ngFor="let data of datas">
+            <div class="col-md-4 mb-2" *ngFor="let data of datas; index as i">
                 <div class="price-card">
                     <h2>{{data.kategori_adi}}</h2>
                     <ul class="pricing-offers">
-                        <li>Gün: {{data.to_char}}</li>
+                        <li>Gün: {{data.gun}}</li>
                         <li>Hedef Soru: {{data.hedef_soru}}</li>
-                        <li>Çözülen Soru: {{data.hedef_soru}}</li>
+                        <li>Çözülen Soru: {{data.cozulen_soru}}</li>
                         <li>Doğru Sayısı: {{data.dogru_sayisi}}</li>
                         <li>Yanlış Sayısı: {{data.yanlis_sayisi}}</li>
-                        <!--<li>Ay: {{data.ay}}</li>-->
                     </ul>
                 </div>
             </div>
         </div>
+
         <div class="row" *ngIf="!datas.length">
             <div class="col">
                 <nb-card class="mt-3">

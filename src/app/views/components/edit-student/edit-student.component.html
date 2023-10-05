@@ -19,7 +19,7 @@
     </nb-card-body>
 </nb-card> -->
 
-    <!--<nb-card-header>
+<!--<nb-card-header>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -40,57 +40,82 @@
 
 
 <section id="tabs">
-	<div class="container">
-		<!-- <h6 class="section-title h1">İzleme Panelİ</h6> -->
-		<div class="row">
-			<div class="col-xs-12 ">
-				<nav>
-					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ders Bazlı</a>
-						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Öğrenci Bazlı</a>
-					</div>
-				</nav>
-				<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="container">
+        <!-- <h6 class="section-title h1">İzleme Panelİ</h6> -->
+        <div class="row">
+            <div class="col-xs-12 ">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                            role="tab" aria-controls="nav-home" aria-selected="true">Ders Bazlı</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                            role="tab" aria-controls="nav-profile" aria-selected="false">Öğrenci Bazlı</a>
+                    </div>
+                </nav>
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
 
-                            <nb-card-body>
-                                <div class="row">
-                                    <div class="grid-container">
-                                        <div class="card" *ngFor="let lesson of lessons">
-                                            <div class="card-body text-center">
-                                              <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;" class="card-title">{{lesson.ders_adi}}</h5>
-                                              <hr>
-                                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                              <!-- <div class="buttons">
+                        <nb-card-body>
+                            <div class="row">
+                                <div class="grid-container">
+                                    <div class="card" *ngFor="let lesson of lessons">
+                                        <div class="card-body text-center">
+                                            <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
+                                                class="card-title">{{lesson.ders_adi}}</h5>
+                                            <hr>
+                                            <p class="card-text">Some quick example text to build on the card title and
+                                                make up the bulk of the card's content.</p>
+                                            <!-- <div class="buttons">
                                                  <a  class="btn mr-2" (click)="goLogPage(lesson.ders_id)"> Çalışma Gir</a>
                                                  <a  class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>
                                                 </div> -->
-                                                <div class=" buttons">
-                                                    <a class="btn btn-lg" (click)="goLogPage(lesson.ders_id)">
-                                                        <span>Çalışma Gir</span>
-                                                    </a>
-                                                    <a class="btn btn-lg" (click)="getLogPage(lesson.ders_id)">
-                                                        <span>Çalışmaları Gör</span>
-                                                    </a>
-                                                  </div>
+                                            <div class=" buttons">
+                                                <a class="btn btn-lg" (click)="goLogPage(lesson.ders_id)">
+                                                    <span>Çalışma Gir</span>
+                                                </a>
+                                                <a class="btn btn-lg" (click)="getLogPage(lesson.ders_id)">
+                                                    <span>Çalışmaları Gör</span>
+                                                </a>
                                             </div>
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </nb-card-body>
+                            </div>
+                        </nb-card-body>
 
 
-					</div>
-
-					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <!-- BURAYA OGRENCILERI EKLE -->
-                        OGRENCILER ICIN
                     </div>
-				</div>
-			
-			</div>
-		</div>
-	</div>
-</section>
 
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <!-- BURAYA OGRENCILERI EKLE -->
+
+                        <nb-card-body>
+                            <div class="row">
+                                <div class="grid-container">
+                                    <div class="card" *ngFor="let student of students; index as i">
+                                        <ul class="list-group">
+                                            <li class="list-group-item text-center pt-2">
+                                                <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
+                                                    class="card-title">{{student.ad}} {{student.soyad}}</h5>
+                                                <hr>
+                                                <div class="buttons mt-3">
+                                                    <a class="btn btn-lg">
+                                                        <span (click)="selectStudent(i)">Çalışmaları
+                                                            Görüntüle</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

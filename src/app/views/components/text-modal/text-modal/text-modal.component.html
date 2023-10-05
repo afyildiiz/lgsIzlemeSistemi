@@ -94,22 +94,39 @@
             <div formArrayName="subjects" *ngIf="data.length && subjects.controls">
                 <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
                     <div class="row p-2 mb-1">
-                        <div class="col-6">
-                            <input [formControlName]="data[i].kategori_id" nbInput>
+                        <!--<div class="col-6">
+                            <nb-select
+                                [formControlName]="data[i]?.kategori_id || this.filteredCategories[i].kategori_id">
+                                <nb-option
+                                    [value]="data[i]?.kategori_adi || filteredCategories[i].kategori_adi">{{data[i]?.kategori_adi
+                                    || filteredCategories[i].kategori_adi}}</nb-option>
+                            </nb-select>
+                        </div>-->
 
+                        <div class="col-6">
+                            <nb-select [formControlName]="data[i]?.kategori_id">
+                                <nb-option [value]="data[i]?.kategori_adi">{{data[i]?.kategori_adi}}</nb-option>
+                            </nb-select>
                         </div>
+
+                        <div class="col-6">
+
+                            <input type="number" nbInput formControlName="goal"
+                                [value]="data[i].hedef_soru ? data[i].hedef_soru : 0">
+                        </div>
+                        <!--
                         <div class="col-6">
                             <input type="number" nbInput formControlName="goal"
-                                [value]="filteredCategories[i].hedef_soru">
-                        </div>
+                                [value]="filteredCategories[i].hedef_soru ? filteredCategories[i].hedef_soru : 0">
+                        </div>-->
                     </div>
                 </div>
-                <!--<div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center">
                     <div class="col d-flex justify-content-end">
                         <button nbButton status="primary" (click)="addSubject()"
                             [disabled]="categoriesLen == categories.length">Konu Ekle</button>
                     </div>
-                </div>-->
+                </div>
             </div>
             <div formArrayName="subjects" *ngIf="!data.length">
                 <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">

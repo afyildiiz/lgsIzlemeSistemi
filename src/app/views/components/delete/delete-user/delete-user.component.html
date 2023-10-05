@@ -1,0 +1,18 @@
+<nb-card class="delete-modal">
+    <nb-card-header>
+        Silme Onayı
+    </nb-card-header>
+    <nb-card-body>
+        {{deleted.ad}} {{deleted.soyad}} isimli kullanıcıyı silmek istiyor musunuz?
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row d-flex justify-content-center">
+            <div class="col-3">
+                <button nbButton outline status="danger" (click)="deleteUser(true)">Sil</button>
+            </div>
+            <div class="col-3">
+                <button nbButton outline status="warning" (click)="deleteUser(false)">Kapat</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

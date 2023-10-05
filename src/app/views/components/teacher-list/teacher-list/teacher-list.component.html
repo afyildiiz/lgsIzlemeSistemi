@@ -12,6 +12,11 @@
                         {{teacher.ad}} {{teacher.soyad}}
                     </nb-accordion-item-header>
                     <nb-accordion-item-body>
+                        <div class="row mb-2">
+                            <div class="col d-flex justify-content-end">
+                                <button nbButton outline status="danger" (click)="deleteTeacher(teacher)">Sil</button>
+                            </div>
+                        </div>
                         <app-profile [currentTeacher]="teacher"></app-profile>
                     </nb-accordion-item-body>
                 </nb-accordion-item>

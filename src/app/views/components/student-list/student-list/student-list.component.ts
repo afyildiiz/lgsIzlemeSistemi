@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { StudentService } from 'src/app/services/student/student.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { StudentService } from 'src/app/services/student/student.service';
 export class StudentListComponent {
 
   constructor(private studentService: StudentService,
+    private dialogService: DialogService,
     private router: Router) { }
 
   schoolAdmin: any;
@@ -28,5 +30,9 @@ export class StudentListComponent {
 
   addStudent() {
     this.router.navigate(['/school/addstudent']);
+  }
+
+  deleteStudent(student: any) {
+    this.dialogService.openDeleteModal(student).onClose.subscribe(() => console.log('s'))
   }
 }

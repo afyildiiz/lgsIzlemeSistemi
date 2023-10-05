@@ -49,6 +49,9 @@ import { TeacherLogComponent } from './views/components/teacher-log/teacher-log.
 import { LogByTeacherComponent } from './views/components/log-by-teacher/log-by-teacher/log-by-teacher.component';
 import { GoLogPageComponent } from './views/components/go-log-page/go-log-page/go-log-page.component';
 import { GetLogPageComponent } from './views/components/get-log-page/get-log-page/get-log-page.component';
+import { ResultCardComponent } from './views/components/result-card/result-card/result-card.component';
+import { StudentPerformComponent } from './views/components/student-perform/student-perform/student-perform.component';
+import { DeleteUserComponent } from './views/components/delete/delete-user/delete-user.component';
 
 registerAllModules()
 
@@ -90,7 +93,10 @@ registerAllModules()
     TeacherLogComponent,
     LogByTeacherComponent,
     GoLogPageComponent,
-    GetLogPageComponent
+    GetLogPageComponent,
+    ResultCardComponent,
+    StudentPerformComponent,
+    DeleteUserComponent
   ],
   imports: [
     BrowserModule,

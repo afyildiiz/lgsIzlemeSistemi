@@ -71,7 +71,7 @@
             </div>
 
             <div class="col-xl-4 col-lg-6 col-md-8">
-                <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()">
+                <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="onSelectedMonth()">
                     <nb-option *ngFor="let month of months; index as i" [value]="i">{{month}}</nb-option>
                 </nb-select>
             </div>
