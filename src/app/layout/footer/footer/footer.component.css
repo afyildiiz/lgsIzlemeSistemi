@@ -1,0 +1,15 @@
+img{
+    animation: spinx 5s infinite;
+}
+
+
+
+@keyframes spinx {
+    0% {
+        transform: rotate(0deg);    
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+
+}
