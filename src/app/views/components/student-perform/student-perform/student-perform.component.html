@@ -141,6 +141,7 @@
 </div>
 
 -->
+
 <div class="container">
     <div class="row">
         <div id="mainNavigation">
@@ -154,8 +155,10 @@
                 </div>
                 <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mx-auto ">
-                        <li class="nav-item" *ngFor="let lesson of lessons" (click)="showCards(lesson)">
-                            <a class="nav-link active" aria-current="page">{{lesson.ders_adi}}</a>
+                        <li class="nav-item" style="cursor: pointer" *ngFor="let lesson of lessons"
+                            (click)="showCards(lesson)">
+                            <a class="nav-link active" routerLinkActive="active"
+                                aria-current="page">{{lesson.ders_adi}}</a>
                         </li>
                     </ul>
                 </div>
@@ -164,7 +167,7 @@
     </div>
 </div>
 
-
+<!--
 <div class="row">
     <div class="col-9" *ngIf="isShown">
         <section id="tabs">
@@ -192,24 +195,32 @@
 
                             <div class="row">
                                 <div class="grid-container">
-                                    <div class="price-card" *ngFor="let perform of monthlyPerform">
-                                        <ul class="pricing-offers">
-                                            <li class="list-group-item"><b>Ay: {{months[perform.ay - 1]}}</b></li>
-                                            <li class="list-group-item"><b>Hedef Soru:
-                                                    {{perform.toplam_hedef_soru}}</b></li>
-                                            <li class="list-group-item"><b>Çözülen Soru:
-                                                    {{perform.toplam_cozulen_soru}}</b></li>
-                                            <li class="list-group-item"><b>Doğru Sayısı:
-                                                    {{perform.toplam_dogru_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Yanlış Sayısı:
-                                                    {{perform.toplam_yanlis_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Boş Sayısı:
-                                                    {{perform.toplam_bos_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Performans: %{{perform.performans}}</b>
-                                            </li>
-                                            <li class="list-group-item"><b>Çalışma Performansı:
-                                                    %{{perform.calisma_performansi}}</b></li>
-                                        </ul>
+                                    <div class="card" *ngFor="let perform of monthlyPerform">
+                                        <div class="card-body">
+                                            <ul>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Ay:
+                                                        {{months[perform.ay - 1]}}</b></li>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
+                                                        {{perform.toplam_hedef_soru}}</b></li>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Çözülen
+                                                        Soru:
+                                                        {{perform.toplam_cozulen_soru}}</b></li>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Doğru
+                                                        Sayısı:
+                                                        {{perform.toplam_dogru_sayisi}}</b></li>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Yanlış
+                                                        Sayısı:
+                                                        {{perform.toplam_yanlis_sayisi}}</b></li>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
+                                                        {{perform.toplam_bos_sayisi}}</b></li>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Performans:
+                                                        %{{perform.performans}}</b>
+                                                </li>
+                                                <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
+                                                        Performansı:
+                                                        %{{perform.calisma_performansi}}</b></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -226,21 +237,26 @@
                                 <div class="grid-container">
                                     <div class="price-card" *ngFor="let perform of weeklyPerform">
                                         <ul class="pricing-offers">
-                                            <li class="list-group-item"><b>Ay: {{months[perform.ay - 1]}}</b></li>
-                                            <li class="list-group-item"><b>{{perform.hafta}}. Hafta</b></li>
-                                            <li class="list-group-item"><b>Hedef Soru:
-                                                    {{perform.toplam_hedef_soru}}</b></li>
-                                            <li class="list-group-item"><b>Çözülen Soru:
-                                                    {{perform.toplam_cozulen_soru}}</b></li>
-                                            <li class="list-group-item"><b>Doğru Sayısı:
-                                                    {{perform.toplam_dogru_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Yanlış Sayısı:
-                                                    {{perform.toplam_yanlis_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Boş Sayısı:
-                                                    {{perform.toplam_bos_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Performans: %{{perform.performans}}</b>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Ay:
+                                                    {{months[perform.ay - 1]}}</b></li>
+                                            <li class="list-group-item list-group-item-success mb-1">
+                                                <b>{{perform.hafta}}. Hafta</b>
                                             </li>
-                                            <li class="list-group-item"><b>Çalışma Performansı:
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
+                                                    {{perform.toplam_hedef_soru}}</b></li>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Çözülen Soru:
+                                                    {{perform.toplam_cozulen_soru}}</b></li>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Doğru Sayısı:
+                                                    {{perform.toplam_dogru_sayisi}}</b></li>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Yanlış Sayısı:
+                                                    {{perform.toplam_yanlis_sayisi}}</b></li>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
+                                                    {{perform.toplam_bos_sayisi}}</b></li>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Performans:
+                                                    %{{perform.performans}}</b>
+                                            </li>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
+                                                    Performansı:
                                                     %{{perform.calisma_performansi}}</b></li>
                                         </ul>
                                     </div>
@@ -259,20 +275,23 @@
                                 <div class="grid-container">
                                     <div class="price-card" *ngFor="let perform of dailyPerform">
                                         <ul class="pricing-offers">
-                                            <li class="list-group-item"><b>Gün: {{perform.gun}}</b></li>
-                                            <li class="list-group-item"><b>Hedef Soru:
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Gün:
+                                                    {{perform.gun}}</b></li>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
                                                     {{perform.hedef_soru}}</b></li>
-                                            <li class="list-group-item"><b>Çözülen Soru:
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Çözülen Soru:
                                                     {{perform.toplam_cozulen_soru}}</b></li>
-                                            <li class="list-group-item"><b>Doğru Sayısı:
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Doğru Sayısı:
                                                     {{perform.toplam_dogru_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Yanlış Sayısı:
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Yanlış Sayısı:
                                                     {{perform.toplam_yanlis_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Boş Sayısı:
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
                                                     {{perform.toplam_bos_sayisi}}</b></li>
-                                            <li class="list-group-item"><b>Performans: %{{perform.performans}}</b>
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Performans:
+                                                    %{{perform.performans}}</b>
                                             </li>
-                                            <li class="list-group-item"><b>Çalışma Performansı:
+                                            <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
+                                                    Performansı:
                                                     %{{perform.calisma_performansi}}</b></li>
 
                                         </ul>
@@ -284,5 +303,42 @@
                 </div>
             </div>
         </section>
+    </div>
+</div>
+
+-->
+<div class="container bootstrap snippets bootdeys">
+    <div class="row">
+        <div class="col-md-4 col-sm-6 content-card" *ngFor="let perform of monthlyPerform">
+            <div class="card-big-shadow">
+                <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
+                    <div class="content">
+                        <ul>
+                            <li class="description mb-2"><b>Ay:
+                                    {{months[perform.ay - 1]}}</b></li>
+                            <li class="description mb-2"><b>Hedef Soru:
+                                    {{perform.toplam_hedef_soru}}</b></li>
+                            <li class="description mb-2"><b>Çözülen
+                                    Soru:
+                                    {{perform.toplam_cozulen_soru}}</b></li>
+                            <li class="description mb-2"><b>Doğru
+                                    Sayısı:
+                                    {{perform.toplam_dogru_sayisi}}</b></li>
+                            <li class="description mb-2"><b>Yanlış
+                                    Sayısı:
+                                    {{perform.toplam_yanlis_sayisi}}</b></li>
+                            <li class="description mb-2"><b>Boş Sayısı:
+                                    {{perform.toplam_bos_sayisi}}</b></li>
+                            <li class="description mb-2"><b>Performans:
+                                    %{{perform.performans}}</b>
+                            </li>
+                            <li class="description mb-2"><b>Çalışma
+                                    Performansı:
+                                    %{{perform.calisma_performansi}}</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
