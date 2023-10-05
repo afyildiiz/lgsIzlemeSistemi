@@ -289,3 +289,13 @@ DEMO
     margin-left: 1em;
   }
 }
+
+
+
+.active-link {
+  font-weight: 900;  
+  color: rgb(38, 0, 255) !important;
+  background: #ecedee !important;
+
+
+}
