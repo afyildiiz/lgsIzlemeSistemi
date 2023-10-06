@@ -187,7 +187,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `select lgs_lessons.ders_adi,(CAST(SUM(dogru_sayisi) AS DOUBLE PRECISION) / CAST(SUM(cozulen_soru) AS DOUBLE PRECISION)) * 100 as performans, cast(lgs_lessons.ders_id as text), SUM(dogru_sayisi) as toplam_dogru_sayisi, SUM(cozulen_soru) as toplam_cozulen_soru from lgs_notes INNER JOIN lgs_categories on lgs_categories.kategori_id = lgs_notes.kategori_id INNER JOIN lgs_lessons on lgs_lessons.ders_id = lgs_categories.ders_id where ogrenci_id = '4e244573-e07c-46de-82f8-87c321770cc5' GROUP by (lgs_lessons.ders_id, lgs_lessons.ders_adi) ORDER by ders_adi ASC;`,
+      "Data": `select lgs_lessons.ders_adi, case WHEN SUM(cozulen_soru) = 0 THEN 0  ELSE (CAST(SUM(dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(cozulen_soru) AS DOUBLE PRECISION), 0)) * 100 END AS performans, CAST(lgs_lessons.ders_id AS TEXT),  SUM(dogru_sayisi) AS toplam_dogru_sayisi, SUM(cozulen_soru) AS toplam_cozulen_soru from lgs_notes INNER JOIN lgs_categories on lgs_categories.kategori_id = lgs_notes.kategori_id INNER JOIN lgs_lessons on lgs_lessons.ders_id = lgs_categories.ders_id where ogrenci_id = '4e244573-e07c-46de-82f8-87c321770cc5' GROUP by (lgs_lessons.ders_id, lgs_lessons.ders_adi) ORDER by ders_adi ASC;`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

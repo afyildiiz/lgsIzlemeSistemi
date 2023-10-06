@@ -21,7 +21,8 @@ export class StudentLessonsComponent {
     private router: Router) { }
 
   ngOnInit() {
-    this.currentStudent = history.state.student
+    this.currentStudent = localStorage.getItem('currentStudent')
+    this.currentStudent = JSON.parse(this.currentStudent)
 
     this.getLessons()
 
@@ -84,7 +85,7 @@ export class StudentLessonsComponent {
     //this.router.navigate(['/student/logpage'], { state: { currentLesson: lesson_id } })
 
 
-    this.dialogService.openConfirmationModal(lesson_id, this.currentStudent.ogrenci_id).onClose.subscribe((res: any) => {
+    this.dialogService.openConfirmationModal(lesson_id, this.currentStudent.ogrenci_id, 'confirmation-modal').onClose.subscribe((res: any) => {
       if (res) {
         let ay = res.tarih.split('-')[1]
         if (res.hedef_soru == 0) {

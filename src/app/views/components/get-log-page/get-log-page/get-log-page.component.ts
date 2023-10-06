@@ -57,36 +57,44 @@ export class GetLogPageComponent {
   }
 
   onSelectedStudent(event: any) {
-    if (this.selectedCategory && this.selectedMonth)
-      this.filteredNotes = this.notes.filter(note => note.ay == this.selectedMonth + 1 && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory)
-    else
-      this.filteredNotes = this.notes.filter(note => note.ogrenci_id == event)
+    if (this.selectedCategory && this.selectedMonth) {
+      this.filteredNotes = this.notes.filter(note => note.ay == this.selectedMonth + 1 && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory);
+    } else if (this.selectedStudent) {
+      this.filteredNotes = this.notes.filter(note => note.ogrenci_id == event);
+    } else {
+      this.filteredNotes = this.notes;
+    }
   }
 
   onSelectedCategory(event: any) {
-    this.selectedCategory = event
+    this.selectedCategory = event;
 
-    if (this.selectedStudent && this.selectedMonth)
-      this.filteredNotes = this.notes.filter(note => note.ay == this.selectedMonth + 1 && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory)
-    else if (this.selectedStudent)
-      this.filteredNotes = this.notes.filter(note => (note.kategori_id == this.selectedCategory && note.ogrenci_id == this.selectedStudent))
-    /*else if (this.selectedMonth)
-      this.filteredNotes = this.notes.filter(note => note.kategori_id == this.selectedCategory && note.ay == this.selectedMonth + 1)
-    else
-      this.filteredNotes = this.notes.filter(note => note.kategori_id == this.selectedCategory)*/
+    if (this.selectedStudent && this.selectedMonth) {
+      this.filteredNotes = this.notes.filter(note => note.ay == this.selectedMonth + 1 && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory);
+    } else if (this.selectedCategory) {
+      this.filteredNotes = this.notes.filter(note => note.kategori_id == this.selectedCategory);
+    } else {
+      this.filteredNotes = this.notes;
+    }
+  }
+
+  onSelectedMonth() {
+    let month = this.selectedMonth + 1;
+
+    if (this.selectedCategory && this.selectedStudent) {
+      this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory);
+    } else if (this.selectedStudent) {
+      this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent);
+    } else if (this.selectedCategory) {
+      this.filteredNotes = this.notes.filter(note => note.ay == month && note.kategori_id == this.selectedCategory);
+    } else {
+      this.filteredNotes = this.notes.filter(note => note.ay == month);
+    }
   }
 
   removeFilters() {
     this.selectedCategory = null
     this.selectedStudent = null
     this.filteredNotes = this.notes
-  }
-
-  onSelectedMonth() {
-    let month = this.selectedMonth + 1
-
-    this.filteredNotes = this.notes.filter(note => {//note.ay == month && note.ogrenci_id == this.selectedStudent || note.kategori_id == this.selectedCategory)
-      note.ay == month
-    })
   }
 }

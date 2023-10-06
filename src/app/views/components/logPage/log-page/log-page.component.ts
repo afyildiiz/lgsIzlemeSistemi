@@ -188,14 +188,19 @@ export class LogPageComponent {
       let dogru_sayisi: number = 0
       let yanlis_sayisi: number = 0
       let performans: string = ''
+      let calisma_performansi: string = ''
+      let hedef_soru: number = 0
 
       this.datas.map(data => {
         cozulen_soru += data.cozulen_soru
         dogru_sayisi += data.dogru_sayisi
         yanlis_sayisi += data.yanlis_sayisi
+        hedef_soru += data.hedef_soru
       })
       performans = ((dogru_sayisi / cozulen_soru) * 100).toFixed(2)
+      calisma_performansi = ((cozulen_soru / hedef_soru) * 100).toFixed(2)
       this.dialogService.openPerformModal({
+        calisma_performansi,
         cozulen_soru, dogru_sayisi,
         yanlis_sayisi, performans
       })

@@ -72,7 +72,12 @@ li.nav-item>a {
     .text-modal {
         width: 100% !important;
     }
-    .delete-modal{
+
+    .delete-modal {
+        width: 100% !important;
+    }
+
+    .confirmation-modal {
         width: 100% !important;
     }
 }
@@ -87,5 +92,9 @@ li.nav-item>a {
 }
 
 .text-modal {
+    overflow-y: scroll;
+}
+
+.confirmation-modal {
     overflow-y: scroll;
 }

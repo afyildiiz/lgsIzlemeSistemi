@@ -86,7 +86,7 @@ export class LessonsCategoriesComponent {
   }
 
   insertLog(category_id: string) {
-    this.dialogService.openConfirmationModal(category_id, this.student.ogrenci_id).onClose.subscribe((res: any) => {
+    this.dialogService.openConfirmationModal(category_id, this.student.ogrenci_id, 'confirmation-modal').onClose.subscribe((res: any) => {
       if (res)
         if (res.hedef_soru == 0)
           this.logService.insertStudentNote(this.student.ogrenci_id, {
