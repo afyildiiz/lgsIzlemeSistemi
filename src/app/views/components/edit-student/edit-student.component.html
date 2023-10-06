@@ -71,7 +71,7 @@
                                                  <a  class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>
                                                 </div> -->
                                             <div class=" buttons">
-                                                <a class="btn btn-lg" (click)="goLogPage(lesson.ders_id)">
+                                                <a class="btn btn-lg" (click)="goLogPage(lesson.ders_id,lesson.ders_adi)">
                                                     <span>Çalışma Gir</span>
                                                 </a>
                                                 <a class="btn btn-lg" (click)="getLogPage(lesson.ders_id)">
@@ -101,7 +101,7 @@
                                                 <hr>
                                                 <div class="buttons mt-3">
                                                     <a class="btn btn-lg">
-                                                        <span (click)="selectStudent(i)">Çalışmaları
+                                                        <span (click)="selectStudent(i,student.ad,student.soyad)">Çalışmaları
                                                             Görüntüle</span>
                                                     </a>
                                                 </div>

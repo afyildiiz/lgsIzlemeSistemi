@@ -91,12 +91,21 @@ li.nav-item>a {
     width: 100%;
 }
 
-.text-modal {
-    overflow-y: scroll;
-}
+/* .text-modal {
+    max-height: 600px;
+    overflow-y: auto;
+} */
 
 .confirmation-modal {
     overflow-y: hidden;
 
 }
 
+nb-layout-column{
+        background-image: url('./assets/background.jpg'); /* Resmin yolunu buraya ekleyin */
+        background-size: cover; /* Resmi sayfa boyutuna uyacak şekilde boyutlandırır */
+        background-repeat: no-repeat; /* Resmi tekrar etmemesini sağlar */
+        background-attachment: fixed; /* Resmin sabit kalmasını sağlar (isteğe bağlı) */
+        /* Diğer stil ayarlarını burada ekleyebilirsiniz */
+
+}

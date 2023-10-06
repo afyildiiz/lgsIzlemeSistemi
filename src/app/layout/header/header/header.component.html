@@ -32,15 +32,13 @@
   </div>
   <div class="nav-links">
     <a routerLink="/teacher/students" routerLinkActive="active-link">Dersler</a>
+    <a  routerLinkActive="active-link" [routerLink]="['/teacher/profile']">Hesap Ayarlarım</a>
+    <a  href="#">Çıkış</a>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" routerLinkActive="active-link" style="font-weight: 500;"
+      <!-- <a class="nav-link dropdown-toggle" routerLinkActive="active-link" style="font-weight: 500;"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Profil
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" routerLinkActive="active-link" [routerLink]="['/teacher/profile']">Hesap Ayarlarım</a>
-        <a class="dropdown-item" href="#">Çıkış</a>
-      </div>
+      </a> -->
     </li>
   </div>
 </div>

@@ -315,7 +315,7 @@ div label{
     width: 250px;
     border-radius: 15px;
     border: none;
-    font-size: 20px;
+    font-size: 17px;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
     -webkit-appearance: button;
     appearance: button;
@@ -323,8 +323,6 @@ div label{
   }
   
   .box::before {
-    content: "\f13a";
-    font-family: FontAwesome;
     position: absolute;
     top: 0;
     right: 0;
@@ -345,4 +343,28 @@ div label{
   
   .box select option {
     padding: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .box {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  
+    .box select {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+
+  @media (max-width: 994px) {
+    .box select {
+        width: 150px;
+        font-size: 14px;
+      }
+    
+      .box select {
+        width: 100%;
+        padding: 10px;
+      }
   }

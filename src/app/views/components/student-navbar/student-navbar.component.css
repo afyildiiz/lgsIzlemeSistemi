@@ -180,7 +180,7 @@
   }
 
   .nav>#nav-check:checked~.nav-links {
-    height: 250px;
+    height: 150px;
     overflow-y: auto;
   }
 

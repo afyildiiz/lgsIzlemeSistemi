@@ -197,40 +197,42 @@
 		</header>
 		<section class="modal-container-body rtf">
             <nb-card-header>
-                <div class="row mb-3">
+                <div class="row mb-3 box">
                     <div class="col">
-                        <nb-select placeholder="Öğrenci seçiniz" fullWidth [(ngModel)]="selectedStudent"
+                        <select  [(ngModel)]="selectedStudent"
                             (ngModelChange)="updateStudent()">
-                            <nb-option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}
-                                {{student.soyad}}</nb-option>
-                        </nb-select>
+                            <option disabled value="">Öğrenci Seçin</option>
+                            <option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}{{student.soyad}}</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="d-flex flex-wrap justify-content-between ">
-                    <nb-select [(ngModel)]="selectedYear" placeholder="Yıl seçiniz" (ngModelChange)="updateYear()" class="mb-3">
-                      <nb-option value="2023">2023</nb-option>
-                      <nb-option value="2024">2024</nb-option>
-                      <nb-option value="2025">2025</nb-option>
-                      <nb-option value="2026">2026</nb-option>
-                    </nb-select>
+                <div class="d-flex flex-wrap justify-content-between box ">
+                    <select [(ngModel)]="selectedYear" placeholder="Yıl seçiniz" (ngModelChange)="updateYear()" class="mb-3">
+                    <option disabled value="">Yıl Seçin</option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                    </select>
                   
-                    <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()" class="mb-3">
-                      <nb-option *ngFor="let month of months; index as i" [value]="i">{{month}}</nb-option>
-                    </nb-select>
+                    <select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()" class="mb-3">
+                        <option disabled value="">Ay Seçin</option>
+                      <option *ngFor="let month of months; index as i" [value]="i">{{month}}</option>
+                    </select>
                   </div>
                   
 
                     <div class="row ">
-                        <div class=" d-flex justify-content-center " style="margin-top: 1em;">
+                        <div class=" d-flex justify-content-center" style="margin-top: 1em;">
                         <p style="margin-top: 0.5em;width: 100%;margin-right: 1em;" class="text-end">Çözülen Soru</p>
-                            <input type="number" nbInput [(ngModel)]="formValues.hedef_soru" (blur)="isGreater()">
+                            <input style="background-color: #bce1ff; border-radius: 15px" type="number" nbInput [(ngModel)]="formValues.hedef_soru" (blur)="isGreater()">
                         </div>
                     </div>
 
             </nb-card-header>
             <nb-card-body>
-                <form [formGroup]="myForm">
+                <form [formGroup]="myForm" class="scrollable">
                     <div formArrayName="subjects" *ngIf="data.length && subjects.controls">
                         <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
                             <div class="row p-2 mb-1">
@@ -243,10 +245,10 @@
                                     </nb-select>
                                 </div>-->
         
-                                <div class="col-6">
-                                    <nb-select [formControlName]="data[i]?.kategori_id">
-                                        <nb-option [value]="data[i]?.kategori_adi">{{data[i]?.kategori_adi}}</nb-option>
-                                    </nb-select>
+                                <div class="col-6 box">
+                                    <select [formControlName]="data[i]?.kategori_id">
+                                        <option [value]="data[i]?.kategori_adi">{{data[i]?.kategori_adi}}</option>
+                                    </select>
                                 </div>
         
                                 <div class="col-6">
@@ -271,15 +273,15 @@
                     <div formArrayName="subjects" *ngIf="!data.length">
                         <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
                             <div class="row p-2 mb-1">
-                                <div class="col-6">
-                                    <nb-select formControlName="subject" fullWidth>
-                                        <nb-option *ngFor="let category of filteredCategories" [value]="category.kategori_id">
+                                <div class="col-6 box">
+                                    <select formControlName="subject" fullWidth>
+                                        <option *ngFor="let category of filteredCategories" [value]="category.kategori_id">
                                             {{category.kategori_adi}}
-                                        </nb-option>
-                                    </nb-select>
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" nbInput formControlName="goal">
+                                    <input style="background-color: #bce1ff; border-radius: 15px" type="number" nbInput formControlName="goal">
                                 </div>
                             </div>
                         </div>

@@ -47,26 +47,46 @@ export class EditStudentComponent {
   */
 
   getLessons() {
-    this.lessonService.getLessons().subscribe(res => this.lessons = res)
+    this.lessonService.getLessons().subscribe((res:any) => {
+      this.lessons = res;
+      console.log(res)
+    }
+      )
+      
   }
 
   getLogPage(lesson_id: string) {
     this.router.navigate(['/teacher/getlogpage'], { state: { lesson_id: lesson_id } })
   }
 
-  goLogPage(lesson_id: string) {
+  goLogPage(lesson_id: string, ders_adi: string) {
+    let ders = lesson_id;
+    let hedef_soru = 0;
 
-    let ders = lesson_id
-    let hedef_soru = 0
+    // Modal içine göndermek istediğiniz verileri bir nesne içinde toplayın ve state ile iletin
+    const modalData = { ders: { ders_id: ders, ders_adi: ders_adi }, hedef_soru: hedef_soru };
 
-    this.dialogService.openTextModal({ ders: { ders_id: ders }, hedef_soru: hedef_soru }, 'text-modal').onClose.subscribe(res => console.log(res))
-    //this.router.navigate(['/teacher/gologpage'], { state: { lesson_id: lesson_id } }) //gologpage
-  }
+    // Dialog açma işlemini gerçekleştirin ve modalData'yı ileterek ders adını içeri aktarın
+    this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => console.log(res));
+}
 
-  selectStudent(index: any) {
+// goLogPage(lesson_id: string,ders_adi:string) {
+//   let ders = lesson_id;
+//   let hedef_soru = 0;
+//   let dersin_adi = ders_adi; // Dersin adını alın
+
+//   // Modal içine göndermek istediğiniz verileri bir nesne içinde toplayın
+//   let modalData = { ders: { ders_id: ders, ders_adi: ders_adi }, hedef_soru: hedef_soru };
+
+//   // Dialog açma işlemini gerçekleştirin ve modalData'yı ileterek ders adını içeri aktarın
+//   this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => console.log(res));
+// }
+
+
+  selectStudent(index: any,name:any,surname:any) {
     let currentStudent = this.students[index]
-
-    this.router.navigate(['/teacher/studentperform'], { state: { student: currentStudent, lessons: this.lessons } })
+    
+    this.router.navigate(['/teacher/studentperform'], { state: { student: currentStudent, lessons: this.lessons, ad:name,soyad:surname } })
     //tıklandıgında bir modal acılsın orda kullanıcı adı title olarak girilsin ardından result table gibi veya bir
     //dashboard gibi kullanıcının verileri okunsun her ders için aylık tıklandııgnda haftalık ve gunluk istatistikler
   }

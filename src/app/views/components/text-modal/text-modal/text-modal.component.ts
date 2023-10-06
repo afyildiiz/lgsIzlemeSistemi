@@ -29,10 +29,10 @@ export class TextModalComponent {
   categories: any[] = []
   categoriesLen: number = 0
   currentTeacher: any
-  selectedYear: any
-  selectedMonth: any
+  selectedYear: any=''
+  selectedMonth: any=''
   students: any[] = []
-  selectedStudent: any
+  selectedStudent: any=''
   studentids: string = ''
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
