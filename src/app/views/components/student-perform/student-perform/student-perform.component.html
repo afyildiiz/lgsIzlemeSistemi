@@ -157,7 +157,7 @@
                     <ul class="navbar-nav mx-auto ">
                         <li class="nav-item" style="cursor: pointer" *ngFor="let lesson of lessons"
                             (click)="showCards(lesson)">
-                            <a class="nav-link active" routerLinkActive="active"
+                            <a class="nav-link active" routerLinkActive="active-link"
                                 aria-current="page">{{lesson.ders_adi}}</a>
                         </li>
                     </ul>
@@ -167,192 +167,11 @@
     </div>
 </div>
 
-<!--
-<div class="row">
-    <div class="col-9" *ngIf="isShown">
-        <section id="tabs">
-            <div class="container">
-                <nav>
-                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                            role="tab" aria-controls="nav-home" aria-selected="true">Aylık</a>
-
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                            role="tab" aria-controls="nav-profile" aria-selected="false">Haftalık</a>
-
-                        <a class="nav-item nav-link" id="nav-daily-tab" data-toggle="tab" href="#nav-daily" role="tab"
-                            aria-controls="nav-daily" aria-selected="false">Günlük</a>
-
-                    </div>
-                </nav>
-                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-
-
-                        <nb-card-body>
-
-                            <div class="row">
-                                <div class="grid-container">
-                                    <div class="card" *ngFor="let perform of monthlyPerform">
-                                        <div class="card-body">
-                                            <ul>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Ay:
-                                                        {{months[perform.ay - 1]}}</b></li>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
-                                                        {{perform.toplam_hedef_soru}}</b></li>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Çözülen
-                                                        Soru:
-                                                        {{perform.toplam_cozulen_soru}}</b></li>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Doğru
-                                                        Sayısı:
-                                                        {{perform.toplam_dogru_sayisi}}</b></li>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Yanlış
-                                                        Sayısı:
-                                                        {{perform.toplam_yanlis_sayisi}}</b></li>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
-                                                        {{perform.toplam_bos_sayisi}}</b></li>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Performans:
-                                                        %{{perform.performans}}</b>
-                                                </li>
-                                                <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
-                                                        Performansı:
-                                                        %{{perform.calisma_performansi}}</b></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </nb-card-body>
-
-
-                    </div>
-
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-                        <nb-card-body>
-
-                            <div class="row">
-                                <div class="grid-container">
-                                    <div class="price-card" *ngFor="let perform of weeklyPerform">
-                                        <ul class="pricing-offers">
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Ay:
-                                                    {{months[perform.ay - 1]}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1">
-                                                <b>{{perform.hafta}}. Hafta</b>
-                                            </li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
-                                                    {{perform.toplam_hedef_soru}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Çözülen Soru:
-                                                    {{perform.toplam_cozulen_soru}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Doğru Sayısı:
-                                                    {{perform.toplam_dogru_sayisi}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Yanlış Sayısı:
-                                                    {{perform.toplam_yanlis_sayisi}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
-                                                    {{perform.toplam_bos_sayisi}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Performans:
-                                                    %{{perform.performans}}</b>
-                                            </li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
-                                                    Performansı:
-                                                    %{{perform.calisma_performansi}}</b></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </nb-card-body>
-
-                    </div>
-
-                    <div class="tab-pane fade" id="nav-daily" role="tabpanel" aria-labelledby="nav-daily-tab">
-
-
-                        <nb-card-body>
-
-                            <div class="row">
-                                <div class="grid-container">
-                                    <div class="price-card" *ngFor="let perform of dailyPerform">
-                                        <ul class="pricing-offers">
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Gün:
-                                                    {{perform.gun}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
-                                                    {{perform.hedef_soru}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Çözülen Soru:
-                                                    {{perform.toplam_cozulen_soru}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Doğru Sayısı:
-                                                    {{perform.toplam_dogru_sayisi}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Yanlış Sayısı:
-                                                    {{perform.toplam_yanlis_sayisi}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
-                                                    {{perform.toplam_bos_sayisi}}</b></li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Performans:
-                                                    %{{perform.performans}}</b>
-                                            </li>
-                                            <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
-                                                    Performansı:
-                                                    %{{perform.calisma_performansi}}</b></li>
-
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </nb-card-body>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
-
--->
 
 
 
 
-<!--
-
-<div class="container bootstrap snippets bootdeys">
-    <div class="row">
-        <div class="col-md-4 col-sm-6 content-card" *ngFor="let perform of monthlyPerform">
-            <div class="card-big-shadow">
-                <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
-                    <div class="content">
-                        <ul>
-                            <li class="description mb-2"><b>Ay:
-                                    {{months[perform.ay - 1]}}</b></li>
-                            <li class="description mb-2"><b>Hedef Soru:
-                                    {{perform.toplam_hedef_soru}}</b></li>
-                            <li class="description mb-2"><b>Çözülen
-                                    Soru:
-                                    {{perform.toplam_cozulen_soru}}</b></li>
-                            <li class="description mb-2"><b>Doğru
-                                    Sayısı:
-                                    {{perform.toplam_dogru_sayisi}}</b></li>
-                            <li class="description mb-2"><b>Yanlış
-                                    Sayısı:
-                                    {{perform.toplam_yanlis_sayisi}}</b></li>
-                            <li class="description mb-2"><b>Boş Sayısı:
-                                    {{perform.toplam_bos_sayisi}}</b></li>
-                            <li class="description mb-2"><b>Performans:
-                                    %{{perform.performans}}</b>
-                            </li>
-                            <li class="description mb-2"><b>Çalışma
-                                    Performansı:
-                                    %{{perform.calisma_performansi}}</b></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
--->
-
-
-<nav>
+<nav style="margin-top: 1rem;" *ngIf="lessonSelected">
     <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
 
         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
@@ -375,7 +194,48 @@
 
             <div class="row">
                 <div class="grid-container">
-                    <div class="col-md-4 col-sm-6 content-card" *ngFor="let perform of monthlyPerform">
+                    <div class="cta col-md-12 content-card" *ngFor="let perform of monthlyPerform">
+
+                            <div class="cta__text-column">
+                                <ul>
+                                    <li class="description mb-2"><b>Ay:
+                                            {{months[perform.ay - 1]}}</b></li>
+                                    <li class="description mb-2"><b>Hedef Soru:
+                                            {{perform.toplam_hedef_soru}}</b></li>
+                                    <li class="description mb-2"><b>Çözülen
+                                            Soru:
+                                            {{perform.toplam_cozulen_soru}}</b></li>
+                                    <li class="description mb-2"><b>Doğru
+                                            Sayısı:
+                                            {{perform.toplam_dogru_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Yanlış
+                                            Sayısı:
+                                            {{perform.toplam_yanlis_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Boş Sayısı:
+                                            {{perform.toplam_bos_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Performans:
+                                            %{{perform.performans}}</b>
+                                    </li>
+                                    <li class="description mb-2"><b>Çalışma
+                                            Performansı:
+                                            %{{perform.calisma_performansi}}</b></li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+
+
+    </div>
+
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+        <nb-card-body>
+
+            <div class="row">
+                <div class="grid-container">
+                    <div class="price-card" *ngFor="let perform of weeklyPerform">
                         <article class="cta mt-5">
                             <div class="cta__text-column">
                                 <ul>
@@ -408,44 +268,6 @@
             </div>
         </nb-card-body>
 
-
-    </div>
-
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-        <nb-card-body>
-
-            <div class="row">
-                <div class="grid-container">
-                    <div class="price-card" *ngFor="let perform of weeklyPerform">
-                        <ul class="pricing-offers">
-                            <li class="list-group-item list-group-item-success mb-1"><b>Ay:
-                                    {{months[perform.ay - 1]}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1">
-                                <b>{{perform.hafta}}. Hafta</b>
-                            </li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
-                                    {{perform.toplam_hedef_soru}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Çözülen Soru:
-                                    {{perform.toplam_cozulen_soru}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Doğru Sayısı:
-                                    {{perform.toplam_dogru_sayisi}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Yanlış Sayısı:
-                                    {{perform.toplam_yanlis_sayisi}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
-                                    {{perform.toplam_bos_sayisi}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Performans:
-                                    %{{perform.performans}}</b>
-                            </li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
-                                    Performansı:
-                                    %{{perform.calisma_performansi}}</b></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nb-card-body>
-
     </div>
 
     <div class="tab-pane fade" id="nav-daily" role="tabpanel" aria-labelledby="nav-daily-tab">
@@ -456,27 +278,33 @@
             <div class="row">
                 <div class="grid-container">
                     <div class="price-card" *ngFor="let perform of dailyPerform">
-                        <ul class="pricing-offers">
-                            <li class="list-group-item list-group-item-success mb-1"><b>Gün:
-                                    {{perform.gun}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Hedef Soru:
-                                    {{perform.hedef_soru}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Çözülen Soru:
-                                    {{perform.toplam_cozulen_soru}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Doğru Sayısı:
-                                    {{perform.toplam_dogru_sayisi}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Yanlış Sayısı:
-                                    {{perform.toplam_yanlis_sayisi}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Boş Sayısı:
-                                    {{perform.toplam_bos_sayisi}}</b></li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Performans:
-                                    %{{perform.performans}}</b>
-                            </li>
-                            <li class="list-group-item list-group-item-success mb-1"><b>Çalışma
-                                    Performansı:
-                                    %{{perform.calisma_performansi}}</b></li>
-
-                        </ul>
+                        <article class="cta mt-5">
+                            <div class="cta__text-column">
+                                <ul>
+                                    <li class="description mb-2"><b>Ay:
+                                            {{months[perform.ay - 1]}}</b></li>
+                                    <li class="description mb-2"><b>Hedef Soru:
+                                            {{perform.toplam_hedef_soru}}</b></li>
+                                    <li class="description mb-2"><b>Çözülen
+                                            Soru:
+                                            {{perform.toplam_cozulen_soru}}</b></li>
+                                    <li class="description mb-2"><b>Doğru
+                                            Sayısı:
+                                            {{perform.toplam_dogru_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Yanlış
+                                            Sayısı:
+                                            {{perform.toplam_yanlis_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Boş Sayısı:
+                                            {{perform.toplam_bos_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Performans:
+                                            %{{perform.performans}}</b>
+                                    </li>
+                                    <li class="description mb-2"><b>Çalışma
+                                            Performansı:
+                                            %{{perform.calisma_performansi}}</b></li>
+                                </ul>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </div>

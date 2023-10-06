@@ -23,6 +23,8 @@ export class StudentPerformComponent {
   weeklyPerform: any[] = []
   dailyPerform: any[] = []
 
+  lessonSelected: boolean = false; 
+
   lessonNotes: any[] = []
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
@@ -32,6 +34,10 @@ export class StudentPerformComponent {
     this.student = history.state.student
     this.lessons = history.state.lessons
     console.log(this.lessons)
+  }
+
+  showCardss(lesson: any) {
+    this.lessonSelected = true;
   }
 
   getAllNotes(lesson_id: any) {
@@ -51,6 +57,8 @@ export class StudentPerformComponent {
     this.getMonthlyPerform()
     this.getWeeklyPerform()
     this.getDailyPerform()
+    this.lessonSelected = true;
+
   }
 
   getMonthlyPerform() {

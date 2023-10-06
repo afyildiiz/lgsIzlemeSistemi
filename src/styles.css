@@ -96,5 +96,5 @@ li.nav-item>a {
 }
 
 .confirmation-modal {
-    overflow-y: scroll;
+    overflow-y: hidden;
 }

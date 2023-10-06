@@ -176,6 +176,11 @@ ul li {
     font-size: 20px;
     font-weight: bold;
 }
+#tabs .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link {
+    font-weight: 700;
+    text-decoration: none;
+}
 
 #tabs .nav-tabs .nav-link {
     text-decoration: none;
@@ -191,6 +196,29 @@ ul li {
     text-decoration: none;
 }
 
+.active-link {
+    font-weight: 900;  
+    color: rgb(38, 0, 255) !important;
+    background: #ecedee !important;
+  
+  
+  }
+
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  nav {
+    animation: slideIn 0.5s ease-in-out; /* Animasyon süresi ve geçiş türü ayarlayabilirsiniz */
+  }
 
 
 #mainNavigation a {
@@ -509,13 +537,14 @@ h2 {
 	--shadowColor: 187 60% 40%;
 	display: flex;
 	flex-wrap: wrap;
-	background: hsl(187 70% 85%);
-	max-width: 50rem;
-	width: 100%;
-	box-shadow: 0.65rem 0.65rem 0 hsl(var(--shadowColor) / 1);
+	background: hsl(180, 5%, 88%);
+	/* max-width: 50rem; */
+	width: 300px;
+	box-shadow: 0.65rem 0.65rem 0 hsl(180, 5%, 88%);
 	border-radius: 0.8rem;
 	overflow: hidden;
 	border: 0.5rem solid;
+    animation: slideIn 0.5s ease-in-out; /* Animasyon süresi ve geçiş türü ayarlayabilirsiniz */
 }
 
 .cta img {
@@ -544,3 +573,17 @@ h2 {
 	font-weight: 700;
 	border: 0.35rem solid;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
