@@ -8,7 +8,7 @@ import { DialogService } from 'src/app/services/dialog/dialog.service';
 @Component({
   selector: 'app-edit-student',
   templateUrl: './edit-student.component.html',
-  styleUrls: ['./edit-student.component.scss']
+  styleUrls: ['./edit-student.component.css']
 })
 export class EditStudentComponent {
 

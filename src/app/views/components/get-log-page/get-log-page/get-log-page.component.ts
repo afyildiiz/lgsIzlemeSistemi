@@ -14,8 +14,8 @@ export class GetLogPageComponent {
     private studentService: StudentService
   ) { }
 
-  selectedStudent: any
-  selectedCategory: any
+  selectedStudent: any=''
+  selectedCategory: any=''
   currentTeacher: any
   students: any[] = []
   filteredNotes: any[] = []

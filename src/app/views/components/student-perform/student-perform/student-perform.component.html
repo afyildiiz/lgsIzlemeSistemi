@@ -142,7 +142,7 @@
 
 -->
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div id="mainNavigation">
             <div class="navbar-expand-md">
@@ -155,8 +155,7 @@
                 </div>
                 <div class="text-center mt-3 collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav mx-auto ">
-                        <li class="nav-item" style="cursor: pointer" *ngFor="let lesson of lessons"
-                            (click)="showCards(lesson)">
+                        <li class="nav-item" style="cursor: pointer" *ngFor="let lesson of lessons" (click)="showCards(lesson)">
                             <a class="nav-link active" routerLinkActive="active-link"
                                 aria-current="page">{{lesson.ders_adi}}</a>
                         </li>
@@ -165,8 +164,18 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
+<nav class="navi" style="cursor: pointer">
+    <span class="toggle-button" (click)="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+    </span>
+    <div class="nav-links" [ngClass]="{'active': isMenuOpen}">
+      <a *ngFor="let lesson of lessons" class="nav-link active" routerLinkActive="active-link" aria-current="page" (click)="showCards(lesson)">{{lesson.ders_adi}}</a>
+    </div>
+  </nav>
+  
+  
 
 
 
@@ -194,6 +203,62 @@
 
             <div class="row">
                 <div class="grid-container">
+                    <div class="cta col-md-12 content-card" *ngFor="let perform of monthlyPerform">
+
+                            <div class="cta__text-column">
+                                <ul>
+                                    <li class="description mb-2"><b>Ay:
+                                            {{months[perform.ay - 1]}}</b></li>
+                                    <li class="description mb-2"><b>Hedef Soru:
+                                            {{perform.toplam_hedef_soru}}</b></li>
+                                    <li class="description mb-2"><b>Çözülen
+                                            Soru:
+                                            {{perform.toplam_cozulen_soru}}</b></li>
+                                    <li class="description mb-2"><b>Doğru
+                                            Sayısı:
+                                            {{perform.toplam_dogru_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Yanlış
+                                            Sayısı:
+                                            {{perform.toplam_yanlis_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Boş Sayısı:
+                                            {{perform.toplam_bos_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Performans:
+                                            %{{perform.performans}}</b>
+                                    </li>
+                                    <li class="description mb-2"><b>Çalışma
+                                            Performansı:
+                                            %{{perform.calisma_performansi}}</b></li>
+                                </ul>
+                            </div>
+                    </div>
+                    <div class="cta col-md-12 content-card" *ngFor="let perform of monthlyPerform">
+
+                            <div class="cta__text-column">
+                                <ul>
+                                    <li class="description mb-2"><b>Ay:
+                                            {{months[perform.ay - 1]}}</b></li>
+                                    <li class="description mb-2"><b>Hedef Soru:
+                                            {{perform.toplam_hedef_soru}}</b></li>
+                                    <li class="description mb-2"><b>Çözülen
+                                            Soru:
+                                            {{perform.toplam_cozulen_soru}}</b></li>
+                                    <li class="description mb-2"><b>Doğru
+                                            Sayısı:
+                                            {{perform.toplam_dogru_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Yanlış
+                                            Sayısı:
+                                            {{perform.toplam_yanlis_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Boş Sayısı:
+                                            {{perform.toplam_bos_sayisi}}</b></li>
+                                    <li class="description mb-2"><b>Performans:
+                                            %{{perform.performans}}</b>
+                                    </li>
+                                    <li class="description mb-2"><b>Çalışma
+                                            Performansı:
+                                            %{{perform.calisma_performansi}}</b></li>
+                                </ul>
+                            </div>
+                    </div>
                     <div class="cta col-md-12 content-card" *ngFor="let perform of monthlyPerform">
 
                             <div class="cta__text-column">
@@ -277,7 +342,7 @@
 
             <div class="row">
                 <div class="grid-container">
-                    <div class="price-card" *ngFor="let perform of dailyPerform">
+                    <div class="" *ngFor="let perform of dailyPerform">
                         <article class="cta mt-5">
                             <div class="cta__text-column">
                                 <ul>
@@ -312,8 +377,8 @@
     </div>
 </div>
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
 
     </div>
-</div>
+</div> -->

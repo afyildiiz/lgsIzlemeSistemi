@@ -46,7 +46,10 @@
 
 <div class="modal">
 	<article class="modal-container">
-		<header class="modal-container-header">
+		<header style="border: 0;" class="modal-container-header">
+            <div>
+                <h2 class="font-weight-bold" style="margin-top: 1rem;">Çalışmalarım</h2>
+            </div>
 			<button class="icon-button text-end" (click)="close()">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
 					<path fill="none" d="M0 0h24v24H0z" />
@@ -55,12 +58,7 @@
 			</button>
 		</header>
 		<section class="modal-container-body rtf">
-            <nb-card-header class=" d-flex justify-content-center">
-                <div>
-                    <h2>Çalışmalarım</h2>
-                </div>
 
-            </nb-card-header>
             <nb-card-body>
                 <div class="col mb-3 d-flex justify-content-center">
                     <form [formGroup]="myForm">
@@ -69,7 +67,6 @@
                         </div>
                     </form>
                 </div>
-                <!-- <div class="_8icz"></div> -->
                 <hr>
                 <div class="col mb-3">
                     <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç" (ngModelChange)="updateCategory()"
@@ -78,7 +75,6 @@
                             *ngFor="let category of categories">{{category.kategori_adi}}</nb-option>
                     </nb-select>
                 </div>
-                <!-- <div class="_8icz"></div> -->
                 <hr>
                 <form [formGroup]="myForm">
                     <p class="mb-3 text-center font-weight-bold">Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>
@@ -100,7 +96,7 @@
                 </form>
             </nb-card-body>
 		</section>
-		<footer class="modal-container-footer">
+		<footer class="modal-container-footer d-flex justify-content-center">
                 <button class="button is-primary" (click)="action(true)">Kaydet</button>
                 <!-- <button class="button is-primary" (click)="action(false)">Çıkış</button> -->
 		</footer>

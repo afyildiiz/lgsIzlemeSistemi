@@ -50,36 +50,36 @@
 
 
 
-<section class="pricing-section">
-    <div class="container">
-        <div class="row justify-content-md-center mb-3">
-
-            <div class="col-xl-4 col-lg-6 col-md-8">
-                <nb-select [(ngModel)]="selectedStudent" (ngModelChange)="onSelectedStudent($event)"
-                    placeholder="Öğrenciye Göre Filtrele">
-                    <nb-option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}
-                        {{student.soyad}}</nb-option>
-                </nb-select>
-            </div>
-
-            <div class="col-xl-4 col-lg-6 col-md-8">
-                <nb-select [(ngModel)]="selectedCategory" (ngModelChange)="onSelectedCategory($event)"
-                    placeholder="Konuya Göre Filtrele">
-                    <nb-option *ngFor="let category of categories"
-                        [value]="category.kategori_id">{{category.kategori_adi}}</nb-option>
-                </nb-select>
-            </div>
-
-            <div class="col-xl-4 col-lg-6 col-md-8">
-                <nb-select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="onSelectedMonth()">
-                    <nb-option *ngFor="let month of months; index as i" [value]="i">{{month}}</nb-option>
-                </nb-select>
-            </div>
-
+<div class="container">
+    <div class="card">
+      <div class="row justify-content-md-center mb-3">
+        <div class="col-md-4 box text-center">
+          <select class="selectpicker" id="studentSelect" [(ngModel)]="selectedStudent" (ngModelChange)="onSelectedStudent($event)">
+            <option value="" >Öğrenciye Göre Filtrele</option>
+            <option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}} {{student.soyad}}</option>
+          </select>
         </div>
+        <div class="col-md-4 box text-center">
+          <select class="selectpicker" id="categorySelect" [(ngModel)]="selectedCategory" (ngModelChange)="onSelectedCategory($event)">
+            <option value="" >Konuya Göre Filtrele</option>
+            <option *ngFor="let category of categories" [value]="category.kategori_id">{{category.kategori_adi}}</option>
+          </select>
+        </div>
+        <div class="col-md-4 box text-center">
+          <select class="selectpicker" id="monthSelect" [(ngModel)]="selectedMonth" (ngModelChange)="onSelectedMonth()">
+            <option  value="">Tarihe Göre Filtrele</option>
+            <option *ngFor="let month of months; index as i" [value]="i">{{month}}</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <!-- Pricing Table starts -->
-    <div class="row">
+  </div>
+  
+
+
+
+
+    <!-- <div class="row">
         <div class="col-md-4 mb-2" *ngFor="let note of filteredNotes">
             <div class="price-card">
                 <h2>{{note.kategori_adi}}</h2>
@@ -89,8 +89,25 @@
                     <li>Doğru Sayısı: {{note.dogru_sayisi}}</li>
                     <li>Yanlış Sayısı: {{note.yanlis_sayisi}}</li>
                 </ul>
-                <!--<a href="#" class="btn btn-primary btn-mid">Buy Now</a>-->
+
             </div>
         </div>
     </div>
-</section>
+</section>  -->
+
+
+<div class="row">
+    <div class="grid-container">
+        <div class="cta col-md-12 content-card" *ngFor="let note of filteredNotes">
+                <div class="cta__text-column">
+                    <h2>{{note.kategori_adi}}</h2>
+                    <ul class="pricing-offers">
+                        <li>Hedef Soru: {{note.hedef_soru}}</li>
+                        <li>Çözülen Soru: {{note.hedef_soru}}</li>
+                        <li>Doğru Sayısı: {{note.dogru_sayisi}}</li>
+                        <li>Yanlış Sayısı: {{note.yanlis_sayisi}}</li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+</div>

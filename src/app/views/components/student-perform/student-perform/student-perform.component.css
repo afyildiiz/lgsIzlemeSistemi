@@ -5,7 +5,7 @@
     grid-gap: 20px;
 }
 
-@media screen and (min-width: 390px) {
+@media screen and (min-width: 320px) {
     .grid-container {
         margin-top: 1rem;
         display: grid;
@@ -539,7 +539,7 @@ h2 {
 	flex-wrap: wrap;
 	background: hsl(180, 5%, 88%);
 	/* max-width: 50rem; */
-	width: 300px;
+	width: 100%;
 	box-shadow: 0.65rem 0.65rem 0 hsl(180, 5%, 88%);
 	border-radius: 0.8rem;
 	overflow: hidden;
@@ -578,6 +578,53 @@ h2 {
 
 
 
+.navi {
+    background: #515151;
+    text-align: center; /* İsteğe bağlı */
+    transition: all 0.3s ease-in;
+
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center; /* Öğeleri yatayda ortala */
+}
+
+.navi a {
+    color: #FFF;
+    padding: 18px 12px;
+    text-decoration: none;
+    transition: ease-in .3s;
+}
+
+.navi a:hover {
+    color: #515151;
+    background: #FFF;
+}
+.toggle-button {
+    display: none; /* Başlangıçta gizli tut */
+}
+
+
+@media (max-width: 768px) {
+
+    .navi span{
+        padding: 1rem;
+
+    }
+    .toggle-button {
+      display: block; /* 768 pikselden küçükse toggle düğmesini göster */
+    }
+    
+    .nav-links.active {
+      display: block; /* Toggle düğmesi tıklandığında öğeleri göster */
+    }
+    
+    .nav-links {
+      display: none; /* 768 pikselden küçükse başlangıçta öğeleri gizle */
+      
+    }
+  }
 
 
 

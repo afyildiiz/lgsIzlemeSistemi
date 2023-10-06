@@ -36,6 +36,12 @@ export class StudentPerformComponent {
     console.log(this.lessons)
   }
 
+  isMenuOpen: boolean = false; // Başlangıçta menü kapalı
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen; // Menüyü açma/kapama işlemi
+  }
+
   showCardss(lesson: any) {
     this.lessonSelected = true;
   }
