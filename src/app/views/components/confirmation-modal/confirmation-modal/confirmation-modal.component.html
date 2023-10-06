@@ -15,11 +15,11 @@
         </div>
         <div class="_8icz"></div>
         <div class="col mb-3">
-            <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç" (ngModelChange)="updateCategory()"
+            <select [(ngModel)]="selectedCategory" placeholder="Konu seç" (ngModelChange)="updateCategory()"
                 fullWidth>
-                <nb-option [value]="category.kategori_id"
-                    *ngFor="let category of categories">{{category.kategori_adi}}</nb-option>
-            </nb-select>
+                <option [value]="category.kategori_id"
+                    *ngFor="let category of categories">{{category.kategori_adi}}</option>
+            </select>
         </div>
         <div class="_8icz"></div>
         <form [formGroup]="myForm">
@@ -46,7 +46,7 @@
 
 <div class="modal">
 	<article class="modal-container">
-		<header style="border: 0;" class="modal-container-header">
+		<header style="border: 0;height: 50px;" class="modal-container-header">
             <div>
                 <h2 class="font-weight-bold" style="margin-top: 1rem;">Çalışmalarım</h2>
             </div>
@@ -63,35 +63,36 @@
                 <div class="col mb-3 d-flex justify-content-center">
                     <form [formGroup]="myForm">
                         <div class="col">
-                            <input class="form-control" type="date" formControlName="tarih">
+                            <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control" type="date" formControlName="tarih">
                         </div>
                     </form>
                 </div>
                 <hr>
-                <div class="col mb-3">
-                    <nb-select [(ngModel)]="selectedCategory" placeholder="Konu seç" (ngModelChange)="updateCategory()"
-                        fullWidth>
-                        <nb-option [value]="category.kategori_id"
-                            *ngFor="let category of categories">{{category.kategori_adi}}</nb-option>
-                    </nb-select>
+                <div class="col mb-3 box">
+                    <select [(ngModel)]="selectedCategory"  (ngModelChange)="updateCategory()"
+                        >
+                        <option value="" disabled>Konu seçiniz</option>
+                        <option [value]="category.kategori_id"
+                            *ngFor="let category of categories">{{category.kategori_adi}}</option>
+                    </select>
                 </div>
                 <hr>
                 <form [formGroup]="myForm">
                     <p class="mb-3 text-center font-weight-bold">Çözmen beklenen soru adedi: <b>{{hedef_soru}}</b></p>
                     <div class="row">
                         <label class="mb-2 col-4">Çözülen Soru</label>
-                        <input class="form-control mb-3 col" nbInput type="number" formControlName="cozulen_soru">
+                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control mb-3 col" nbInput type="number" formControlName="cozulen_soru">
                     </div>
 
                     <hr>
                     <div class="row">
                         <label class="mb-2 col-4">Doğru Sayısı</label>
-                        <input class="form-control mb-3 col" nbInput type="number" formControlName="dogru_sayisi">
+                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control mb-3 col" nbInput type="number" formControlName="dogru_sayisi">
                     </div>
                     <hr>
                     <div class="row">
                         <label class="mb-2 col-4">Yanlış Sayısı</label>
-                        <input class="form-control col" nbInput type="number" formControlName="yanlis_sayisi">
+                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control col" nbInput type="number" formControlName="yanlis_sayisi">
                     </div>
                 </form>
             </nb-card-body>

@@ -213,3 +213,146 @@ ul li {
     line-height: 40px;
     padding: 0 20px;
 }
+
+
+
+
+* {
+	box-sizing: border-box;
+		font-family: "Open Sans", sans-serif;
+
+}
+
+h2 {
+	margin: 0;
+	font-size: 1.4rem;
+}
+
+@media (min-width: 50em) {
+	h2 {
+		font-size: 1.8rem;
+	}
+}
+
+.cta {
+    padding: 14px;
+	--shadowColor: 187 60% 40%;
+	display: flex;
+	flex-wrap: wrap;
+	background: hsl(180, 5%, 88%);
+	max-width: 50rem;
+	width: 100%;
+	box-shadow: 0.65rem 0.65rem 0 hsl(180, 2%, 75%);
+	border-radius: 0.8rem;
+	overflow: hidden;
+	border: 0.5rem solid;
+}
+
+.cta img {
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
+	flex: 1 1 300px;
+	outline: 0.5rem solid;
+}
+
+.cta__text-column {
+	padding: min(2rem, 5vw) min(2rem, 5vw) min(2.5rem, 5vw);
+	flex: 1 0 50%;
+}
+
+.cta__text-column > * + * {
+	margin: min(1.5rem, 2.5vw) 0 0 0;
+}
+
+.cta a {
+	display: inline-block;
+	color: black;
+	padding: 0.5rem 1rem;
+	text-decoration: none;
+	background: hsl(187 75% 64%);
+	border-radius: 0.6rem;
+	font-weight: 700;
+	border: 0.35rem solid;
+}
+
+.grid-container {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+/* Ekran genişliği 768 pikselden küçükse */
+@media (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr); /* Her satırda 2 kart göstermek için sütun sayısını 2 yapın */
+    }
+  }
+
+  @media (max-width: 560px) {
+    .grid-container {
+      grid-template-columns: repeat(1, 1fr); /* Her satırda 2 kart göstermek için sütun sayısını 2 yapın */
+    }
+  }
+
+
+  .box select {
+    background-color: #94cdfc;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border-radius: 15px;
+    border: none;
+    font-size: 17px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+  .box::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  
+  .box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .box select option {
+    padding: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .box {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  
+    .box select {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+
+  @media (max-width: 994px) {
+    .box select {
+        width: 150px;
+        font-size: 14px;
+      }
+    
+      .box select {
+        width: 100%;
+        padding: 10px;
+      }
+  }

@@ -23,7 +23,7 @@ export class ConfirmationModalComponent implements OnInit {
   myForm!: FormGroup;
   hedef_soru: any;
   categories: any[] = []
-  selectedCategory: any
+  selectedCategory: any=''
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
