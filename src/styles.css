@@ -109,3 +109,7 @@ nb-layout-column{
         /* Diğer stil ayarlarını burada ekleyebilirsiniz */
 
 }
+
+.nb-theme-default nb-layout .layout .layout-container .content nb-layout-footer nav{
+    padding: 0.5em !important;
+}

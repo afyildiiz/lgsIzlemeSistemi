@@ -249,8 +249,8 @@ article{
 
 
 .box select {
-    background-color: #94cdfc;
-    color: white;
+    background-color: #aad8fd;
+    color: rgb(0, 0, 0);
     padding: 12px;
     /* width: 250px; */
 	width: 100%;

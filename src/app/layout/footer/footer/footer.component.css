@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&family=Open+Sans:wght@300&display=swap');
 img{
-    animation: spinx 5s infinite;
-    margin-left: 0.5em;
-    margin-bottom: 0.7em;
+    animation: spinx 4s infinite;
+
+}
+p{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
 }
 
 
