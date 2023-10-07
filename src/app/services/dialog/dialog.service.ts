@@ -1,6 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
+import { BehaviorSubject } from 'rxjs';
 import { ConfirmationModalComponent } from 'src/app/views/components/confirmation-modal/confirmation-modal/confirmation-modal.component';
 import { DeleteUserComponent } from 'src/app/views/components/delete/delete-user/delete-user.component';
 import { ResultCardComponent } from 'src/app/views/components/result-card/result-card/result-card.component';
@@ -11,6 +12,17 @@ import { TextModalComponent } from 'src/app/views/components/text-modal/text-mod
 })
 export class DialogService {
   constructor(private nbdialogService: NbDialogService) { }
+  
+  private dersAdiSubject = new BehaviorSubject<string>('');
+
+  setDersAdi(dersAdi: string) {
+    this.dersAdiSubject.next(dersAdi);
+  }
+
+  getDersAdi() {
+    return this.dersAdiSubject.asObservable();
+  }
+
 
   openModal(component: ComponentType<any>, hasBackdrop: boolean, hasScroll: boolean, customclassName?: string, data?: any) {
     const dialogRef = this.nbdialogService.open(component, {

@@ -23,12 +23,13 @@ export class GetLogPageComponent {
   categories: any[] = []
   lesson_id: any
   selectedMonth: any = new Date().getMonth()
-
+  lesson_name:any
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
   ]
 
   ngOnInit() {
+    this.lesson_name=history.state.lesson_name
     this.lesson_id = history.state.lesson_id
     this.currentTeacher = localStorage.getItem('currentTeacher')
     this.currentTeacher = JSON.parse(this.currentTeacher)

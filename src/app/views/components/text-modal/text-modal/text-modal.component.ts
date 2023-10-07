@@ -6,6 +6,7 @@ import { NbDialogRef } from '@nebular/theme';
 import { LogService } from 'src/app/services/log/log.service';
 import { StudentService } from 'src/app/services/student/student.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-text-modal',
@@ -19,7 +20,8 @@ export class TextModalComponent {
     private studentService: StudentService,
     private toastService: ToastService,
     private logService: LogService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private dialogservice:DialogService) {
 
   }
 
@@ -37,8 +39,8 @@ export class TextModalComponent {
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
   ]
-
   ngOnInit() {
+    this.getCurrentLesson()
     this.currentTeacher = localStorage.getItem('currentTeacher')
     this.currentTeacher = JSON.parse(this.currentTeacher)
 
@@ -60,6 +62,14 @@ export class TextModalComponent {
     return this.myForm.get('lessonsArray') as FormArray
   }
   */
+
+  dersAdi!: string;
+  getCurrentLesson(){
+    this.dialogservice.getDersAdi().subscribe((dersAdi:any) => {
+      this.dersAdi = dersAdi;
+      console.log(this.dersAdi)
+    });
+  }
 
   get subjects() {
     return this.myForm.get('subjects') as FormArray

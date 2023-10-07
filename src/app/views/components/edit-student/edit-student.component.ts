@@ -55,16 +55,17 @@ export class EditStudentComponent {
       
   }
 
-  getLogPage(lesson_id: string) {
-    this.router.navigate(['/teacher/getlogpage'], { state: { lesson_id: lesson_id } })
+  getLogPage(lesson_id: string,lesson_name:any) {
+    this.router.navigate(['/teacher/getlogpage'], { state: { lesson_id: lesson_id,lesson_name:lesson_name } })
   }
 
   goLogPage(lesson_id: string, ders_adi: string) {
     let ders = lesson_id;
     let hedef_soru = 0;
 
+    this.dialogService.setDersAdi(ders_adi)
     // Modal içine göndermek istediğiniz verileri bir nesne içinde toplayın ve state ile iletin
-    const modalData = { ders: { ders_id: ders, ders_adi: ders_adi }, hedef_soru: hedef_soru };
+    const modalData = { ders: { ders_id: ders }, hedef_soru: hedef_soru };
 
     // Dialog açma işlemini gerçekleştirin ve modalData'yı ileterek ders adını içeri aktarın
     this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => console.log(res));
