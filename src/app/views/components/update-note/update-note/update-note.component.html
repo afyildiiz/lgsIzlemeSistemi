@@ -1,0 +1,18 @@
+<nb-card>
+    <nb-card-header>
+        Güncelle
+    </nb-card-header>
+    <nb-card-body>
+        {{text}}
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row d-flex justify-content-center">
+            <div class="col-4">
+                <button nbButton status="primary" (click)="action(true)">Güncelle</button>
+            </div>
+            <div class="col-4">
+                <button nbButton status="warning" (click)="action(false)">Kalsın</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

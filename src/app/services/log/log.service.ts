@@ -14,6 +14,21 @@ export class LogService {
 
   token: string | null = this.authService.getToken();
 
+  getGeneralPerformByLessonId(lessonid: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.noteDataStoreid,
+      "Operation": "read",
+      "Data": `SELECT AVG(CAST(ROUND(performans::numeric, 2) AS numeric)) AS ortalama_performans FROM (SELECT lg.ogrenci_id, (CAST(SUM(dogru_sayisi) AS double precision) / CAST(SUM(cozulen_soru) AS double precision) * 100) AS performans FROM lgs_notes lg  WHERE lg.ders_id = '${lessonid}' GROUP BY lg.ogrenci_id) AS performanslar`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
   insertNote(student_id: string, lesson_id: string, year: string, month: string, lesson: any) {
     const body = {
       "Token": this.token,
@@ -167,6 +182,21 @@ export class LogService {
     );
   }
 
+  updateNote(ogrenci_id: any, lesson: any, date: any) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.noteDataStoreid,
+      "Operation": "update",
+      "Data": `UPDATE lgs_notes set kategori_id = '${lesson.kategori_id}', hedef_soru = '${lesson.hedef_soru}', aylik_hedef_soru = '${lesson.aylik_hedef_soru}' where ogrenci_id = '${ogrenci_id}' and yil = '${date.yil}' and ay = '${date.ay}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
   getPerformOfCategories(student_id: string) {
     const body = {
       "Token": this.token,
@@ -234,6 +264,21 @@ export class LogService {
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
       "Data": `select SUM(cozulen_soru) - (SUM(dogru_sayisi) + SUM(yanlis_sayisi)) AS toplam_bos_sayisi, ROUND((CAST(SUM(dogru_sayisi) AS double precision) / NULLIF(CAST(SUM(cozulen_soru) AS double precision), 0))::numeric * 100, 0) AS performans, ROUND( case WHEN SUM(hedef_soru) = 0 THEN 0 ELSE (CAST(SUM(cozulen_soru) AS double precision) / NULLIF(CAST(SUM(hedef_soru) AS double precision), 0))::numeric * 100 END, 0 ) AS calisma_performansi, to_char(gun, 'YYYY-MM-DD') AS gun,  SUM(cozulen_soru) AS toplam_cozulen_soru, SUM(dogru_sayisi) AS toplam_dogru_sayisi, SUM(yanlis_sayisi) AS toplam_yanlis_sayisi from lgs_notes where ogrenci_id = '${studentId}' AND ders_id = '${lessonId}' GROUP by (gun) ORDER by gun ASC`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
+  isUpdated(studentids: string, date: any) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.noteDataStoreid,
+      "Operation": "read",
+      "Data": `SELECT ll.ders_adi, SUM(lgs_notes.hedef_soru) AS toplam_hedef_soru, cast(ls.ogrenci_id as text), ls.ad , ls.soyad FROM lgs_notes JOIN lgs_lessons ll ON lgs_notes.ders_id = ll.ders_id INNER JOIN lgs_students ls ON ls.ogrenci_id = lgs_notes.ogrenci_id WHERE lgs_notes.ogrenci_id IN (${studentids}) AND lgs_notes.yil = '${date.yil}' AND lgs_notes.ay = '${date.ay}' GROUP BY ll.ders_adi, lgs_notes.ders_id, ls.ogrenci_id, ls.ad, ls.soyad `,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

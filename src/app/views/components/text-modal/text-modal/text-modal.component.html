@@ -185,151 +185,84 @@
 
 
 <div class="modal">
-	<article class="modal-container">
-		<header class="modal-container-header">
+    <article class="modal-container">
+        <header class="modal-container-header">
             <h1 class="text-center font-weight-bold"> {{dersAdi}} Dersine Çalışma Ekle</h1>
-			<button class="icon-button text-end" (click)="close()">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-					<path fill="none" d="M0 0h24v24H0z" />
-					<path fill="currentColor" d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
-				</svg>
-			</button>
-		</header>
-		<section class="modal-container-body rtf">
+            <button class="icon-button text-end" (click)="close()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path fill="currentColor"
+                        d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
+                </svg>
+            </button>
+        </header>
+        <section class="modal-container-body rtf">
             <nb-card-header>
                 <div class="row mb-3 box">
                     <div class="col">
-                        <select  [(ngModel)]="selectedStudent"
-                            (ngModelChange)="updateStudent()">
+                        <select [(ngModel)]="selectedStudent" (ngModelChange)="updateStudent()"
+                            placeholder="Öğrenci Seçin">
                             <option disabled value="">Öğrenci Seçin</option>
-                            <option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}{{student.soyad}}</option>
+                            <option value="all">Tümünü Seçin</option>
+                            <option *ngFor="let student of students" [value]="student.ogrenci_id">{{student.ad}}
+                                {{student.soyad}}</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-between box ">
-                    <select [(ngModel)]="selectedYear" placeholder="Yıl seçiniz" (ngModelChange)="updateYear()" class="mb-3">
-                    <option disabled value="">Yıl Seçin</option>
-                      <option value="2023">2023</option>
-                      <option value="2024">2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
+                    <select [(ngModel)]="selectedYear" placeholder="Yıl seçiniz" (ngModelChange)="updateYear()"
+                        class="mb-3">
+                        <option disabled value="">Yıl Seçin</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
                     </select>
-                  
-                    <select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()" class="mb-3">
-                        <option disabled value="">Ay Seçin</option>
-                      <option *ngFor="let month of months; index as i" [value]="i">{{month}}</option>
-                    </select>
-                  </div>
-                  
 
-                    <div class="row ">
-                        <div class=" d-flex justify-content-center" style="margin-top: 1em;">
+                    <select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()"
+                        class="mb-3">
+                        <option disabled value="">Ay Seçin</option>
+                        <option *ngFor="let month of months; index as i" [value]="i + 1">{{month}}</option>
+                    </select>
+                </div>
+
+                <div class="row ">
+                    <div class=" d-flex justify-content-center" style="margin-top: 1em;">
                         <p style="margin-top: 0.5em;width: 100%;margin-right: 1em;" class="text-end">Çözülen Soru</p>
-                            <input style="background-color: #bce1ff; border-radius: 15px" type="number" nbInput [(ngModel)]="formValues.hedef_soru" (blur)="isGreater()">
-                        </div>
+                        <input style="background-color: #bce1ff; border-radius: 15px" type="number" nbInput
+                            [(ngModel)]="formValues.hedef_soru" (blur)="isGreater()">
                     </div>
+                </div>
 
             </nb-card-header>
             <nb-card-body>
                 <form [formGroup]="myForm" class="scrollable">
-                    <div formArrayName="subjects" *ngIf="data.length && subjects.controls">
-                        <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
-                            <div class="row p-2 mb-1">
-                                <!--<div class="col-6">
-                                    <nb-select
-                                        [formControlName]="data[i]?.kategori_id || this.filteredCategories[i].kategori_id">
-                                        <nb-option
-                                            [value]="data[i]?.kategori_adi || filteredCategories[i].kategori_adi">{{data[i]?.kategori_adi
-                                            || filteredCategories[i].kategori_adi}}</nb-option>
-                                    </nb-select>
-                                </div>-->
-        
-                                <div class="col-6 box">
-                                    <select [formControlName]="data[i]?.kategori_id">
-                                        <option [value]="data[i]?.kategori_adi">{{data[i]?.kategori_adi}}</option>
-                                    </select>
-                                </div>
-        
-                                <div class="col-6">
-        
-                                    <input type="number" nbInput formControlName="goal"
-                                        [value]="data[i].hedef_soru ? data[i].hedef_soru : 0">
-                                </div>
-                                <!--
-                                <div class="col-6">
-                                    <input type="number" nbInput formControlName="goal"
-                                        [value]="filteredCategories[i].hedef_soru ? filteredCategories[i].hedef_soru : 0">
-                                </div>-->
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col d-flex justify-content-end">
-                                <button nbButton status="primary" (click)="addSubject()"
-                                    [disabled]="categoriesLen == categories.length">Konu Ekle</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div formArrayName="subjects" *ngIf="!data.length">
+                    <div formArrayName="subjects">
                         <div *ngFor="let group of subjects.controls; let i = index" [formGroupName]="i">
                             <div class="row p-2 mb-1">
                                 <div class="col-6 box">
-                                    <select formControlName="subject" fullWidth>
-                                        <option *ngFor="let category of filteredCategories" [value]="category.kategori_id">
-                                            {{category.kategori_adi}}
-                                        </option>
+                                    <select [formControlName]="categories[i].kategori_id">
+                                        <option [value]="categories[i].kategori_adi">
+                                            {{categories[i].kategori_adi}}</option>
                                     </select>
                                 </div>
+
                                 <div class="col-6">
-                                    <input style="background-color: #bce1ff; border-radius: 15px" type="number" nbInput formControlName="goal">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col d-flex justify-content-end">
-                                <button nbButton status="primary" (click)="addSubject()"
-                                    [disabled]="categoriesLen == categories.length">Konu Ekle</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div formArrayName="lessonsArray">
-                        <div *ngFor="let group of lessonsArray.controls; let i = index" [formGroupName]="i">
-                            <div class="row p-2 mb-1">
-                                <div class="col">
-                                    <input type="text" nbInput [formControlName]="filteredCategories[i].kategori_id">
-                                </div>
-                                <div class="col">
                                     <input type="number" nbInput formControlName="hedef_soru">
                                 </div>
+
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </form>
             </nb-card-body>
-		</section>
-		<footer class="modal-container-footer">
-                <div class="col d-flex justify-content-center">
-                    <button class="button is-primary" (click)="isUpdate? update() : save()">{{isUpdate? 'Güncelle' :
-                        'Kaydet'}}</button>
-                </div>
-		</footer>
-	</article>
+        </section>
+        <footer class="modal-container-footer">
+            <div class="col d-flex justify-content-center">
+                <button class="button is-primary" (click)="isUpdate? update() : save()">{{isUpdate? 'Güncelle' :
+                    'Kaydet'}}</button>
+            </div>
+        </footer>
+    </article>
 </div>
-
-
-
-
-<!--
-<form [formGroup]="myForm">
-    <div formArrayName="lessonsArray">
-        <div *ngFor="let group of lessonsArray.controls; let i = index" [formGroupName]="i">
-            <input nbInput type="text" formControlName="ders_adi">
-            <input nbInput type="text" formControlName="hedef_soru">
-            <button nbButton outline status="primary">+</button>
-        </div>
-    </div>
-</form>
--->
-
-<!-- her dersi bir nbmenu tarzı yapıp altında formcontrol nesnesiyle kategori ve heedef soru ve yanında da sil butonu
-    -->

@@ -53,6 +53,7 @@ import { ResultCardComponent } from './views/components/result-card/result-card/
 import { StudentPerformComponent } from './views/components/student-perform/student-perform/student-perform.component';
 import { DeleteUserComponent } from './views/components/delete/delete-user/delete-user.component';
 import { StudentNavbarComponent } from './views/components/student-navbar/student-navbar.component';
+import { UpdateNoteComponent } from './views/components/update-note/update-note/update-note.component';
 
 registerAllModules()
 
@@ -98,7 +99,8 @@ registerAllModules()
     ResultCardComponent,
     StudentPerformComponent,
     DeleteUserComponent,
-    StudentNavbarComponent
+    StudentNavbarComponent,
+    UpdateNoteComponent
   ],
   imports: [
     BrowserModule,

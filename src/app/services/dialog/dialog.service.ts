@@ -6,13 +6,14 @@ import { ConfirmationModalComponent } from 'src/app/views/components/confirmatio
 import { DeleteUserComponent } from 'src/app/views/components/delete/delete-user/delete-user.component';
 import { ResultCardComponent } from 'src/app/views/components/result-card/result-card/result-card.component';
 import { TextModalComponent } from 'src/app/views/components/text-modal/text-modal/text-modal.component';
+import { UpdateNoteComponent } from 'src/app/views/components/update-note/update-note/update-note.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DialogService {
   constructor(private nbdialogService: NbDialogService) { }
-  
+
   private dersAdiSubject = new BehaviorSubject<string>('');
 
   setDersAdi(dersAdi: string) {
@@ -80,5 +81,17 @@ export class DialogService {
     })
     return dialogRef;
   }
+
+  openUpdateModal(text: string) {
+    const dialogRef = this.nbdialogService.open(UpdateNoteComponent, {
+      hasBackdrop: true,
+      hasScroll: true,
+      context: {
+        text: text
+      }
+    })
+    return dialogRef;
+  }
+
 
 }

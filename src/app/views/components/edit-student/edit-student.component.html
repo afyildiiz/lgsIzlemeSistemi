@@ -59,22 +59,23 @@
                         <nb-card-body>
                             <div class="row">
                                 <div class="grid-container">
-                                    <div class="card" *ngFor="let lesson of lessons">
+                                    <div class="card" *ngFor="let lesson of lessons; index as i">
                                         <div class="card-body text-center">
                                             <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
                                                 class="card-title">{{lesson.ders_adi}}</h5>
                                             <hr>
-                                            <p class="card-text">Some quick example text to build on the card title and
-                                                make up the bulk of the card's content.</p>
+                                            <b class="card-text">Genel Performans: %{{performs[i] || 0}}</b>
                                             <!-- <div class="buttons">
                                                  <a  class="btn mr-2" (click)="goLogPage(lesson.ders_id)"> Çalışma Gir</a>
                                                  <a  class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>
                                                 </div> -->
-                                            <div class=" buttons">
-                                                <a class="btn btn-lg" (click)="goLogPage(lesson.ders_id,lesson.ders_adi)">
+                                            <div class=" buttons mt-3">
+                                                <a class="btn btn-lg"
+                                                    (click)="goLogPage(lesson.ders_id,lesson.ders_adi)">
                                                     <span>Çalışma Gir</span>
                                                 </a>
-                                                <a class="btn btn-lg" (click)="getLogPage(lesson.ders_id,lesson.ders_adi)">
+                                                <a class="btn btn-lg"
+                                                    (click)="getLogPage(lesson.ders_id,lesson.ders_adi)">
                                                     <span>Çalışmaları Gör</span>
                                                 </a>
                                             </div>
@@ -99,9 +100,10 @@
                                                 <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
                                                     class="card-title">{{student.ad}} {{student.soyad}}</h5>
                                                 <hr>
-                                                <div class="buttons mt-3">
+                                                <div class="buttons mt-3 mb-3">
                                                     <a class="btn btn-lg">
-                                                        <span (click)="selectStudent(i,student.ad,student.soyad)">Çalışmaları
+                                                        <span
+                                                            (click)="selectStudent(i,student.ad,student.soyad)">Çalışmaları
                                                             Görüntüle</span>
                                                     </a>
                                                 </div>
