@@ -18,7 +18,7 @@ export class ConfirmationModalComponent implements OnInit {
     private fb: FormBuilder,
     private toastService: ToastService,
     private logService: LogService,
-    private dialogService:DialogService) { }
+    private dialogService: DialogService) { }
 
   @Input() lesson_id: any;
   @Input() student_id: any;
@@ -42,13 +42,15 @@ export class ConfirmationModalComponent implements OnInit {
 
     this.getCategories()
   }
-  lesson_name:any
-  getLesson(){
-    this.dialogService.getDersAdi().subscribe((res:any)=>{
-      this.lesson_name=res
+  lesson_name: any
+  getLesson() {
+    this.dialogService.getDersAdi().subscribe((res: any) => {
+      this.lesson_name = res
       console.log(this.lesson_name)
     })
   }
+
+  isUpdated: boolean = false
 
   getGoals(changes?: any) {
     let tarih = this.myForm.value.tarih
@@ -58,6 +60,7 @@ export class ConfirmationModalComponent implements OnInit {
       this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, ay).subscribe(res => {
         console.log(res)
         if (res.length) {
+          this.isUpdated = true
           this.hedef_soru = res[0].hedef_soru
           this.myForm.get('cozulen_soru')?.setValue(res[0].cozulen_soru)
           this.myForm.get('dogru_sayisi')?.setValue(res[0].dogru_sayisi)
@@ -94,7 +97,7 @@ export class ConfirmationModalComponent implements OnInit {
         if (this.myForm.value.cozulen_soru >= this.myForm.value.dogru_sayisi + this.myForm.value.yanlis_sayisi) {
           this.myForm.value.kategori_id = this.selectedCategory
           this.myForm.value.hedef_soru = this.hedef_soru;
-          this.dialogRef.close(this.myForm.value);
+          this.dialogRef.close({ value: this.myForm.value, isUpdated: this.isUpdated });
         }
       } else {
         this.toastService.showToast('warning', 'form verileri geçerli değil');

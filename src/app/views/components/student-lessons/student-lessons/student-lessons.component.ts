@@ -90,39 +90,42 @@ export class StudentLessonsComponent {
     this.dialogService.setDersAdi(ders_adi)
     this.dialogService.openConfirmationModal(lesson_id, this.currentStudent.ogrenci_id, 'confirmation-modal').onClose.subscribe((res: any) => {
       if (res) {
-        let tarih = res.tarih.split('-')[1]
-        let ay = new Date(tarih).getMonth() + 1
-        if (res.hedef_soru == 0) {
+
+        if (res.isUpdated === true) {
+          let tarih = res.value.tarih.split('-')[1]
+          let ay = new Date(tarih).getMonth() + 1
+
+          this.logService.updateStudentNote(this.currentStudent.ogrenci_id, {
+            cozulen_soru: res.value.cozulen_soru,
+            dogru_sayisi: res.value.dogru_sayisi,
+            yanlis_sayisi: res.value.yanlis_sayisi,
+            kategori_id: res.value.kategori_id,
+            tarih: res.value.tarih,
+            lesson_id: lesson_id,
+            hedef_soru: res.value.hedef_soru,
+            ay: ay,
+            yil: '2023'
+          }).subscribe(res => console.log(res))
+        }
+        else if (res.isUpdated === false) {
+          let tarih = res.value.tarih.split('-')[1]
+          let ay = new Date(tarih).getMonth() + 1
+
           this.logService.insertStudentNote(this.currentStudent.ogrenci_id, {
             lesson_id: lesson_id,
             hedef_soru: 0,
-            kategori_id: res.kategori_id,
-            cozulen_soru: res.cozulen_soru,
-            dogru_sayisi: res.dogru_sayisi,
-            yanlis_sayisi: res.yanlis_sayisi,
-            tarih: res.tarih,
+            kategori_id: res.value.kategori_id,
+            cozulen_soru: res.value.cozulen_soru,
+            dogru_sayisi: res.value.dogru_sayisi,
+            yanlis_sayisi: res.value.yanlis_sayisi,
+            tarih: res.value.tarih,
             aylik_hedef_soru: 0,
             ay: ay,
             yil: '2023'
           }).subscribe(res => console.log(res))
         }
-        else {
-          let tarih = res.tarih.split('-')[1]
-          let ay = new Date(tarih).getMonth() + 1
 
-          this.logService.updateStudentNote(this.currentStudent.ogrenci_id, {
-            cozulen_soru: res.cozulen_soru,
-            dogru_sayisi: res.dogru_sayisi,
-            yanlis_sayisi: res.yanlis_sayisi,
-            kategori_id: res.kategori_id,
-            tarih: res.tarih,
-            lesson_id: lesson_id,
-            hedef_soru: res.hedef_soru,
-            ay: ay,
-            yil: '2023'
-          }).subscribe(res => console.log(res))
-        }
       }
-    });
+    })
   }
 }

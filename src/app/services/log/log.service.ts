@@ -158,7 +158,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "insert",
-      "Data": `insert into lgs_notes(ogrenci_id, kategori_id, ders_id, hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, gun, ay, yil, aylik_hedef_soru) values ('${student_id}', '${lesson.kategori_id}', '${lesson.lesson_id}', '${lesson.hedef_soru}', '${lesson.cozulen_soru}', '${lesson.dogru_sayisi}', '${lesson.yanlis_sayisi}', '${lesson.tarih}', '${lesson.ay}', '${lesson.yil}' '${lesson.aylik_hedef_soru}')`,
+      "Data": `insert into lgs_notes(ogrenci_id, kategori_id, ders_id, hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, gun, ay, yil, aylik_hedef_soru) values ('${student_id}', '${lesson.kategori_id}', '${lesson.lesson_id}', '${lesson.hedef_soru}', '${lesson.cozulen_soru}', '${lesson.dogru_sayisi}', '${lesson.yanlis_sayisi}', '${lesson.tarih}', '${lesson.ay}', '${lesson.yil}', '${lesson.aylik_hedef_soru}')`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
