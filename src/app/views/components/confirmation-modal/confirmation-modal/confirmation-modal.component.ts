@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { LessonCategoryService } from 'src/app/services/lesson-category/lesson-category.service';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -16,7 +17,8 @@ export class ConfirmationModalComponent implements OnInit {
     private lessonCategoryService: LessonCategoryService,
     private fb: FormBuilder,
     private toastService: ToastService,
-    private logService: LogService) { }
+    private logService: LogService,
+    private dialogService:DialogService) { }
 
   @Input() lesson_id: any;
   @Input() student_id: any;
@@ -26,6 +28,7 @@ export class ConfirmationModalComponent implements OnInit {
   selectedCategory: any = ''
 
   ngOnInit(): void {
+    this.getLesson()
     this.myForm = this.fb.group({
       cozulen_soru: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
       dogru_sayisi: ['', [Validators.required, Validators.pattern(/^[0-9]*$/)]],
@@ -38,6 +41,13 @@ export class ConfirmationModalComponent implements OnInit {
     });
 
     this.getCategories()
+  }
+  lesson_name:any
+  getLesson(){
+    this.dialogService.getDersAdi().subscribe((res:any)=>{
+      this.lesson_name=res
+      console.log(this.lesson_name)
+    })
   }
 
   getGoals(changes?: any) {

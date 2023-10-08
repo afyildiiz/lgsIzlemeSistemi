@@ -13,6 +13,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
   styleUrls: ['./log-page.component.css']
 })
 export class LogPageComponent {
+
   /*
     constructor(private logService: LogService,
       private lessonCategoryService: LessonCategoryService,
@@ -151,6 +152,7 @@ export class LogPageComponent {
 
   constructor(private logService: LogService,
     private dialogService: DialogService) { }
+    ders_adi:any
 
   currentStudent: any;
   datas: any[] = []
@@ -162,7 +164,7 @@ export class LogPageComponent {
 
   ngOnInit() {
     this.currentLessonId = history.state.lesson_id
-
+    this.ders_adi=history.state.ders_adi
     this.currentStudent = localStorage.getItem('currentStudent');
     this.currentStudent = JSON.parse(this.currentStudent);
 

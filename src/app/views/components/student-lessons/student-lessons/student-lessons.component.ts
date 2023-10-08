@@ -75,16 +75,19 @@ export class StudentLessonsComponent {
     this.router.navigate(['/student/categories'], { state: { lessonId: event } });
   }
 
-  goLogPage(lesson_id: string) {
-    this.router.navigate(['/student/logpage'], { state: { lesson_id: lesson_id } })
+  goLogPage(lesson_id: string, ders_adi: any) {
+    this.router.navigate(['/student/logpage'], { state: { lesson_id: lesson_id, ders_adi: ders_adi } })
   }
 
   getLogPage(lesson_id: string) {
     this.router.navigate(['/teacher/getlogpage'], { state: { lesson_id: lesson_id } })
   }
 
-  insertLog(lesson_id: string) { //category_id: string
+  insertLog(lesson_id: string, ders_adi: any) { //category_id: string
 
+    //this.router.navigate(['/student/logpage'], { state: { currentLesson: lesson_id } })
+
+    this.dialogService.setDersAdi(ders_adi)
     this.dialogService.openConfirmationModal(lesson_id, this.currentStudent.ogrenci_id, 'confirmation-modal').onClose.subscribe((res: any) => {
       if (res) {
         let tarih = res.tarih.split('-')[1]
