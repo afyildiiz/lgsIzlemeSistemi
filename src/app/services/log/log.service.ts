@@ -34,7 +34,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `insert into lgs_notes(ogrenci_id, ders_id, kategori_id, aylik_hedef_soru, hedef_soru, yil, ay, gun_) values ('${student_id}', '${lesson_id}', '${lesson.kategori_id}', '${lesson.aylik_hedef_soru}', '${lesson.hedef_soru}', ${year}, '${month}', '')`,
+      "Data": `insert into lgs_notes(ogrenci_id, ders_id, kategori_id, aylik_hedef_soru, hedef_soru, yil, ay) values ('${student_id}', '${lesson_id}', '${lesson.kategori_id}', '${lesson.aylik_hedef_soru}', '${lesson.hedef_soru}', '${year}', '${month}')`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -187,7 +187,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "update",
-      "Data": `UPDATE lgs_notes set kategori_id = '${lesson.kategori_id}', hedef_soru = '${lesson.hedef_soru}', aylik_hedef_soru = '${lesson.aylik_hedef_soru}' where ogrenci_id = '${ogrenci_id}' and yil = '${date.yil}' and ay = '${date.ay}'`,
+      "Data": `UPDATE lgs_notes set hedef_soru = '${lesson.hedef_soru}', aylik_hedef_soru = '${lesson.aylik_hedef_soru}' where ogrenci_id = '${ogrenci_id}' and yil = '${date.yil}' and ay = '${date.ay}' and kategori_id = '${lesson.kategori_id}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { LessonCategoryService } from 'src/app/services/lesson-category/lesson-category.service';
-import { tap } from 'rxjs'
+import { EMPTY, catchError, finalize, forkJoin, from, mergeMap, of, switchMap, tap } from 'rxjs'
 import { NbDialogRef } from '@nebular/theme';
 import { LogService } from 'src/app/services/log/log.service';
 import { StudentService } from 'src/app/services/student/student.service';
@@ -147,75 +147,243 @@ export class TextModalComponent {
       }).subscribe(res => console.log(res))
     })
   }
+  insertedids: any[] = []
+  updatedids: any[] = []
 
-  /*save() {
-
-    let array: any[] = []
-    this.subjects.controls.map((c: any, indis: number) => {
-      array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru, aylik_hedef_soru: this.formValues.hedef_soru })
-    })
-
-    let studentids: string = ''
-
-    if (this.selectedStudent === 'all') {
-      studentids = this.students.map(st => `'${st.ogrenci_id}'`).join(',')
-    } else {
-      studentids = `'${this.selectedStudent}'`
-    }
-
-    let insertedids: any[] = []
-
-    let updatedids: any[] = []
-
-    this.logService.isUpdated(studentids, { yil: this.selectedYear, ay: this.selectedMonth }).subscribe(res => {
-      if (res.length) {
-        let text: string = ''
-        res.map((res: any) => {
-          updatedids.push(res.ogrenci_id)
-          text = `${res.ad} ${res.soyad} adlı öğrencinin belirtilen tarihte girilmiş bir hedefi bulunmakta. Değerleri güncellemek ister misiniz?`
-          this.dialogservice.openUpdateModal(text).onClose.pipe(
-            tap(response => {
-              if (response) {
-                array.map((arr: any) => {
-                  if (arr.hedef_soru) {
-                    this.logService.updateNote(res.ogrenci_id, {
-                      kategori_id: arr.kategori_id, hedef_soru: arr.hedef_soru
-                      , aylik_hedef_soru: arr.aylik_hedef_soru
-                    }, { yil: this.selectedYear, ay: this.selectedMonth }).subscribe(res => console.log(res))
-                  }
-                })
+  openUpdateDialog(student: any, array: any[]) {
+    const text = `${student.ad} ${student.soyad} adlı öğrencinin belirtilen tarihte girilmiş bir hedefi bulunmakta. Değerleri güncellemek ister misiniz?`;
+    return this.dialogservice.openUpdateModal(text).onClose.pipe(
+      switchMap(response => {
+        if (response == true) {
+          return from(array).pipe(
+            mergeMap(arr => {
+              if (arr.hedef_soru) {
+                console.log(arr)
+                console.log(student.ogrenci_id)
+                return this.logService.updateNote(student.ogrenci_id, {
+                  kategori_id: arr.kategori_id,
+                  hedef_soru: arr.hedef_soru,
+                  aylik_hedef_soru: arr.aylik_hedef_soru
+                }, { yil: this.selectedYear, ay: this.selectedMonth });
+              } else {
+                return EMPTY; // Hedef_soru yoksa işlem yapma
               }
             })
+          );
+        } else {
+          this.updatedids.push(student.ogrenci_id);
+          this.insertedids = this.insertedids.filter(id => !this.updatedids.includes(id)
           )
+          return EMPTY
+        }
+      }),
+      tap(() => {
+        // Güncelleme işlemi tamamlandığında updatedids dizisini güncelle
+        this.updatedids.push(student.ogrenci_id);
+
+        this.insertedids = this.insertedids.filter(id => !this.updatedids.includes(id)
+        )
+      })
+    );
+  }
+
+  /*
+    son hali
+  save() {
+    let insertedids: any[] = [];
+    let array: any[] = [];
+    let studentids: string = '';
+
+    this.subjects.controls.map((c: any, indis: number) => {
+      array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru, aylik_hedef_soru: this.formValues.hedef_soru });
+    });
+
+    if (this.selectedStudent === 'all') {
+      this.insertedids = this.students.map(st => st.ogrenci_id)
+
+      studentids = this.students.map(st => `'${st.ogrenci_id}'`).join(',');
+    } else {
+      this.insertedids.push(this.selectedStudent)
+      studentids = `'${this.selectedStudent}'`;
+    }
+
+    // Daha sonra bu işlemleri kullanabilirsiniz
+    this.logService.isUpdated(studentids, { yil: this.selectedYear, ay: this.selectedMonth }).pipe(
+      switchMap(res => {
+        if (res.length) {
+          return forkJoin(res.map((student: any) => this.openUpdateDialog(student, array)));
+        } else {
+          return of([]);
+        }
+      }),
+      tap(updatedResponses => {
+        // Güncelleme yanıtlarını işleyin
+        console.log(updatedResponses);
+      }),
+      catchError(error => {
+        // Hata işleme
+        console.error(error);
+        return of([]);
+      })
+    ).subscribe(() => {
+      // İşlem tamamlandığında yapılacaklar
+      // Update işlemi tamamlandığında yapılacaklar
+      this.students.forEach(student => {
+        if (!this.updatedids.includes(student.ogrenci_id)) {
+          insertedids.push(student.ogrenci_id);
+        }
+      });
+
+      // İşlem tamamlandığında insertedids dizisini güncelle
+
+      if (this.insertedids.length) {
+        this.insertedids.map(id => {
+          console.log(id)
+          array.map(arr => {
+            console.log(arr)
+            this.logService.insertNote(id, this.formValues.ders.ders_id, this.selectedYear, this.selectedMonth,
+              {
+                kategori_id: arr.kategori_id,
+                hedef_soru: arr.hedef_soru || 0,
+                aylik_hedef_soru: arr.aylik_hedef_soru
+              }).subscribe()
+          })
+          this.insertedids.shift()
+
         })
       }
-    })
-    this.students.map(student => {
-      if (!updatedids.includes(student))
-        insertedids.push(student.ogrenci_id)
-    })
+    });
 
   }*/
-
-
   save() {
+    let array: any[] = [];
+    let studentids: string = '';
 
+    this.subjects.controls.map((c: any, indis: number) => {
+      array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru, aylik_hedef_soru: this.formValues.hedef_soru });
+    });
+
+    if (this.selectedStudent === 'all') {
+      this.insertedids = this.students.map(st => st.ogrenci_id)
+
+      studentids = this.students.map(st => `'${st.ogrenci_id}'`).join(',');
+    } else {
+      this.insertedids.push(this.selectedStudent)
+
+      studentids = `'${this.selectedStudent}'`;
+    }
+    console.log(studentids)
+
+    // Daha sonra bu işlemleri kullanabilirsiniz
+    this.logService.isUpdated(studentids, { yil: this.selectedYear, ay: this.selectedMonth }).pipe(
+      switchMap(res => {
+        if (res.length) {
+          return forkJoin(res.map((student: any) => this.openUpdateDialog(student, array)));
+        } else {
+          return of([]);
+        }
+      }),
+      tap(updatedResponses => {
+        // Güncelleme yanıtlarını işleyin
+        console.log(updatedResponses);
+      }),
+      catchError(error => {
+        // Hata işleme
+        console.error(error);
+        return of([]);
+      })
+    ).subscribe(() => {
+
+      // İşlem tamamlandığında insertedids dizisini güncelle
+      if (this.insertedids.length) {
+        this.insertedids.forEach(id => {
+          console.log(id);
+          array.forEach(arr => {
+            console.log(arr);
+            this.logService.insertNote(id, this.formValues.ders.ders_id, this.selectedYear, this.selectedMonth,
+              {
+                kategori_id: arr.kategori_id,
+                hedef_soru: arr.hedef_soru || 0,
+                aylik_hedef_soru: arr.aylik_hedef_soru
+              }).subscribe();
+          });
+        });
+        this.insertedids = []; // insertedids dizisini boşaltın
+      }
+    });
+  }
+
+
+}
+
+
+/*save() {
+
+  let array: any[] = []
+  this.subjects.controls.map((c: any, indis: number) => {
+    array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru, aylik_hedef_soru: this.formValues.hedef_soru })
+  })
+
+  let studentids: string = ''
+
+  if (this.selectedStudent === 'all') {
+    studentids = this.students.map(st => `'${st.ogrenci_id}'`).join(',')
+  } else {
+    studentids = `'${this.selectedStudent}'`
+  }
+
+  let insertedids: any[] = []
+
+  let updatedids: any[] = []
+
+  this.logService.isUpdated(studentids, { yil: this.selectedYear, ay: this.selectedMonth }).subscribe(res => {
+    if (res.length) {
+      let text: string = ''
+      res.map((res: any) => {
+        updatedids.push(res.ogrenci_id)
+        text = `${res.ad} ${res.soyad} adlı öğrencinin belirtilen tarihte girilmiş bir hedefi bulunmakta. Değerleri güncellemek ister misiniz?`
+        this.dialogservice.openUpdateModal(text).onClose.pipe(
+          tap(response => {
+            if (response) {
+              array.map((arr: any) => {
+                if (arr.hedef_soru) {
+                  this.logService.updateNote(res.ogrenci_id, {
+                    kategori_id: arr.kategori_id, hedef_soru: arr.hedef_soru
+                    , aylik_hedef_soru: arr.aylik_hedef_soru
+                  }, { yil: this.selectedYear, ay: this.selectedMonth }).subscribe(res => console.log(res))
+                }
+              })
+            }
+          })
+        )
+      })
+    }
+  })
+  this.students.map(student => {
+    if (!updatedids.includes(student))
+      insertedids.push(student.ogrenci_id)
+  })
+
+}*/
+
+/*
+  save() {
+ 
+    let insertedids: any[] = []
+    let updatedids: any[] = []
     let array: any[] = []
+    let studentids: string = ''
+ 
     this.subjects.controls.map((c: any, indis: number) => {
       array.push({ kategori_id: Object.keys(c.value)[0], hedef_soru: c.value.hedef_soru, aylik_hedef_soru: this.formValues.hedef_soru })
     })
-
-    let studentids: string = ''
-
+ 
     if (this.selectedStudent === 'all') {
       studentids = this.students.map(st => `'${st.ogrenci_id}'`).join(',')
     } else {
       studentids = `'${this.selectedStudent}'`
     }
-
-    let insertedids: any[] = []
-    let updatedids: any[] = []
-
+ 
     this.logService.isUpdated(studentids, { yil: this.selectedYear, ay: this.selectedMonth }).pipe(
       tap(res => {
         if (res.length) {
@@ -224,7 +392,8 @@ export class TextModalComponent {
             let text = `${res.ad} ${res.soyad} adlı öğrencinin belirtilen tarihte girilmiş bir hedefi bulunmakta. Değerleri güncellemek ister misiniz?`
             this.dialogservice.openUpdateModal(text).onClose.pipe(
               tap(response => {
-                if (response) {
+                console.log(response)
+                if (response == true) {
                   array.map((arr: any) => {
                     if (arr.hedef_soru) {
                       this.logService.updateNote(res.ogrenci_id, {
@@ -235,25 +404,27 @@ export class TextModalComponent {
                   })
                 }
               })
-            )
+            ).subscribe()
           })
         }
       })
     ).subscribe()
-
+ 
     this.students.map((student: any) => {
       if (!updatedids.includes(student.ogrenci_id)) {
         insertedids.push(student.ogrenci_id)
       }
     })
-    array.map((arr: any) => {
-      if (arr.hedef_soru) {
-        insertedids.map(id => {
+ 
+ 
+    insertedids.map(id => {
+      array.map((arr: any) => {
+        if (arr.hedef_soru) {
           this.logService.insertNote(id, this.formValues.ders.ders_id, this.selectedYear, this.selectedMonth, {
             aylik_hedef_soru: arr.aylik_hedef_soru, hedef_soru: arr.hedef_soru, kategori_id: arr.kategori_id
           }).subscribe(res => console.log(res))
-        })
-      }
+        }
+      })
     })
   }
-}
+  */

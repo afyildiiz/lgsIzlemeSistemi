@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { StudentService } from 'src/app/services/student/student.service';
-import { TeacherLogComponent } from '../teacher-log/teacher-log.component';
 import { LessonService } from 'src/app/services/lesson/lesson.service';
 import { Router } from '@angular/router';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
@@ -20,7 +19,6 @@ export class EditStudentComponent {
     private dialogService: DialogService,
     private router: Router) { }
 
-  @ViewChild(TeacherLogComponent) teacherLogComponent!: TeacherLogComponent;
   students: any[] = []
   currentTeacher: any;
   lessons: any[] = []
@@ -50,7 +48,7 @@ export class EditStudentComponent {
   performs: any[] = []
 
   getPerformByLessons(lessonid: string) {
-    this.logService.getGeneralPerformByLessonId(lessonid).subscribe(res => this.performs.push(res[0].ortalama_performans))
+    //this.logService.getGeneralPerformByLessonId(lessonid).subscribe(res => this.performs.push({ ders_id: lessonid, performans: res[0].ortalama_performans }))
   }
 
 
