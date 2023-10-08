@@ -23,7 +23,7 @@ export class ConfirmationModalComponent implements OnInit {
   myForm!: FormGroup;
   hedef_soru: any;
   categories: any[] = []
-  selectedCategory: any=''
+  selectedCategory: any = ''
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -33,7 +33,7 @@ export class ConfirmationModalComponent implements OnInit {
       tarih: [new Date().toISOString().split('T')[0]],
     })
 
-    this.myForm.get('tarih')?.valueChanges.subscribe(changes => {
+    this.myForm.get('tarih')?.valueChanges.subscribe((changes) => {
       this.getGoals(changes)
     });
 
@@ -41,17 +41,21 @@ export class ConfirmationModalComponent implements OnInit {
   }
 
   getGoals(changes?: any) {
-    this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, this.myForm.value.tarih).subscribe(res => {
-      console.log(res)
-      if (res.length) {
-        this.hedef_soru = res[0].hedef_soru
-        this.myForm.get('cozulen_soru')?.setValue(res[0].cozulen_soru)
-        this.myForm.get('dogru_sayisi')?.setValue(res[0].dogru_sayisi)
-        this.myForm.get('yanlis_sayisi')?.setValue(res[0].yanlis_sayisi)
-      }
-      else
-        this.hedef_soru = 0;
-    })
+    let tarih = this.myForm.value.tarih
+    let ay = new Date(tarih).getMonth() + 1
+
+    if (this.selectedCategory)
+      this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, ay).subscribe(res => {
+        console.log(res)
+        if (res.length) {
+          this.hedef_soru = res[0].hedef_soru
+          this.myForm.get('cozulen_soru')?.setValue(res[0].cozulen_soru)
+          this.myForm.get('dogru_sayisi')?.setValue(res[0].dogru_sayisi)
+          this.myForm.get('yanlis_sayisi')?.setValue(res[0].yanlis_sayisi)
+        }
+        else
+          this.hedef_soru = 0;
+      })
     /*
     kodun calısma mantıgı:
     tarihte veya konularda herhangi bir değişiklik oldugunda gidiyor ve notlar tablosuna mevcut ogrenci id'si ile mevcut kategoride

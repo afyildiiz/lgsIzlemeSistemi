@@ -64,7 +64,8 @@
                                             <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
                                                 class="card-title">{{lesson.ders_adi}}</h5>
                                             <hr>
-                                            <b class="card-text">Genel Performans: 0</b>
+                                            <b class="card-text">Genel Performans: %{{lesson.perform||
+                                                0}}</b>
                                             <!-- <div class="buttons">
                                                  <a  class="btn mr-2" (click)="goLogPage(lesson.ders_id)"> Çalışma Gir</a>
                                                  <a  class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>

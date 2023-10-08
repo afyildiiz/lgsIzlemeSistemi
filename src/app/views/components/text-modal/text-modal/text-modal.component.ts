@@ -50,8 +50,6 @@ export class TextModalComponent {
     this.getCategories()
     this.getStudents()
 
-
-
     this.subjects.valueChanges.subscribe((newWalue) => this.formChange(newWalue))
   }
 
@@ -71,6 +69,14 @@ export class TextModalComponent {
     this.lessonCategoryService.getCategoriesByLessonid(this.formValues.ders.ders_id).pipe(
       tap(res => this.categories = res),
     ).subscribe(() => this.addSubject())
+  }
+
+  getGeneralPerformByLessonId() {
+    /*let ids = this.students.map((student: any) => {
+      `'${student.ogrenci_id}'`
+    }).join(',')*/
+
+    this.logService.getGeneralPerformByStudentIds(this.studentids).subscribe(res => console.log(res))
   }
 
   filteredCategories: any[] = []
@@ -104,15 +110,11 @@ export class TextModalComponent {
 
   getStudents() {
     this.studentService.getStudentsByTeacherId(this.currentTeacher.id).pipe(
-      tap(res => this.students = res)
+      tap(res => this.students = res),
     ).subscribe(() => this.studentids = this.students.map(student => `'${student.ogrenci_id}'`).join(','))
   }
 
   data: any[] = []
-
-  updateYear() { }
-  updateMonth() { }
-  updateStudent() { }
 
   getGoals() {
     if (this.selectedStudent && this.selectedYear)

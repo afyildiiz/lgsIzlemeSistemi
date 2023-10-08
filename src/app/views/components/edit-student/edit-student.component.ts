@@ -22,35 +22,53 @@ export class EditStudentComponent {
   students: any[] = []
   currentTeacher: any;
   lessons: any[] = []
+  performs: any[] = []
 
   ngOnInit() {
     this.currentTeacher = localStorage.getItem('currentTeacher');
 
     this.getStudents();
-    this.getLessons()
   }
 
   getStudents() {
     let teacherId = JSON.parse(this.currentTeacher).id;
-    this.studentService.getStudentsByTeacherId(teacherId).subscribe(res => this.students = res)
+    this.studentService.getStudentsByTeacherId(teacherId).pipe(
+      tap(res => this.students = res),
+    ).subscribe(res => this.getLessons())
   }
 
   getLessons() {
     this.lessonService.getLessons().pipe(
       tap((res: any) => this.lessons = res)
-    ).subscribe(() => this.lessons.map(lesson => this.getPerformByLessons(lesson.ders_id)))
+    ).subscribe(() => this.getGeneralPerformByStudentIds())
+
+  }
+
+  getGeneralPerformByStudentIds() {
+    let studentids: string = ''
+    studentids = this.students.map(student => {
+      return `'${student.ogrenci_id}'`
+    }).join(',')
+
+    this.logService.getGeneralPerformByStudentIds(studentids).pipe(
+      tap(res => this.performs = res)
+    ).subscribe(() => {
+      this.performs.map((res: any) => {
+        this.lessons.map(lesson => {
+          if (res.ders_id == lesson.ders_id)
+            lesson.perform = res.performans
+        })
+      })
+    })
   }
 
   getLogPage(lesson_id: string, lesson_name: any) {
     this.router.navigate(['/teacher/getlogpage'], { state: { lesson_id: lesson_id, lesson_name: lesson_name } })
   }
 
-  performs: any[] = []
-
   getPerformByLessons(lessonid: string) {
     //this.logService.getGeneralPerformByLessonId(lessonid).subscribe(res => this.performs.push({ ders_id: lessonid, performans: res[0].ortalama_performans }))
   }
-
 
   goLogPage(lesson_id: string, ders_adi: string) {
     let ders = lesson_id;
@@ -63,19 +81,6 @@ export class EditStudentComponent {
     // Dialog açma işlemini gerçekleştirin ve modalData'yı ileterek ders adını içeri aktarın
     this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => console.log(res));
   }
-
-  // goLogPage(lesson_id: string,ders_adi:string) {
-  //   let ders = lesson_id;
-  //   let hedef_soru = 0;
-  //   let dersin_adi = ders_adi; // Dersin adını alın
-
-  //   // Modal içine göndermek istediğiniz verileri bir nesne içinde toplayın
-  //   let modalData = { ders: { ders_id: ders, ders_adi: ders_adi }, hedef_soru: hedef_soru };
-
-  //   // Dialog açma işlemini gerçekleştirin ve modalData'yı ileterek ders adını içeri aktarın
-  //   this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => console.log(res));
-  // }
-
 
   selectStudent(index: any, name: any, surname: any) {
     let currentStudent = this.students[index]

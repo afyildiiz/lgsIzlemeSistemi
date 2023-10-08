@@ -4,6 +4,7 @@ import { NbMenuItem } from '@nebular/theme';
 import { LogService } from 'src/app/services/log/log.service';
 import { tap } from 'rxjs'
 import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { LessonService } from 'src/app/services/lesson/lesson.service';
 
 @Component({
   selector: 'app-student-lessons',
@@ -17,6 +18,7 @@ export class StudentLessonsComponent {
 
   constructor(
     private logService: LogService,
+    private lessonService: LessonService,
     private dialogService: DialogService,
     private router: Router) { }
 
@@ -29,10 +31,11 @@ export class StudentLessonsComponent {
   }
 
   getLessons() {
-    this.logService.getPerformofLessons(this.currentStudent.ogrenci_id).pipe(
-      tap(res => this.lessons = res)
+    this.lessonService.getLessons().pipe(
+      tap(res => this.lessons = res),
+      tap(res => console.log(res))
     ).subscribe(() => {
-      this.lessons.map(e => {
+      /*this.lessons.map(e => {
 
         let color = (e.performans > 85) ? 'success' : (e.performans > 70) ? 'info' : (e.performans > 50) ? 'warning' : 'danger'
 
@@ -63,7 +66,7 @@ export class StudentLessonsComponent {
           }
         ]
         e.perform = items
-      })
+      })*/
 
     })
   }
@@ -82,12 +85,10 @@ export class StudentLessonsComponent {
 
   insertLog(lesson_id: string) { //category_id: string
 
-    //this.router.navigate(['/student/logpage'], { state: { currentLesson: lesson_id } })
-
-
     this.dialogService.openConfirmationModal(lesson_id, this.currentStudent.ogrenci_id, 'confirmation-modal').onClose.subscribe((res: any) => {
       if (res) {
-        let ay = res.tarih.split('-')[1]
+        let tarih = res.tarih.split('-')[1]
+        let ay = new Date(tarih).getMonth() + 1
         if (res.hedef_soru == 0) {
           this.logService.insertStudentNote(this.currentStudent.ogrenci_id, {
             lesson_id: lesson_id,
@@ -103,7 +104,9 @@ export class StudentLessonsComponent {
           }).subscribe(res => console.log(res))
         }
         else {
-          let ay = res.tarih.split('-')[1]
+          let tarih = res.tarih.split('-')[1]
+          let ay = new Date(tarih).getMonth() + 1
+
           this.logService.updateStudentNote(this.currentStudent.ogrenci_id, {
             cozulen_soru: res.cozulen_soru,
             dogru_sayisi: res.dogru_sayisi,

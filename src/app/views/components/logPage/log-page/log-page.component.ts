@@ -187,9 +187,9 @@ export class LogPageComponent {
       let cozulen_soru: number = 0
       let dogru_sayisi: number = 0
       let yanlis_sayisi: number = 0
-      let performans: string = ''
-      let calisma_performansi: string = ''
-      let hedef_soru: number = 0
+      let performans: any
+      let calisma_performansi: any
+      let hedef_soru: any
 
       this.datas.map(data => {
         cozulen_soru += data.cozulen_soru
@@ -197,8 +197,14 @@ export class LogPageComponent {
         yanlis_sayisi += data.yanlis_sayisi
         hedef_soru += data.hedef_soru
       })
-      performans = ((dogru_sayisi / cozulen_soru) * 100).toFixed(2)
-      calisma_performansi = ((cozulen_soru / hedef_soru) * 100).toFixed(2)
+      performans = ((dogru_sayisi / cozulen_soru) * 100)
+
+      if (isNaN(cozulen_soru) || isNaN(hedef_soru) || hedef_soru === 0) {
+        calisma_performansi = 0;
+      } else {
+        calisma_performansi = (cozulen_soru / hedef_soru) * 100;
+      }
+
       this.dialogService.openPerformModal({
         calisma_performansi,
         cozulen_soru, dogru_sayisi,
@@ -206,12 +212,5 @@ export class LogPageComponent {
       })
     }
   }
-
-
-  /*
-  updateMonth() {
-    this.getNotes()
-  }
-  */
 
 }

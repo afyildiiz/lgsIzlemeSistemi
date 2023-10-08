@@ -76,10 +76,9 @@
 
 
 
-
+<!--
 <div class="container">
 
-    <!-- <nb-card accent="primary" style="margin-top: 2rem;"> -->
     <nb-card-body>
         <div class="row">
             <div class="grid-container">
@@ -90,10 +89,7 @@
                         <hr>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
-                        <!-- <div class="buttons">
-                         <a  class="btn mr-2" (click)="goLogPage(lesson.ders_id)"> Çalışma Gir</a>
-                         <a  class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>
-                        </div> -->
+
                         <div class=" buttons">
                             <a class="btn btn-lg" (click)="insertLog(lesson.ders_id)">
                                 <span>Çalışma Gir</span>
@@ -107,10 +103,9 @@
             </div>
         </div>
     </nb-card-body>
-    <!-- </nb-card> -->
 </div>
 
-
+-->
 
 <section id="tabs">
     <div class="container">
@@ -118,29 +113,29 @@
         <div class="row">
             <div class="col-xs-12 ">
 
-                        <nb-card-body>
-                            <div class="row">
-                                <div class="grid-container">
-                                    <div class="card" *ngFor="let lesson of lessons">
-                                        <div class="card-body text-center">
-                                            <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
-                                                class="card-title">{{lesson.ders_adi}}</h5>
-                                            <hr>
-                                            <p class="card-text">Some quick example text to build on the card title and
-                                                make up the bulk of the card's content.</p>
-                                                <div class=" buttons">
-                                                    <a class="btn btn-lg" (click)="insertLog(lesson.ders_id)">
-                                                        <span>Çalışma Gir</span>
-                                                    </a>
-                                                    <a class="btn btn-lg" (click)="goLogPage(lesson.ders_id)">
-                                                        <span>Çalışmaları Gör</span>
-                                                    </a>
-                                                </div>
-                                        </div>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="grid-container">
+                            <div class="card" *ngFor="let lesson of lessons">
+                                <div class="card-body text-center">
+                                    <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
+                                        class="card-title">{{lesson.ders_adi}}</h5>
+                                    <hr>
+                                    <p class="card-text">Some quick example text to build on the card title and
+                                        make up the bulk of the card's content.</p>
+                                    <div class=" buttons">
+                                        <a class="btn btn-lg" (click)="insertLog(lesson.ders_id)">
+                                            <span>Çalışma Gir</span>
+                                        </a>
+                                        <a class="btn btn-lg" (click)="goLogPage(lesson.ders_id)">
+                                            <span>Çalışmaları Gör</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </nb-card-body>
+                        </div>
+                    </div>
+                </nb-card-body>
 
 
 

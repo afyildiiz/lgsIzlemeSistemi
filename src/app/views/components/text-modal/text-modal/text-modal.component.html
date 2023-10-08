@@ -200,7 +200,7 @@
             <nb-card-header>
                 <div class="row mb-3 box">
                     <div class="col">
-                        <select [(ngModel)]="selectedStudent" (ngModelChange)="updateStudent()"
+                        <select [(ngModel)]="selectedStudent"
                             placeholder="Öğrenci Seçin">
                             <option disabled value="">Öğrenci Seçin</option>
                             <option value="all">Tümünü Seçin</option>
@@ -211,7 +211,7 @@
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-between box ">
-                    <select [(ngModel)]="selectedYear" placeholder="Yıl seçiniz" (ngModelChange)="updateYear()"
+                    <select [(ngModel)]="selectedYear" placeholder="Yıl seçiniz"
                         class="mb-3">
                         <option disabled value="">Yıl Seçin</option>
                         <option value="2023">2023</option>
@@ -220,7 +220,7 @@
                         <option value="2026">2026</option>
                     </select>
 
-                    <select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz" (ngModelChange)="updateMonth()"
+                    <select [(ngModel)]="selectedMonth" placeholder="Ay seçiniz"
                         class="mb-3">
                         <option disabled value="">Ay Seçin</option>
                         <option *ngFor="let month of months; index as i" [value]="i + 1">{{month}}</option>

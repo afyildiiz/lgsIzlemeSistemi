@@ -14,8 +14,8 @@ export class GetLogPageComponent {
     private studentService: StudentService
   ) { }
 
-  selectedStudent: any=''
-  selectedCategory: any=''
+  selectedStudent: any = ''
+  selectedCategory: any = ''
   currentTeacher: any
   students: any[] = []
   filteredNotes: any[] = []
@@ -23,13 +23,13 @@ export class GetLogPageComponent {
   categories: any[] = []
   lesson_id: any
   selectedMonth: any = new Date().getMonth()
-  lesson_name:any
+  lesson_name: any
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
   ]
 
   ngOnInit() {
-    this.lesson_name=history.state.lesson_name
+    this.lesson_name = history.state.lesson_name
     this.lesson_id = history.state.lesson_id
     this.currentTeacher = localStorage.getItem('currentTeacher')
     this.currentTeacher = JSON.parse(this.currentTeacher)
@@ -67,7 +67,7 @@ export class GetLogPageComponent {
     }
   }
 
-  onSelectedCategory(event: any) {
+  /*onSelectedCategory(event: any) {
     this.selectedCategory = event;
 
     if (this.selectedStudent && this.selectedMonth) {
@@ -77,12 +77,12 @@ export class GetLogPageComponent {
     } else {
       this.filteredNotes = this.notes;
     }
-  }
+  }*/
 
   onSelectedMonth() {
     let month = this.selectedMonth + 1;
 
-    if (this.selectedCategory && this.selectedStudent) {
+    /*if (this.selectedCategory && this.selectedStudent) {
       this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory);
     } else if (this.selectedStudent) {
       this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent);
@@ -90,7 +90,9 @@ export class GetLogPageComponent {
       this.filteredNotes = this.notes.filter(note => note.ay == month && note.kategori_id == this.selectedCategory);
     } else {
       this.filteredNotes = this.notes.filter(note => note.ay == month);
-    }
+    }*/
+    if (this.selectedStudent)
+      this.filteredNotes = this.notes.filter(note => note.ogrenci_id == this.selectedStudent && month >= note.ay)
   }
 
   removeFilters() {

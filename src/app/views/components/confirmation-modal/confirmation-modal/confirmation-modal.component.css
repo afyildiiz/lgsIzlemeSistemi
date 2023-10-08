@@ -116,7 +116,7 @@ label{
 
 .modal-container-body {
 	padding: 24px 32px 51px;
-	overflow-y: hidden
+	overflow-y: scroll
 }
 
 .rtf {
