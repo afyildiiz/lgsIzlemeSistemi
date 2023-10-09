@@ -34,31 +34,18 @@
     <div class="container">
         <div class="row">
             <div class="col d-flex justify-content-end mb-5" *ngIf="datas.length">
-                <button nbButton outline status="primary" (click)="showMonthlyPerform()">Aylık Performansı
+                <button  class="btn btn-primary" (click)="showMonthlyPerform()">Aylık Performansı
                     Görüntüle</button>
             </div>
-            <div class="col d-flex justify-content-end mb-5 box">
+            <div class="col d-flex justify-content-start mb-5 box">
                 <select [(ngModel)]="selectedMonth" (ngModelChange)="getNotes()">
                     <option *ngFor="let month of months; index as i" [value]="i + 1">{{month}}</option>
                 </select>
             </div>
         </div>
-        <!-- <div class="row" *ngIf="datas.length">
-            <div class="col-md-4 mb-2" *ngFor="let data of datas; index as i">
-                <div class="price-card">
-                    <h2>{{data.kategori_adi}}</h2>
-                    <ul class="pricing-offers">
-                        <li>Gün: {{data.gun}}</li>
-                        <li>Hedef Soru: {{data.hedef_soru}}</li>
-                        <li>Çözülen Soru: {{data.cozulen_soru}}</li>
-                        <li>Doğru Sayısı: {{data.dogru_sayisi}}</li>
-                        <li>Yanlış Sayısı: {{data.yanlis_sayisi}}</li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
 
-        <div class="row">
+
+        <!-- <div class="row">
             <div class="grid-container">
                 <div class="cta col-md-12 content-card" *ngFor="let data of datas; index as i">
                     <div class="cta__text-column">
@@ -73,7 +60,42 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+<section id="tabs">
+
+
+    
+                    <div class="section_our_solution">
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="our_solution_category grid-container" *ngFor="let data of datas; index as i">
+                              <div class="solution_cards_box">
+                                <div class="solution_card">
+                                  <div class="hover_color_bubble"></div>
+                                          <!-- <div class="grid-container"> -->
+                                              <div class="" >
+                                                  <div class="text-center">
+                                                      <h2 class="category-title">{{data.kategori_adi}}</h2>
+                                                      <ul class="pricing-offers">
+                                                          <li><span class="info-label">Gün:</span> {{data.gun}}</li>
+                                                          <li><span class="info-label">Hedef Soru:</span> {{data.hedef_soru}}</li>
+                                                          <li><span class="info-label">Çözülen Soru:</span> {{data.cozulen_soru}}</li>
+                                                          <li><span class="info-label">Doğru Sayısı:</span> {{data.dogru_sayisi}}</li>
+                                                          <li><span class="info-label">Yanlış Sayısı:</span> {{data.yanlis_sayisi}}</li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                          <!-- </div> -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                </div>
+            </div>
+
+
+            
+        </section>
 
         <div class="row" *ngIf="!datas.length">
             <div class="col">
@@ -86,3 +108,10 @@
         </div>
     </div>
 </section>
+
+
+
+
+<br><br><br><br><br>
+
+

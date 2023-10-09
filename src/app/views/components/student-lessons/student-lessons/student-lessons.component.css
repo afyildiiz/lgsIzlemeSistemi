@@ -23,29 +23,6 @@
 
 }
 
-.btn {
-  /* border: 2px solid;
-    border-image-slice: 1; */
-  /* width: 200px; */
-  /* padding: 8px; */
-  /* background: var(--gradient) !important; */
-  /* -webkit-background-clip: text !important; */
-  /* -webkit-text-fill-color: transparent !important; */
-  /* border-image-source:  var(--gradient) !important;  */
-  /* text-decoration: none;
-    transition: all .4s ease; */
-}
-
-.btn:hover,
-.btn:focus {
-  /* background: var(--gradient) !important; */
-  /* -webkit-background-clip: none !important;
-    -webkit-text-fill-color: #fff !important; */
-  /* border: 5px solid #fff;
-    box-shadow: #222 1px 0 10px;
-    text-decoration: none; */
-}
-
 .buttons {
   display: flex;
   justify-content: space-around;
@@ -98,19 +75,6 @@ section .section-title {
   font-family: 'Bebas Neue', sans-serif;
 }
 
-/* @media screen and (max-width:768px) {
-    .buttons a{
-      font-size: 10px;
-      font-weight: 500;
-    }
-}
-
-@media screen and (max-width:574px) {
-  .buttons a{
-    height: 50px;
-    width: 57px;
-  }
-} */
 
 
 .btn {
