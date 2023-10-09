@@ -163,4 +163,19 @@ export class StudentService {
       })
     );
   }
+
+  getStudentById(ogrenci_id: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.studentDataStoreid,
+      "Operation": "read",
+      "Data": `select cast(ogrenci_id as text), ad, soyad, ogrenci_numarasi, veli_ad, veli_soyad, veli_tc, e_posta, sifre from lgs_students where ogrenci_id = '${ogrenci_id}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
 }

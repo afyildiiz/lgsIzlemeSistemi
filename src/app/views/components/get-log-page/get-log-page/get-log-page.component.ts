@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { tap } from 'rxjs';
 import { LogService } from 'src/app/services/log/log.service';
 import { StudentService } from 'src/app/services/student/student.service';
@@ -11,8 +12,11 @@ import { StudentService } from 'src/app/services/student/student.service';
 export class GetLogPageComponent {
 
   constructor(private logService: LogService,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private fb: FormBuilder
   ) { }
+
+  myForm!: FormGroup
 
   selectedStudent: any = ''
   selectedCategory: any = ''
@@ -22,10 +26,15 @@ export class GetLogPageComponent {
   notes: any[] = []
   categories: any[] = []
   lesson_id: any
+  selectedYear: any
   selectedMonth: any = new Date().getMonth()
   lesson_name: any
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
+  ]
+
+  years: any[] = [
+    '2023', '2024', '2025', '2026'
   ]
 
   ngOnInit() {
@@ -58,41 +67,73 @@ export class GetLogPageComponent {
   }
 
   onSelectedStudent(event: any) {
-    if (this.selectedCategory && this.selectedMonth) {
-      this.filteredNotes = this.notes.filter(note => note.ay == this.selectedMonth + 1 && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory);
-    } else if (this.selectedStudent) {
-      this.filteredNotes = this.notes.filter(note => note.ogrenci_id == event);
-    } else {
-      this.filteredNotes = this.notes;
+    let year = this.selectedYear
+    let month = (parseInt(this.selectedMonth) + 1).toString()
+
+    console.log(year)
+
+    if (this.selectedYear && this.selectedMonth) {
+      this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.yil == year);
     }
+    else if (this.selectedYear)
+      this.filteredNotes = this.notes.filter(f => f.ogrenci_id == month && f.yil == year)
+    else if (this.selectedMonth)
+      this.filteredNotes = this.notes.filter(f => f.ogrenci_id == month && f.ay == this.selectedMonth)
+    else {
+      this.filteredNotes = this.notes.filter(f => f.ogrenci_id == month)
+    }
+
+    console.log(this.filteredNotes)
   }
 
-  /*onSelectedCategory(event: any) {
-    this.selectedCategory = event;
+  onSelectedYear() {
+    let month = (parseInt(this.selectedMonth) + 1).toString()
+    let year = this.selectedYear
+
+    console.log(year)
 
     if (this.selectedStudent && this.selectedMonth) {
-      this.filteredNotes = this.notes.filter(note => note.ay == this.selectedMonth + 1 && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory);
-    } else if (this.selectedCategory) {
-      this.filteredNotes = this.notes.filter(note => note.kategori_id == this.selectedCategory);
-    } else {
-      this.filteredNotes = this.notes;
+      this.filteredNotes = this.notes.filter(note =>
+        note.ogrenci_id == this.selectedStudent &&
+        note.ay == month &&
+        note.yil == year
+      )
     }
-  }*/
+    else if (this.selectedStudent) {
+      this.filteredNotes = this.notes.filter(note =>
+        note.ogrenci_id == this.selectedStudent &&
+        note.yil == year
+      )
+    } else if (this.selectedMonth) {
+      this.filteredNotes = this.notes.filter(note =>
+        note.ay == month &&
+        note.yil == year
+      )
+    }
+    else {
+      this.filteredNotes = this.notes.filter(note => note.yil == year)
+    }
+    console.log(this.filteredNotes)
+
+  }
 
   onSelectedMonth() {
-    let month = this.selectedMonth + 1;
+    let month = (parseInt(this.selectedMonth) + 1).toString()
+    let year = this.selectedYear
 
-    /*if (this.selectedCategory && this.selectedStudent) {
-      this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.kategori_id == this.selectedCategory);
+    console.log(year)
+
+    if (this.selectedStudent && this.selectedYear) {
+      this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.yil == year);
     } else if (this.selectedStudent) {
       this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent);
     } else if (this.selectedCategory) {
       this.filteredNotes = this.notes.filter(note => note.ay == month && note.kategori_id == this.selectedCategory);
     } else {
       this.filteredNotes = this.notes.filter(note => note.ay == month);
-    }*/
-    if (this.selectedStudent)
-      this.filteredNotes = this.notes.filter(note => note.ogrenci_id == this.selectedStudent && month >= note.ay)
+    }
+    console.log(this.filteredNotes)
+
   }
 
   removeFilters() {

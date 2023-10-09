@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { tap } from 'rxjs';
 import { TeacherService } from 'src/app/services/teacher/teacher.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
@@ -19,7 +20,6 @@ export class ProfileComponent {
 
   ngOnInit() {
     if (!this.currentTeacher) {
-      console.log('girdi')
       let teacher = localStorage.getItem('currentTeacher');
       this.currentTeacher = teacher ? JSON.parse(teacher) : {};
     }
@@ -42,10 +42,25 @@ export class ProfileComponent {
   saveChanges() {
     if (this.myForm.valid) {
       this.teacherService.updateTeacher({ ad: this.myForm.value.ad, soyad: this.myForm.value.soyad, sifre: this.myForm.value.sifre, brans: this.myForm.value.brans, id: this.currentTeacher.id })
-        .subscribe(res => console.log(res));
+        .subscribe(res => {
+          if (res.message == 'Success')
+            this.getTeacher()
+        });
     } else {
       this.toastService.showToast('warning', 'Form verileri geçerli değil.');
     }
+  }
 
+  getTeacher() {
+    let id = this.currentTeacher.id
+    let newTeacher: any
+    this.teacherService.getTeacherById(id).pipe(
+      tap(res => newTeacher = res[0])
+    ).subscribe(() => {
+      console.log(this.currentTeacher)
+      console.log(newTeacher)
+      this.currentTeacher = newTeacher
+      localStorage.setItem('currentTeacher', JSON.stringify(newTeacher))
+    })
   }
 }

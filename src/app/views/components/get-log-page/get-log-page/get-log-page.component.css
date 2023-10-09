@@ -215,61 +215,61 @@ ul li {
 } */
 
 * {
-	box-sizing: border-box;
-		font-family: "Open Sans", sans-serif;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
 
 }
 
 h2 {
-	margin: 0;
-	font-size: 1.4rem;
+    margin: 0;
+    font-size: 1.4rem;
 }
 
 @media (min-width: 50em) {
-	h2 {
-		font-size: 1.8rem;
-	}
+    h2 {
+        font-size: 1.8rem;
+    }
 }
 
 .cta {
     padding: 14px;
-	--shadowColor: 187 60% 40%;
-	display: flex;
-	flex-wrap: wrap;
-	background: hsl(180, 5%, 88%);
-	max-width: 50rem;
-	width: 100%;
-	box-shadow: 0.65rem 0.65rem 0 hsl(180, 2%, 75%);
-	border-radius: 0.8rem;
-	overflow: hidden;
-	border: 0.5rem solid;
+    --shadowColor: 187 60% 40%;
+    display: flex;
+    flex-wrap: wrap;
+    background: hsl(180, 5%, 88%);
+    max-width: 50rem;
+    width: 100%;
+    box-shadow: 0.65rem 0.65rem 0 hsl(180, 2%, 75%);
+    border-radius: 0.8rem;
+    overflow: hidden;
+    border: 0.5rem solid;
 }
 
 .cta img {
-	aspect-ratio: 3 / 2;
-	object-fit: cover;
-	flex: 1 1 300px;
-	outline: 0.5rem solid;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    flex: 1 1 300px;
+    outline: 0.5rem solid;
 }
 
 .cta__text-column {
-	padding: min(2rem, 5vw) min(2rem, 5vw) min(2.5rem, 5vw);
-	flex: 1 0 50%;
+    padding: min(2rem, 5vw) min(2rem, 5vw) min(2.5rem, 5vw);
+    flex: 1 0 50%;
 }
 
-.cta__text-column > * + * {
-	margin: min(1.5rem, 2.5vw) 0 0 0;
+.cta__text-column>*+* {
+    margin: min(1.5rem, 2.5vw) 0 0 0;
 }
 
 .cta a {
-	display: inline-block;
-	color: black;
-	padding: 0.5rem 1rem;
-	text-decoration: none;
-	background: hsl(187 75% 64%);
-	border-radius: 0.6rem;
-	font-weight: 700;
-	border: 0.35rem solid;
+    display: inline-block;
+    color: black;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    background: hsl(187 75% 64%);
+    border-radius: 0.6rem;
+    font-weight: 700;
+    border: 0.35rem solid;
 }
 
 .grid-container {
@@ -282,24 +282,26 @@ h2 {
 /* Ekran genişliği 768 pikselden küçükse */
 @media (max-width: 768px) {
     .grid-container {
-      grid-template-columns: repeat(2, 1fr); /* Her satırda 2 kart göstermek için sütun sayısını 2 yapın */
+        grid-template-columns: repeat(2, 1fr);
+        /* Her satırda 2 kart göstermek için sütun sayısını 2 yapın */
     }
-  }
+}
 
-  @media (max-width: 560px) {
+@media (max-width: 560px) {
     .grid-container {
-      grid-template-columns: repeat(1, 1fr); /* Her satırda 2 kart göstermek için sütun sayısını 2 yapın */
+        grid-template-columns: repeat(1, 1fr);
+        /* Her satırda 2 kart göstermek için sütun sayısını 2 yapın */
     }
-  }
+}
 
 
-.card{
+.card {
     padding: 14px;
     border-radius: 10px;
     border-color: rgb(114, 114, 114);
 }
 
-div label{
+div label {
     margin-right: 1em;
 }
 
@@ -307,8 +309,8 @@ div label{
 
 
 
-  
-  .box select {
+
+.box select {
     background-color: #6abcff;
     color: white;
     padding: 12px;
@@ -320,9 +322,9 @@ div label{
     -webkit-appearance: button;
     appearance: button;
     outline: none;
-  }
-  
-  .box::before {
+}
+
+.box::before {
     position: absolute;
     top: 0;
     right: 0;
@@ -334,79 +336,78 @@ div label{
     color: rgba(255, 255, 255, 0.5);
     background-color: rgba(255, 255, 255, 0.1);
     pointer-events: none;
-  }
-  
-  .box:hover::before {
+}
+
+.box:hover::before {
     color: rgba(255, 255, 255, 0.6);
     background-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  .box select option {
+}
+
+.box select option {
     padding: 30px;
-  }
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .box {
-      margin-bottom: 10px;
-      width: 100%;
+        margin-bottom: 10px;
+        width: 100%;
     }
-  
-    .box select {
-      width: 100%;
-      padding: 10px;
-    }
-  }
 
-  @media (max-width: 994px) {
+    .box select {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 994px) {
     .box select {
         width: 150px;
         font-size: 14px;
-      }
-    
-      .box select {
+    }
+
+    .box select {
         width: 100%;
         padding: 10px;
-      }
-  }
-  .dynamic-text-shadow {
+    }
+}
+
+.dynamic-text-shadow {
     /*  larger font size, more shadow distance  */
-    text-shadow: .1em .1em 0 hsl(200 50% 30%);
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  * {
+    text-shadow: 0.05em .05em 0 hsl(200 50% 30%);
+}
+
+
+
+
+
+
+
+
+* {
     box-sizing: border-box;
     margin: 0;
-  }
-  
-  h1 {
+}
+
+h1 {
     font-size: 2.5em;
     font-weight: 900;
     line-height: 1.1;
     max-inline-size: 15ch;
-  }
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
     h1 {
-      font-size: 1rem;
+        font-size: 1rem;
     }
-  }
-  
-  h2 {
+}
+
+h2 {
     text-transform: uppercase;
     /* text-align: end; */
-  }
+}
 
-  
-  header {
+
+header {
     display: grid;
     gap: 1ch;
-  }
-  
-  
+}

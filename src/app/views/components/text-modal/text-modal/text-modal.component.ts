@@ -159,17 +159,13 @@ export class TextModalComponent {
         if (response == true) {
           return from(array).pipe(
             mergeMap(arr => {
-              if (arr.hedef_soru) {
-                console.log(arr)
-                console.log(student.ogrenci_id)
-                return this.logService.updateNote(student.ogrenci_id, {
-                  kategori_id: arr.kategori_id,
-                  hedef_soru: arr.hedef_soru,
-                  aylik_hedef_soru: arr.aylik_hedef_soru
-                }, { yil: this.selectedYear, ay: this.selectedMonth });
-              } else {
-                return EMPTY; // Hedef_soru yoksa işlem yapma
-              }
+              console.log(arr)
+              console.log(student.ogrenci_id)
+              return this.logService.updateNote(student.ogrenci_id, {
+                kategori_id: arr.kategori_id,
+                hedef_soru: arr.hedef_soru,
+                aylik_hedef_soru: arr.aylik_hedef_soru
+              }, { yil: this.selectedYear, ay: this.selectedMonth });
             })
           );
         } else {
@@ -277,7 +273,7 @@ export class TextModalComponent {
     console.log(studentids)
 
     // Daha sonra bu işlemleri kullanabilirsiniz
-    this.logService.isUpdated(studentids, { yil: this.selectedYear, ay: this.selectedMonth }).pipe(
+    this.logService.isUpdated(studentids, { yil: this.selectedYear, ay: this.selectedMonth }, this.formValues.ders.ders_id).pipe(
       switchMap(res => {
         if (res.length) {
           return forkJoin(res.map((student: any) => this.openUpdateDialog(student, array)));

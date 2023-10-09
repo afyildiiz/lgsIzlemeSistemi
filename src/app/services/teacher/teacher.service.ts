@@ -103,4 +103,19 @@ export class TeacherService {
       })
     );
   }
+
+  getTeacherById(id: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.teacherDataStoreid,
+      "Operation": "read",
+      "Data": `select ad, soyad, brans, e_posta, sifre, cast(id as text) from lgs_teachers where id = '${id}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
 }

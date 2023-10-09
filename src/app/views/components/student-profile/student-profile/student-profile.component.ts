@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { tap } from 'rxjs';
 import { StudentService } from 'src/app/services/student/student.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 
@@ -46,10 +47,26 @@ export class StudentProfileComponent {
     if (this.myForm.valid) {
       let ogrenci_numarasi = this.currentStudent.ogrenci_numarasi
       this.myForm.value.ogrenci_numarasi = ogrenci_numarasi;
-
-      this.studentService.updateStudent(this.myForm.value).subscribe(res => console.log(res));
+      this.studentService.updateStudent(this.myForm.value).subscribe(res => {
+        if (res.message == 'Success')
+          this.getStudent()
+      });
     } else {
       this.toastService.showToast('warning', 'Form verileri geçerli değil.');
     }
+  }
+
+
+  getStudent() {
+    let id = this.currentStudent.ogrenci_id
+    let newStudent: any
+    this.studentService.getStudentById(id).pipe(
+      tap(res => newStudent = res[0])
+    ).subscribe(() => {
+      console.log(this.currentStudent)
+      console.log(newStudent)
+      this.currentStudent = newStudent
+      localStorage.setItem('currentStudent', JSON.stringify(newStudent))
+    })
   }
 }
