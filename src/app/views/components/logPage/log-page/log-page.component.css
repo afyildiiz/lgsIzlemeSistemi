@@ -636,3 +636,30 @@ section {
 .btn:hover{
     background-color: #4aabfa;
 }
+
+
+.solution_cards_box .solution_card .so_top_icon {
+  /* width: 60px;
+  height: 60px; */
+  /* border-radius: 50%;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center; */
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.solution_cards_box .solution_card .so_top_icon img {
+  width: 40px;
+  height: 50px;
+  object-fit: contain;
+}
+@media screen and (max-width:400px) {
+  .solution_cards_box .solution_card .so_top_icon svg{
+    width: 35px;
+  }
+} 
+
