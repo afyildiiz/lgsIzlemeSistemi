@@ -66,6 +66,10 @@
                                             <hr>
                                             <b class="card-text">Genel Performans: %{{lesson.perform||
                                                 0}}</b>
+                                            <hr>
+                                            <b class="card-text">Çalışma Performansı: %{{lesson.work_perform||
+                                                0}}</b>
+                                            <hr>
                                             <!-- <div class="buttons">
                                                  <a  class="btn mr-2" (click)="goLogPage(lesson.ders_id)"> Çalışma Gir</a>
                                                  <a  class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>
@@ -99,6 +103,10 @@
                                                     class="card-title">{{student.ad}} {{student.soyad}}</h5>
                                                 <hr>
                                                 <div class="buttons mt-3 mb-3">
+                                                    <a class="btn btn-lg">
+                                                        <span (click)="showPerform(student)">Performans
+                                                            Görüntüle</span>
+                                                    </a>
                                                     <a class="btn btn-lg">
                                                         <span
                                                             (click)="selectStudent(i,student.ad,student.soyad)">Çalışmaları

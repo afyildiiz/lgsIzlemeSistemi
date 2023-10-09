@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ConfirmationModalComponent } from 'src/app/views/components/confirmation-modal/confirmation-modal/confirmation-modal.component';
 import { DeleteUserComponent } from 'src/app/views/components/delete/delete-user/delete-user.component';
 import { ResultCardComponent } from 'src/app/views/components/result-card/result-card/result-card.component';
+import { StudentDetailComponent } from 'src/app/views/components/student-detail/student-detail/student-detail.component';
 import { TextModalComponent } from 'src/app/views/components/text-modal/text-modal/text-modal.component';
 import { UpdateNoteComponent } from 'src/app/views/components/update-note/update-note/update-note.component';
 
@@ -93,5 +94,14 @@ export class DialogService {
     return dialogRef;
   }
 
-
+  openStudentPerformModal(student: any) {
+    const dialogRef = this.nbdialogService.open(StudentDetailComponent, {
+      hasBackdrop: true,
+      hasScroll: true,
+      context: {
+        student: student
+      }
+    })
+    return dialogRef;
+  }
 }

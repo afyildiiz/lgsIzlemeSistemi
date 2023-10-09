@@ -13,8 +13,9 @@ import { LessonService } from 'src/app/services/lesson/lesson.service';
 })
 export class StudentLessonsComponent {
 
-  lessons: any[] = [];
-  currentStudent: any;
+  lessons: any[] = []
+  performs: any[] = []
+  currentStudent: any
 
   constructor(
     private logService: LogService,
@@ -35,6 +36,7 @@ export class StudentLessonsComponent {
       tap(res => this.lessons = res),
       tap(res => console.log(res))
     ).subscribe(() => {
+      this.getLessonPerforms()
       /*this.lessons.map(e => {
 
         let color = (e.performans > 85) ? 'success' : (e.performans > 70) ? 'info' : (e.performans > 50) ? 'warning' : 'danger'
@@ -69,6 +71,17 @@ export class StudentLessonsComponent {
       })*/
 
     })
+  }
+
+  getLessonPerforms() {
+    this.logService.getPerformofLessons(this.currentStudent.ogrenci_id).pipe(
+      tap(res => this.performs = res)
+    ).subscribe(() => this.performs.map(p => {
+      this.lessons.map(lesson => {
+        if (lesson.ders_id == p.ders_id)
+          lesson.perform = p
+      })
+    }))
   }
 
   chooseLesson(event: any) {

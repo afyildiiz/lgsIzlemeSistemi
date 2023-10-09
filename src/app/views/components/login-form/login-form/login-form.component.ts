@@ -24,10 +24,10 @@ export class LoginFormComponent {
 
   loginForm!: FormGroup;
   path: string = '';
-  loggedFor:string=''
+  loggedFor: string = ''
 
   ngOnInit() {
-    this.loggedFor=history.state.loggedFor;
+    this.loggedFor = history.state.loggedFor;
     this.path = history.state.path;
 
     this.loginForm = this.fb.group({
@@ -42,10 +42,10 @@ export class LoginFormComponent {
         case 'teacher':
           this.teacherService.getTeacherByMail(this.loginForm.value.email, this.loginForm.value.password)
             .subscribe(res => {
-              if (res.length) {
+              if (res.length) { 
                 this.authService.login();
                 localStorage.setItem('currentTeacher', JSON.stringify(res[0]));
-                setTimeout(() => this.router.navigate(['/teacher/profile'], { state: { teacher: res[0] } }), 500);
+                setTimeout(() => this.router.navigate(['/teacher/students'], { state: { teacher: res[0] } }), 500);
               }
               else
                 this.toastService.showToast('danger', 'Giriş bilgileri yanlış.');

@@ -55,10 +55,19 @@ export class EditStudentComponent {
     ).subscribe(() => {
       this.performs.map((res: any) => {
         this.lessons.map(lesson => {
-          if (res.ders_id == lesson.ders_id)
+          if (res.ders_id == lesson.ders_id) {
+            lesson.work_perform = res.calisma_performans
             lesson.perform = res.performans
+          }
         })
       })
+      this.getGeneralPerformsByStudents()
+    })
+  }
+
+  getGeneralPerformsByStudents() {
+    this.students.map(student => {
+      this.logService.getGeneralPerformByStudentIds(`'${student.ogrenci_id}'`).subscribe(res => student.perform = res)
     })
   }
 
@@ -88,5 +97,9 @@ export class EditStudentComponent {
     this.router.navigate(['/teacher/studentperform'], { state: { student: currentStudent, lessons: this.lessons, ad: name, soyad: surname } })
     //tıklandıgında bir modal acılsın orda kullanıcı adı title olarak girilsin ardından result table gibi veya bir
     //dashboard gibi kullanıcının verileri okunsun her ders için aylık tıklandııgnda haftalık ve gunluk istatistikler
+  }
+
+  showPerform(student: any) {
+    this.dialogService.openStudentPerformModal(student).onClose.subscribe(res => console.log(res))
   }
 }

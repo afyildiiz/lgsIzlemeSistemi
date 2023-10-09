@@ -1,0 +1,43 @@
+<nb-card>
+    <nb-card-header>
+        {{student.ad}} {{student.soyad}}
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table table-bordered">
+            <thead>
+                <th class="col">Ders Adi</th>
+                <th class="col">Hedef Soru</th>
+                <th class="col">Çözülen Soru</th>
+                <th class="col">Doğru Soru</th>
+                <th class="col">Yanlış Soru</th>
+                <th class="col">Boş Soru</th>
+                <th class="col">Performans</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let perform of student.perform; index as i">
+                    <td>
+                        {{perform.ders_adi}}
+                    </td>
+                    <td>
+                        {{perform.hedef}}
+                    </td>
+                    <td>
+                        {{perform.cozulen}}
+                    </td>
+                    <td>
+                        {{perform.dogru}}
+                    </td>
+                    <td>
+                        {{perform.yanlis}}
+                    </td>
+                    <td>
+                        {{perform.bos}}
+                    </td>
+                    <td>
+                        {{perform.performans}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </nb-card-body>
+</nb-card>

@@ -54,6 +54,7 @@ import { StudentPerformComponent } from './views/components/student-perform/stud
 import { DeleteUserComponent } from './views/components/delete/delete-user/delete-user.component';
 import { StudentNavbarComponent } from './views/components/student-navbar/student-navbar.component';
 import { UpdateNoteComponent } from './views/components/update-note/update-note/update-note.component';
+import { StudentDetailComponent } from './views/components/student-detail/student-detail/student-detail.component';
 
 registerAllModules()
 
@@ -100,7 +101,8 @@ registerAllModules()
     StudentPerformComponent,
     DeleteUserComponent,
     StudentNavbarComponent,
-    UpdateNoteComponent
+    UpdateNoteComponent,
+    StudentDetailComponent
   ],
   imports: [
     BrowserModule,

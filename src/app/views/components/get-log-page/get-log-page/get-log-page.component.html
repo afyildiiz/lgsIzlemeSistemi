@@ -38,10 +38,12 @@
             <div class="cta__text-column">
                 <h2>{{note.kategori_adi}}</h2>
                 <ul class="pricing-offers">
-                    <li>Ay: {{months[note.ay - 1]}}</li>
-                    <li>Hedef Soru: {{note.hedef_soru}}</li>
-                    <li>Doğru Sayısı: {{note.dogru_sayisi || 0}}</li>
-                    <li>Yanlış Sayısı: {{note.yanlis_sayisi ||0}}</li>
+                    <li class="mb-1">Ay: {{months[note.ay - 1]}}</li>
+                    <li class="mb-1">Hedef Soru: {{note.hedef_soru}}</li>
+                    <li class="mb-1">Çözülen Soru: {{note.cozulen_soru}}</li>
+                    <li class="mb-1">Doğru Sayısı: {{note.dogru_sayisi || 0}}</li>
+                    <li class="mb-1">Yanlış Sayısı: {{note.yanlis_sayisi || 0}}</li>
+                    <li class="mb-1">Boş Sayısı: {{note.bos_sayisi || 0}}</li>
                 </ul>
             </div>
         </div>

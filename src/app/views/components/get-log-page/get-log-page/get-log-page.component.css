@@ -253,7 +253,7 @@ h2 {
 }
 
 .cta__text-column {
-    padding: min(2rem, 5vw) min(2rem, 5vw) min(2.5rem, 5vw);
+    padding: min(1rem, 4vw) min(1rem, 4vw) min(1rem, 4vw);
     flex: 1 0 50%;
 }
 
