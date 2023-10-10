@@ -100,7 +100,8 @@ export class DialogService {
       hasScroll: true,
       context: {
         student: student
-      }
+      },
+      dialogClass:'custom-dialog-class'
     })
     return dialogRef;
   }

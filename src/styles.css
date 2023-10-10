@@ -113,3 +113,7 @@ nb-layout-column{
 .nb-theme-default nb-layout .layout .layout-container .content nb-layout-footer nav{
     padding: 0.5em !important;
 }
+
+app-result-card{
+    max-width: 600px;
+}

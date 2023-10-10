@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NbDialogRef } from '@nebular/theme';
 
 @Component({
   selector: 'app-result-card',
@@ -6,6 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./result-card.component.css']
 })
 export class ResultCardComponent {
+
+constructor(private ref:NbDialogRef<any>){}
 
   @Input() data: any
   status: string = ''
@@ -19,6 +22,10 @@ export class ResultCardComponent {
       this.status = 'warning'
     else
       this.status = 'danger'
+  }
+
+  close(){
+    this.ref.close()
   }
 
 }

@@ -443,7 +443,24 @@ section {
 
 
 
+  .solution_card {
+    /* Dikey taşmayı önle */
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 
+  
+  /* Ekran daraldıkça kartları yeniden düzenle */
+  @media screen and (max-width: 768px) {
+    .solution_card {
+      width: 100%; /* Kartları tam genişlikte sırala */
+    }
+    .category-title{
+      font-size: 12px;
+    }
+  }
 
 
   
@@ -517,8 +534,7 @@ section {
     
   }
   
-  .solution_card .so_top_icon {
-  }
+ 
   
   .solution_card .solu_title h3 {
     color: #212121;
@@ -607,7 +623,7 @@ section {
 
 .category-title {
     color: #309df0;
-    font-size: 1.5rem;
+    font-size: 18px;
     margin-bottom: 10px;
 }
 
@@ -659,7 +675,8 @@ section {
 }
 @media screen and (max-width:400px) {
   .solution_cards_box .solution_card .so_top_icon svg{
-    width: 35px;
+    width: 30px;
+    padding-top: 15px;
   }
 } 
 

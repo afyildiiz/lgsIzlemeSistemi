@@ -16,7 +16,7 @@
         </ul>
     </nb-card-body>
 </nb-card>-->
-
+<!-- 
 <div class="card radius-15 bg-{{status}}">
     <div class="card-body text-center">
         <div class="p-3 radius-15">
@@ -38,4 +38,29 @@
 
         </div>
     </div>
-</div>
+</div> -->
+
+
+
+<div class="container center">
+    <div class="card radius-15">
+      <h2>Aylık Performans</h2>
+      <hr/>
+      <p class="mb-0 mt-3 d-flex justify-content-start">Toplam Çözülen Soru:
+        <b class="d-flex font-weight-bold justify-content-end">{{data.cozulen_soru}}</b>
+      </p>
+      <p class="mb-0 mt-3  d-flex justify-content-start"> Toplam Doğru Sayısı:
+        <b class="d-flex font-weight-bold justify-content-end">&nbsp;{{data.dogru_sayisi}}</b>
+      </p>
+        <p class="mb-0 mt-3  d-flex justify-content-start"> Toplam Yanlış Sayısı:
+        <b class="d-flex font-weight-bold justify-content-end">&nbsp;{{data.yanlis_sayisi}}</b>
+        </p>
+        <p class="mb-0 mt-3  d-flex justify-content-start"> Çalışma Performansı: <b
+        class="d-flex font-weight-bold justify-content-end">&nbsp;%{{data.calisma_performansi}}</b>
+        </p>
+        <p class="mb-0 mt-3  d-flex justify-content-start"> Performans: <b
+        class="d-flex font-weight-bold justify-content-end">&nbsp;%{{data.performans}}</b>
+      </p>
+      <button (click)="close()">Next</button>
+    </div>
+  </div>
