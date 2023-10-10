@@ -34,4 +34,26 @@ export class LessonDetailComponent {
       })
     }*/)
   }
+
+  sortOrder = 'asc'; // Sıralama varsayılan olarak artan sıradadır.
+
+  sortBy(column: string): void {
+    this.performs.sort((a, b) => {
+      const valueA = a[column];
+      const valueB = b[column];
+
+      console.log(valueA)
+      console.log(valueB)
+
+      if (this.sortOrder === 'asc') {
+        return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+      } else {
+        return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
+      }
+    });
+
+    // Sıralama düzenini tersine çevir
+    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+  }
 }
+

@@ -8,18 +8,22 @@
             <div id="wrapper">
                 <h1></h1>
 
-                <table id="keywords" cellspacing="0" cellpadding="0">
+                <table id="keywords" cellspacing="0" cellpadding="5">
                     <thead>
                         <tr>
-                            <th><span>Ad</span></th>
-                            <th><span>Soyad</span></th>
-                            <th><span>Hedef Soru</span></th>
-                            <th><span>Çözülen Soru</span></th>
-                            <th><span>Doğru</span></th>
-                            <th><span>Yanlış</span></th>
-                            <th><span>Boş Soru</span></th>
-                            <th><span>Performans</span></th>
-                            <th><span>Çalışma Performansı</span></th>
+                            <th><a (click)="sortBy('ad')"><span>Ad</span></a></th>
+                            <td><a (click)="sortBy('soyad')">Soyad</a></td>
+                            <td><a (click)="sortBy('hedef')">Hedef Soru</a></td>
+                            <td><a (click)="sortBy('cozulen')">Çözülen Soru</a></td>
+                            <td><a (click)="sortBy('dogru')">Doğru Soru</a></td>
+                            <td><a (click)="sortBy('yanlis')">Yanlış Soru</a></td>
+                            <td><a (click)="sortBy('bos')">Boş Soru</a></td>
+                            <td>
+                                <a (click)="sortBy('performans')">Performans</a>
+                            </td>
+                            <td>
+                                <a (click)="sortBy('calisma_performans')">Çalışma Performansı</a>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,13 +35,9 @@
                             <td>{{perform.dogru}}</td>
                             <td>{{perform.yanlis}}</td>
                             <td>{{perform.bos}}</td>
-                            <td [ngStyle]="{'background': perform.performans > 85 ? 'green' : 'yellow'}">
-                                %{{perform.performans}}</td>
-                            <td [ngStyle]="{'background': perform.calisma_performans > 85 ? 'green' : 'yellow'}">
-                                %{{perform.calisma_performans}}</td>
-
+                            <td>%{{perform.performans}}</td>
+                            <td>%{{perform.calisma_performans}}</td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>
