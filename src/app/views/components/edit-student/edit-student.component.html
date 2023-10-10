@@ -70,6 +70,9 @@
                                             <b class="card-text">Çalışma Performansı: %{{lesson.work_perform||
                                                 0}}</b>
                                             <hr>
+                                            <b class="card-text"><button nbButton status="primary"
+                                                    (click)="showLessonPerform(lesson)">Performansı Göster</button></b>
+                                            <hr>
                                             <!-- <div class="buttons">
                                                  <a  class="btn mr-2" (click)="goLogPage(lesson.ders_id)"> Çalışma Gir</a>
                                                  <a  class="btn" (click)="getLogPage(lesson.ders_id)"> Çalışmaları Gör</a>
@@ -104,7 +107,7 @@
                                                 <hr>
                                                 <div class="buttons mt-3 mb-3">
                                                     <a class="btn btn-lg">
-                                                        <span (click)="showPerform(student)">Performans
+                                                        <span (click)="showStudentPerform(student)">Performans
                                                             Görüntüle</span>
                                                     </a>
                                                     <a class="btn btn-lg">

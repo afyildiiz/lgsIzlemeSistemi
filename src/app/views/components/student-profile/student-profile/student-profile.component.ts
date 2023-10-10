@@ -48,8 +48,10 @@ export class StudentProfileComponent {
       let ogrenci_numarasi = this.currentStudent.ogrenci_numarasi
       this.myForm.value.ogrenci_numarasi = ogrenci_numarasi;
       this.studentService.updateStudent(this.myForm.value).subscribe(res => {
-        if (res.message == 'Success')
+        if (res.message == 'Success') {
+          this.toastService.showToast('success', 'Değişiklikleriniz kaydedildi.')
           this.getStudent()
+        }
       });
     } else {
       this.toastService.showToast('warning', 'Form verileri geçerli değil.');

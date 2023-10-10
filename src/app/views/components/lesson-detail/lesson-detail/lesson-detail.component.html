@@ -1,0 +1,47 @@
+<nb-card>
+    <nb-card-header class="text-center">
+        {{lesson.ders_adi}}
+    </nb-card-header>
+    <nb-card-body>
+
+        <body>
+            <div id="wrapper">
+                <h1></h1>
+
+                <table id="keywords" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th><span>Ad</span></th>
+                            <th><span>Soyad</span></th>
+                            <th><span>Hedef Soru</span></th>
+                            <th><span>Çözülen Soru</span></th>
+                            <th><span>Doğru</span></th>
+                            <th><span>Yanlış</span></th>
+                            <th><span>Boş Soru</span></th>
+                            <th><span>Performans</span></th>
+                            <th><span>Çalışma Performansı</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let perform of performs; index as i">
+                            <td>{{perform.ad}}</td>
+                            <td>{{perform.soyad}}</td>
+                            <td>{{perform.hedef}}</td>
+                            <td>{{perform.cozulen}}</td>
+                            <td>{{perform.dogru}}</td>
+                            <td>{{perform.yanlis}}</td>
+                            <td>{{perform.bos}}</td>
+                            <td [ngStyle]="{'background': perform.performans > 85 ? 'green' : 'yellow'}">
+                                %{{perform.performans}}</td>
+                            <td [ngStyle]="{'background': perform.calisma_performans > 85 ? 'green' : 'yellow'}">
+                                %{{perform.calisma_performans}}</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </body>
+
+    </nb-card-body>
+</nb-card>

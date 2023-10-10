@@ -309,6 +309,8 @@ export class TextModalComponent {
         this.insertedids = []; // insertedids dizisini boşaltın
       }
     });
+
+    this.dialogRef.close('Success')
   }
 
 

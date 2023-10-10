@@ -55,6 +55,7 @@ import { DeleteUserComponent } from './views/components/delete/delete-user/delet
 import { StudentNavbarComponent } from './views/components/student-navbar/student-navbar.component';
 import { UpdateNoteComponent } from './views/components/update-note/update-note/update-note.component';
 import { StudentDetailComponent } from './views/components/student-detail/student-detail/student-detail.component';
+import { LessonDetailComponent } from './views/components/lesson-detail/lesson-detail/lesson-detail.component';
 
 registerAllModules()
 
@@ -102,7 +103,8 @@ registerAllModules()
     DeleteUserComponent,
     StudentNavbarComponent,
     UpdateNoteComponent,
-    StudentDetailComponent
+    StudentDetailComponent,
+    LessonDetailComponent
   ],
   imports: [
     BrowserModule,

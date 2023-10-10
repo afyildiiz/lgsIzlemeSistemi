@@ -4,7 +4,7 @@ import { SchoolService } from 'src/app/services/school/school.service';
 import { StudentService } from 'src/app/services/student/student.service';
 import { TeacherService } from 'src/app/services/teacher/teacher.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
-
+import { tap } from 'rxjs'
 @Component({
   selector: 'app-school-profile',
   templateUrl: './school-profile.component.html',
@@ -43,11 +43,29 @@ export class SchoolProfileComponent {
       this.myForm.disable();
   }
 
+  getSchool() {
+    let mail = this.schoolAdmin.admin_e_posta
+    let sifre = this.schoolAdmin.admin_sifre
+
+    let newSchool: any
+    this.schoolService.getSchoolByMail(mail, sifre).pipe(
+      tap(res => newSchool = res[0])
+    ).subscribe(() => {
+      console.log(this.schoolAdmin)
+      this.schoolAdmin = newSchool
+      localStorage.setItem('schoolAdmin', JSON.stringify(newSchool))
+    })
+  }
+
   saveChanges() {
     if (this.myForm.valid) {
       this.myForm.value.okul_id = this.schoolAdmin.okul_id;
-      console.log(this.myForm.value)
-      this.schoolService.updateSchool(this.myForm.value).subscribe(res => console.log(res));
+      this.schoolService.updateSchool(this.myForm.value).subscribe(res => {
+        if (res == 'Success') {
+          this.toastService.showToast('success', 'Değişiklikleriniz kaydedildi.')
+          this.getSchool()
+        }
+      });
     } else {
       this.toastService.showToast('warning', 'Form verileri geçerli değil.');
     }

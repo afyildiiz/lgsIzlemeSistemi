@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { LogService } from 'src/app/services/log/log.service';
 
 @Component({
   selector: 'app-student-detail',
@@ -9,7 +10,14 @@ export class StudentDetailComponent {
 
   @Input() student: any
 
+  constructor(private logService: LogService) { }
+
   ngOnInit() {
-    console.log(this.student)
+    this.getPerform()
   }
+
+  getPerform() {
+    this.logService.getGeneralPerformByStudentIds(`'${this.student.ogrenci_id}'`).subscribe(res => this.student.perform = res)
+  }
+
 }

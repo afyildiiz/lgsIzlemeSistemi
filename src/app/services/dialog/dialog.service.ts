@@ -4,6 +4,7 @@ import { NbDialogService } from '@nebular/theme';
 import { BehaviorSubject } from 'rxjs';
 import { ConfirmationModalComponent } from 'src/app/views/components/confirmation-modal/confirmation-modal/confirmation-modal.component';
 import { DeleteUserComponent } from 'src/app/views/components/delete/delete-user/delete-user.component';
+import { LessonDetailComponent } from 'src/app/views/components/lesson-detail/lesson-detail/lesson-detail.component';
 import { ResultCardComponent } from 'src/app/views/components/result-card/result-card/result-card.component';
 import { StudentDetailComponent } from 'src/app/views/components/student-detail/student-detail/student-detail.component';
 import { TextModalComponent } from 'src/app/views/components/text-modal/text-modal/text-modal.component';
@@ -24,7 +25,6 @@ export class DialogService {
   getDersAdi() {
     return this.dersAdiSubject.asObservable();
   }
-
 
   openModal(component: ComponentType<any>, hasBackdrop: boolean, hasScroll: boolean, customclassName?: string, data?: any) {
     const dialogRef = this.nbdialogService.open(component, {
@@ -101,7 +101,20 @@ export class DialogService {
       context: {
         student: student
       },
-      dialogClass:'custom-dialog-class'
+      dialogClass: 'custom-dialog-class'
+    })
+    return dialogRef;
+  }
+
+  openLessonPerformModal(lesson: any, students: any) {
+    const dialogRef = this.nbdialogService.open(LessonDetailComponent, {
+      hasBackdrop: true,
+      hasScroll: true,
+      context: {
+        lesson: lesson,
+        students: students
+      },
+      dialogClass: 'custom-dialog-class'
     })
     return dialogRef;
   }

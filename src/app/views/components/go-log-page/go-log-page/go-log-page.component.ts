@@ -112,7 +112,7 @@ export class GoLogPageComponent {
 
     if (sonuc.valid == true) {
       let veriler = sonuc.value
-      this.dialogService.openTextModal(veriler, 'text-modal').onClose.subscribe(res => console.log('return '))
+      this.dialogService.openTextModal(veriler, 'text-modal').onClose.subscribe(res => console.log(res))
     }
   }
 }

@@ -19,8 +19,24 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      //"Data": `SELECT AVG(CAST(ROUND(performans::numeric, 2) AS numeric)) AS ortalama_performans FROM (SELECT lg.ogrenci_id, (CAST(SUM(dogru_sayisi) AS double precision) / CAST(SUM(cozulen_soru) AS double precision) * 100) AS performans FROM lgs_notes lg  WHERE lg.ders_id = '${lessonid}' GROUP BY lg.ogrenci_id) AS performanslar`,
-      "Data": `select ll.ders_adi, cast(ln2.ders_id as text), sum(hedef_soru) as hedef, sum(cozulen_soru) as cozulen, sum(dogru_sayisi) as dogru, sum(yanlis_sayisi) as yanlis, SUM(cozulen_soru - dogru_sayisi - yanlis_sayisi) AS bos, CAST(CAST(SUM(dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(cozulen_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)) AS performans, CAST(CAST(SUM(cozulen_soru) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(hedef_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)) AS calisma_performans from lgs_notes ln2 inner join lgs_lessons ll on ll.ders_id = ln2.ders_id where ogrenci_id in(${ogrenciids}) group by ln2.ders_id, ll.ders_adi`,
+      //"Data": `select ll.ders_adi, cast(ln2.ders_id as text), sum(hedef_soru) as hedef, sum(cozulen_soru) as cozulen, sum(dogru_sayisi) as dogru, sum(yanlis_sayisi) as yanlis, SUM(cozulen_soru - dogru_sayisi - yanlis_sayisi) AS bos, CAST(CAST(SUM(dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(cozulen_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)) AS performans, CAST(CAST(SUM(cozulen_soru) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(hedef_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)) AS calisma_performans from lgs_notes ln2 inner join lgs_lessons ll on ll.ders_id = ln2.ders_id where ogrenci_id in(${ogrenciids}) group by ln2.ders_id, ll.ders_adi`,
+      "Data": `SELECT cast(ll.ders_id as text), ll.ders_adi, COALESCE(SUM(ln.hedef_soru), 0) AS hedef, COALESCE(SUM(ln.cozulen_soru), 0) AS cozulen, COALESCE(SUM(ln.dogru_sayisi), 0) AS dogru, COALESCE(SUM(ln.yanlis_sayisi), 0) AS yanlis, COALESCE(SUM(ln.cozulen_soru - ln.dogru_sayisi - ln.yanlis_sayisi), 0) AS bos, COALESCE(CAST(CAST(SUM(ln.dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS performans, COALESCE(CAST(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.hedef_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS calisma_performans FROM lgs_lessons ll LEFT JOIN lgs_notes ln ON ll.ders_id = ln.ders_id AND ln.ogrenci_id in(${ogrenciids}) GROUP BY ll.ders_adi, ll.ders_id, ll.sort_order order by ll.sort_order`,
+      //"Data": `SELECT ll.ders_adi, cast(ln.ogrenci_id as text), COALESCE(SUM(ln.hedef_soru), 0) AS hedef, COALESCE(SUM(ln.cozulen_soru), 0) AS cozulen, COALESCE(SUM(ln.dogru_sayisi), 0) AS dogru, COALESCE(SUM(ln.yanlis_sayisi), 0) AS yanlis, COALESCE(SUM(ln.cozulen_soru - ln.dogru_sayisi - ln.yanlis_sayisi), 0) AS bos, COALESCE(CAST(CAST(SUM(ln.dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS performans, COALESCE(CAST(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.hedef_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS calisma_performans FROM lgs_lessons ll LEFT JOIN lgs_notes ln ON ll.ders_id = ln.ders_id AND ln.ogrenci_id in(${ogrenciids}) GROUP BY ll.ders_adi, ln.ders_id, ll.sort_order, ln.ogrenci_id order by ll.sort_order`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
+  getGeneralPerformByStudentIdsandLessonId(ogrenciids: string, lessonid: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.noteDataStoreid,
+      "Operation": "read",
+      "Data": `select ls.ad, ls.soyad , ll.ders_adi, COALESCE(SUM(ln.hedef_soru), 0) AS hedef, COALESCE(SUM(ln.cozulen_soru), 0) AS cozulen, COALESCE(SUM(ln.dogru_sayisi), 0) AS dogru, COALESCE(SUM(ln.yanlis_sayisi), 0) AS yanlis, COALESCE(SUM(ln.cozulen_soru - ln.dogru_sayisi - ln.yanlis_sayisi), 0) AS bos, COALESCE(CAST(CAST(SUM(ln.dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS performans, COALESCE(CAST(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.hedef_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS calisma_performans FROM lgs_lessons ll LEFT JOIN lgs_notes ln ON ll.ders_id = ln.ders_id inner join lgs_students ls on ln.ogrenci_id = ls.ogrenci_id  AND ln.ogrenci_id in(${ogrenciids}) where ln.ders_id = '${lessonid}' group by ll.ders_adi, ls.ad, ls.soyad, ln.ogrenci_id`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { tap } from 'rxjs';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-edit-student',
@@ -17,6 +18,7 @@ export class EditStudentComponent {
     private logService: LogService,
     private lessonService: LessonService,
     private dialogService: DialogService,
+    private toastService: ToastService,
     private router: Router) { }
 
   students: any[] = []
@@ -61,11 +63,12 @@ export class EditStudentComponent {
           }
         })
       })
-      this.getGeneralPerformsByStudents()
+      //this.getGeneralPerformsByStudents()
     })
   }
 
   getGeneralPerformsByStudents() {
+    //burda modal acılınca da veriyi getirebilirsin
     this.students.map(student => {
       this.logService.getGeneralPerformByStudentIds(`'${student.ogrenci_id}'`).subscribe(res => student.perform = res)
     })
@@ -88,7 +91,14 @@ export class EditStudentComponent {
     const modalData = { ders: { ders_id: ders }, hedef_soru: hedef_soru };
 
     // Dialog açma işlemini gerçekleştirin ve modalData'yı ileterek ders adını içeri aktarın
-    this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => console.log(res));
+    this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => {
+      if (res == 'Success') {
+        this.toastService.showToast('success', 'Ders Kayıt işlemi başarılı.')
+      } else {
+        this.toastService.showToast('warning', 'Ders kayıt işlemi başarısız oldu.')
+      }
+
+    });
   }
 
   selectStudent(index: any, name: any, surname: any) {
@@ -99,7 +109,11 @@ export class EditStudentComponent {
     //dashboard gibi kullanıcının verileri okunsun her ders için aylık tıklandııgnda haftalık ve gunluk istatistikler
   }
 
-  showPerform(student: any) {
-    this.dialogService.openStudentPerformModal(student).onClose.subscribe(res => console.log(res))
+  showStudentPerform(student: any) {
+    this.dialogService.openStudentPerformModal(student).onClose.subscribe()
+  }
+
+  showLessonPerform(lesson: any) {
+    this.dialogService.openLessonPerformModal(lesson, this.students).onClose.subscribe()
   }
 }

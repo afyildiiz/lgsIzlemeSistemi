@@ -43,8 +43,10 @@ export class ProfileComponent {
     if (this.myForm.valid) {
       this.teacherService.updateTeacher({ ad: this.myForm.value.ad, soyad: this.myForm.value.soyad, sifre: this.myForm.value.sifre, brans: this.myForm.value.brans, id: this.currentTeacher.id })
         .subscribe(res => {
-          if (res.message == 'Success')
+          if (res.message == 'Success') {
+            this.toastService.showToast('success', 'Değişiklikleriniz kaydedildi.')
             this.getTeacher()
+          }
         });
     } else {
       this.toastService.showToast('warning', 'Form verileri geçerli değil.');

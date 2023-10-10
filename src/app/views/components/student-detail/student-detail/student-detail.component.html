@@ -1,44 +1,45 @@
 <nb-card>
-    <nb-card-header class="text-center">
-        {{student.ad}} {{student.soyad}}
-    </nb-card-header>
-    <nb-card-body>
-        <body>
-            <div id="wrapper">
-             <h1></h1>
-             
-             <table id="keywords" cellspacing="0" cellpadding="0">
-               <thead>
-                 <tr>
-                   <th><span>Ders Adi</span></th>
-                   <th><span>Hedef Soru</span></th>
-                   <th><span>Çözülen Soru</span></th>
-                   <th><span>Doğru</span></th>
-                   <th><span>Yanlış</span></th>
-                   <th><span>Boş Soru</span></th>
-                   <th><span>Performans</span></th>
-                 </tr>
-               </thead>
-               <tbody>
-                 <tr *ngFor="let perform of student.perform; index as i">
-                   <td class="lalign">{{perform.ders_adi}}</td>
-                   <td>{{perform.hedef}}</td>
-                   <td>{{perform.cozulen}}</td>
-                   <td>{{perform.dogru}}</td>
-                   <td>{{perform.yanlis}}</td>
-                   <td>{{perform.bos}}</td>
-                   <td>%{{perform.performans}}</td>
-                 </tr>
+  <nb-card-header class="text-center">
+    {{student.ad}} {{student.soyad}}
+  </nb-card-header>
+  <nb-card-body>
 
-               </tbody>
-             </table>
-            </div> 
-           </body>
+    <body>
+      <div id="wrapper">
+        <h1></h1>
 
-    </nb-card-body>
+        <table id="keywords" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <th><span>Ders Adi</span></th>
+              <th><span>Hedef Soru</span></th>
+              <th><span>Çözülen Soru</span></th>
+              <th><span>Doğru</span></th>
+              <th><span>Yanlış</span></th>
+              <th><span>Boş Soru</span></th>
+              <th><span>Performans</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let perform of student.perform; index as i">
+              <td class="lalign">{{perform.ders_adi}}</td>
+              <td>{{perform.hedef}}</td>
+              <td>{{perform.cozulen}}</td>
+              <td>{{perform.dogru}}</td>
+              <td>{{perform.yanlis}}</td>
+              <td>{{perform.bos}}</td>
+              <td>%{{perform.performans}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </body>
+
+  </nb-card-body>
 </nb-card>
 
-        <!-- <div class="container">
+<!-- <div class="container">
             <ul class="responsive-table">
               <li class="table-header">
                 <div class="col col-1">Ders Adi</div>
@@ -60,8 +61,3 @@
               </li>
             </ul>
           </div> -->
-
-
-
-
-
