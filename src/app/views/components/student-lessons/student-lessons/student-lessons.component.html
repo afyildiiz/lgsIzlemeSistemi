@@ -119,8 +119,8 @@
                                     <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
                                         class="card-title">{{lesson.ders_adi}}</h5>
                                     <hr>
-                                    <p class="card-text mb-2">Ders Performansım: %<b>{{lesson.perform?.performans ||
-                                            0}}</b></p>
+                                    <b class="mb-2">Ders Performansım: %{{lesson.perform?.performans ||
+                                        0}}</b>
                                     <hr>
                                     <div class=" buttons">
                                         <a class="btn btn-lg" (click)="insertLog(lesson.ders_id,lesson.ders_adi)">

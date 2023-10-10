@@ -81,7 +81,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT cast(ln2.kategori_id as text), ln2.yil, ln2.aylik_hedef_soru, ln2.ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, (ln2.cozulen_soru - (ln2.dogru_sayisi + ln2.yanlis_sayisi)) as bos_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids})`,
+      "Data": `SELECT cast(ln2.kategori_id as text), ln2.yil, ln2.aylik_hedef_soru, ln2.ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, (ln2.cozulen_soru - (ln2.dogru_sayisi + ln2.yanlis_sayisi)) as bos_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids}) order by COALESCE(ln2.cozulen_soru, 0) DESC`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -151,12 +151,12 @@ export class LogService {
     );
   }
 
-  getNotesByStudentIdAndCategoryId(student_id: string, category_id: string, date: number) {
+  getNotesByStudentIdAndCategoryId(student_id: string, category_id: string, year: number, month: number) {
     const body = {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') as gun FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.kategori_id = '${category_id}' and ay='${date}'`,
+      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') as gun FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.kategori_id = '${category_id}' and yil='${year}' and ay='${month}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -168,12 +168,12 @@ export class LogService {
 
 
 
-  getNotesByStudentIdAndLessonId(student_id: string, lesson_id: string, month: number) {
+  getNotesByStudentIdAndLessonId(student_id: string, lesson_id: string, year: number, month?: number) {
     const body = {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') as gun, ay, yil FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.ders_id = '${lesson_id}' and ay='${month}'`,
+      "Data": `SELECT lgs_categories.kategori_adi, CAST(ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') as gun, ay, yil FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id WHERE ogrenci_id = '${student_id}' AND lgs_notes.ders_id = '${lesson_id}' and yil='${year}'${month ? `and ay='${month}'` : ''} and cozulen_soru is not null`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -204,7 +204,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "update",
-      "Data": `UPDATE lgs_notes SET hedef_soru = '${lesson.hedef_soru}', cozulen_soru = '${lesson.cozulen_soru}', dogru_sayisi = '${lesson.dogru_sayisi}', yanlis_sayisi = '${lesson.yanlis_sayisi}' WHERE ogrenci_id = '${ogrenci_id}' AND ders_id = '${lesson.lesson_id}' AND kategori_id = '${lesson.kategori_id}' AND ay = '${lesson.ay}' AND yil = '${lesson.yil}'`,
+      "Data": `UPDATE lgs_notes SET gun = '${lesson.tarih}', cozulen_soru = '${lesson.cozulen_soru}', dogru_sayisi = '${lesson.dogru_sayisi}', yanlis_sayisi = '${lesson.yanlis_sayisi}' WHERE ogrenci_id = '${ogrenci_id}' AND ders_id = '${lesson.lesson_id}' AND kategori_id = '${lesson.kategori_id}' AND ay = '${lesson.ay}' AND yil = '${lesson.yil}'`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -265,7 +265,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `select aylik_hedef_soru as toplam_hedef_soru, case WHEN SUM(hedef_soru) = 0 THEN 0 ELSE CAST(CAST(SUM(cozulen_soru) AS double precision) / NULLIF(CAST(SUM(hedef_soru) AS double precision), 0) * 100 AS numeric(10, 2)) END as calisma_performansi, ay, CAST(CAST(SUM(dogru_sayisi) AS double precision) / NULLIF(CAST(SUM(cozulen_soru) AS double precision), 0) * 100 AS numeric(10, 2)) as performans, SUM(cozulen_soru) as toplam_cozulen_soru, SUM(dogru_sayisi) as toplam_dogru_sayisi, SUM(yanlis_sayisi) as toplam_yanlis_sayisi, SUM(cozulen_soru) - (SUM(dogru_sayisi) + SUM(yanlis_sayisi)) as toplam_bos_sayisi from lgs_notes  where ogrenci_id = '${studentId}' and ders_id = '${lessonId}' group by (ay, aylik_hedef_soru) order by ay asc`,
+      "Data": `select aylik_hedef_soru as toplam_hedef_soru, yil, case WHEN SUM(hedef_soru) = 0 THEN 0 ELSE CAST(CAST(SUM(cozulen_soru) AS double precision) / NULLIF(CAST(SUM(hedef_soru) AS double precision), 0) * 100 AS numeric(10, 2)) END as calisma_performansi, ay, CAST(CAST(SUM(dogru_sayisi) AS double precision) / NULLIF(CAST(SUM(cozulen_soru) AS double precision), 0) * 100 AS numeric(10, 2)) as performans, SUM(cozulen_soru) as toplam_cozulen_soru, SUM(dogru_sayisi) as toplam_dogru_sayisi, SUM(yanlis_sayisi) as toplam_yanlis_sayisi, SUM(cozulen_soru) - (SUM(dogru_sayisi) + SUM(yanlis_sayisi)) as toplam_bos_sayisi from lgs_notes  where ogrenci_id = '${studentId}' and ders_id = '${lessonId}' group by (yil, ay, aylik_hedef_soru) order by ay asc`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -280,7 +280,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `select sum(hedef_soru) as toplam_hedef_soru, ROUND((CAST(SUM(cozulen_soru) AS double precision) / NULLIF(CAST(SUM(hedef_soru) AS double precision), 0))::numeric * 100, 0) AS calisma_performansi, ROUND((CAST(SUM(dogru_sayisi) AS double precision) / NULLIF(CAST(SUM(cozulen_soru) AS double precision), 0))::numeric * 100, 0) AS performans, ay, EXTRACT(WEEK FROM gun) AS hafta, sum(cozulen_soru) as toplam_cozulen_soru, SUM(dogru_sayisi) AS toplam_dogru_sayisi, SUM(yanlis_sayisi) AS toplam_yanlis_sayisi, SUM(cozulen_soru) - (SUM(dogru_sayisi) + SUM(yanlis_sayisi)) AS toplam_bos_sayisi from lgs_notes where ogrenci_id = '${studentId}' AND ders_id = '${lessonId}' GROUP by (gun, ay) ORDER by hafta ASC;`,
+      "Data": `select sum(hedef_soru) as toplam_hedef_soru, yil, ROUND((CAST(SUM(cozulen_soru) AS double precision) / NULLIF(CAST(SUM(hedef_soru) AS double precision), 0))::numeric * 100, 0) AS calisma_performansi, ROUND((CAST(SUM(dogru_sayisi) AS double precision) / NULLIF(CAST(SUM(cozulen_soru) AS double precision), 0))::numeric * 100, 0) AS performans, ay, EXTRACT(WEEK FROM gun) AS hafta, sum(cozulen_soru) as toplam_cozulen_soru, SUM(dogru_sayisi) AS toplam_dogru_sayisi, SUM(yanlis_sayisi) AS toplam_yanlis_sayisi, SUM(cozulen_soru) - (SUM(dogru_sayisi) + SUM(yanlis_sayisi)) AS toplam_bos_sayisi from lgs_notes where ogrenci_id = '${studentId}' AND ders_id = '${lessonId}' GROUP by (yil, gun, ay) ORDER by hafta ASC;`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

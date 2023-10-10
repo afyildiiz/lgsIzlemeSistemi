@@ -18,15 +18,15 @@ export class StudentPerformComponent {
   isShown: boolean = false
   selectedLesson: any
   allNotes: any[] = []
-  takenLesson:any
+  takenLesson: any
   monthlyPerform: any[] = []
   weeklyPerform: any[] = []
   dailyPerform: any[] = []
 
-  studentName:any=''
-  studentSurname:any=''
+  studentName: any = ''
+  studentSurname: any = ''
 
-  lessonSelected: boolean = false; 
+  lessonSelected: boolean = false;
 
   lessonNotes: any[] = []
   months: any[] = [
@@ -34,12 +34,12 @@ export class StudentPerformComponent {
   ]
 
   ngOnInit() {
-    this.studentSurname=history.state.soyad
-    this.studentName=history.state.ad
+    this.studentSurname = history.state.soyad
+    this.studentName = history.state.ad
     this.student = history.state.student
     this.lessons = history.state.lessons
     console.log(this.lessons)
-    console.log(this.studentName,this.studentSurname)
+    console.log(this.studentName, this.studentSurname)
   }
 
   isMenuOpen: boolean = false; // Başlangıçta menü kapalı
@@ -52,8 +52,8 @@ export class StudentPerformComponent {
     this.lessonSelected = true;
   }
 
-  takeLessonName(lesson:any){
-    this.takenLesson=lesson.ders_adi
+  takeLessonName(lesson: any) {
+    this.takenLesson = lesson.ders_adi
   }
   getAllNotes(lesson_id: any) {
     this.logService.getNotesByLessonId(`'${this.student.ogrenci_id}'`, lesson_id).pipe(
@@ -62,7 +62,7 @@ export class StudentPerformComponent {
   }
 
   showCards(lesson: any) {
-    this.takenLesson=lesson.ders_adi
+    this.takenLesson = lesson.ders_adi
     if (this.selectedLesson && this.selectedLesson.ders_id != lesson.ders_id) {
       this.monthlyPerform = []
       this.weeklyPerform = []

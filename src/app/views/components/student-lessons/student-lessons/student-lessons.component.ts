@@ -5,6 +5,7 @@ import { LogService } from 'src/app/services/log/log.service';
 import { tap } from 'rxjs'
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { LessonService } from 'src/app/services/lesson/lesson.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-student-lessons',
@@ -21,6 +22,7 @@ export class StudentLessonsComponent {
     private logService: LogService,
     private lessonService: LessonService,
     private dialogService: DialogService,
+    private toastService: ToastService,
     private router: Router) { }
 
   ngOnInit() {
@@ -106,7 +108,11 @@ export class StudentLessonsComponent {
 
         if (res.isUpdated === true) {
           let tarih = res.value.tarih.split('-')[1]
+          let yil = res.value.tarih.split('-')[0]
           let ay = new Date(tarih).getMonth() + 1
+
+          console.log(tarih)
+          console.log(yil)
 
           this.logService.updateStudentNote(this.currentStudent.ogrenci_id, {
             cozulen_soru: res.value.cozulen_soru,
@@ -117,12 +123,19 @@ export class StudentLessonsComponent {
             lesson_id: lesson_id,
             hedef_soru: res.value.hedef_soru,
             ay: ay,
-            yil: '2023'
-          }).subscribe(res => console.log(res))
+            yil: yil
+          }).subscribe(res => {
+            if (res == 'Success')
+              this.toastService.showToast('success', 'Ders güncelleme işlemi başarılı.')
+          })
         }
         else if (res.isUpdated === false) {
           let tarih = res.value.tarih.split('-')[1]
+          let yil = res.value.tarih.split('-')[0]
           let ay = new Date(tarih).getMonth() + 1
+
+          console.log(tarih)
+          console.log(yil)
 
           this.logService.insertStudentNote(this.currentStudent.ogrenci_id, {
             lesson_id: lesson_id,
@@ -134,8 +147,11 @@ export class StudentLessonsComponent {
             tarih: res.value.tarih,
             aylik_hedef_soru: 0,
             ay: ay,
-            yil: '2023'
-          }).subscribe(res => console.log(res))
+            yil: yil
+          }).subscribe(res => {
+            if (res == 'Success')
+              this.toastService.showToast('success', 'Ders kayıt işlemi başarılı.')
+          })
         }
 
       }

@@ -26,8 +26,8 @@ export class GetLogPageComponent {
   notes: any[] = []
   categories: any[] = []
   lesson_id: any
-  selectedYear: any=''
-  selectedMonth: any=''
+  selectedYear: any = ''
+  selectedMonth: any = ''
   lesson_name: any
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
@@ -67,6 +67,7 @@ export class GetLogPageComponent {
   }
 
   onSelectedStudent(event: any) {
+
     let year = this.selectedYear
     let month = (parseInt(this.selectedMonth) + 1).toString()
 
@@ -87,6 +88,7 @@ export class GetLogPageComponent {
   }
 
   onSelectedYear() {
+
     let month = (parseInt(this.selectedMonth) + 1).toString()
     let year = this.selectedYear
 
@@ -118,6 +120,7 @@ export class GetLogPageComponent {
   }
 
   onSelectedMonth() {
+
     let month = (parseInt(this.selectedMonth) + 1).toString()
     let year = this.selectedYear
 

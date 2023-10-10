@@ -11,7 +11,7 @@ export class TeacherRegisterFormComponent {
   @Input() data: any;
   databySheets: DataBySheet[] = [{
     sheet: { sheetName: 'Öğretmenler', columnNames: ['Ad', 'Soyad', 'Brans', 'E_Posta', 'Sifre'] },
-    data: {}
+    data: []
   }];
   sheetNames: any;
 

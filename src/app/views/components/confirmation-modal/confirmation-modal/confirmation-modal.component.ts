@@ -54,10 +54,11 @@ export class ConfirmationModalComponent implements OnInit {
 
   getGoals(changes?: any) {
     let tarih = this.myForm.value.tarih
+    let yil = tarih.split('-')[0]
     let ay = new Date(tarih).getMonth() + 1
 
     if (this.selectedCategory)
-      this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, ay).subscribe(res => {
+      this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, yil, ay).subscribe(res => {
         console.log(res)
         if (res.length) {
           this.isUpdated = true
@@ -97,6 +98,7 @@ export class ConfirmationModalComponent implements OnInit {
         if (this.myForm.value.cozulen_soru >= this.myForm.value.dogru_sayisi + this.myForm.value.yanlis_sayisi) {
           this.myForm.value.kategori_id = this.selectedCategory
           this.myForm.value.hedef_soru = this.hedef_soru;
+          console.log(this.myForm.value)
           this.dialogRef.close({ value: this.myForm.value, isUpdated: this.isUpdated });
         }
       } else {

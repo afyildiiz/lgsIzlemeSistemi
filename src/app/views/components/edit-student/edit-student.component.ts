@@ -94,10 +94,7 @@ export class EditStudentComponent {
     this.dialogService.openTextModal(modalData, 'text-modal').onClose.subscribe(res => {
       if (res == 'Success') {
         this.toastService.showToast('success', 'Ders Kayıt işlemi başarılı.')
-      } else {
-        this.toastService.showToast('warning', 'Ders kayıt işlemi başarısız oldu.')
       }
-
     });
   }
 

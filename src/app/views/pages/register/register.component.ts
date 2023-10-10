@@ -52,10 +52,19 @@ export class RegisterComponent {
     this.schoolDatas = this.registerFormComponent.onSubmit();
     this.teacherDatas = this.teacherRegisterFormComponent.data;
     this.studentDatas = this.studentRegisterFormComponent.data;
+    let teachers: any
+    let students: any
+
+    console.log(this.teacherDatas)
+    console.log(this.studentDatas)
 
     if (this.schoolDatas != false) {
-      let teachers = this.teacherDatas[0].data.map((e: any) => e);
-      let students = this.studentDatas[0].data.map((e: any) => e);
+      if (this.teacherDatas.length) {
+        teachers = this.teacherDatas[0].data.map((e: any) => e)
+      }
+      if (this.studentDatas.length) {
+        students = this.studentDatas[0].data.map((e: any) => e)
+      }
       let formValues = this.schoolDatas.formValues;
       let school = this.schoolDatas.school;
 

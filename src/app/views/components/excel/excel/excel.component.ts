@@ -20,6 +20,9 @@ export class ExcelComponent {
   private hotRegisterer = new HotTableRegisterer();
 
   ngOnInit() {
+    console.log(this.tableData)
+    console.log(this.columns)
+    this.swapHotData(this.tableData, this.columns)
 
   }
 

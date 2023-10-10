@@ -210,6 +210,7 @@ h1 {
 
 #keywords {
     margin: 0 auto;
+    width: 800px;
     font-size: 1.2em;
     margin-bottom: 15px;
 }
@@ -224,6 +225,13 @@ h1 {
     font-weight: bold;
     padding: 12px;
     padding-left: 42px;
+    width: 10%;
+}
+
+#keywords thead tr td {
+    font-weight: bold;
+    width: 10%;
+    text-align: center;
 }
 
 #keywords thead tr th span {

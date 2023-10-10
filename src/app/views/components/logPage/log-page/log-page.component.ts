@@ -152,19 +152,22 @@ export class LogPageComponent {
 
   constructor(private logService: LogService,
     private dialogService: DialogService) { }
-    ders_adi:any
+  ders_adi: any
 
   currentStudent: any;
   datas: any[] = []
   currentLessonId: any;
-  selectedMonth: any = new Date().getMonth() + 1
+  selectedYear: any
+  selectedMonth: any
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
   ]
 
+  years: any[] = ['2023', '2024', '2025', '2026']
+
   ngOnInit() {
     this.currentLessonId = history.state.lesson_id
-    this.ders_adi=history.state.ders_adi
+    this.ders_adi = history.state.ders_adi
     this.currentStudent = localStorage.getItem('currentStudent');
     this.currentStudent = JSON.parse(this.currentStudent);
 
@@ -176,11 +179,20 @@ export class LogPageComponent {
   }
 
   getNotes() {
-    if (this.selectedMonth) {
-      this.logService.getNotesByStudentIdAndLessonId(this.currentStudent.ogrenci_id, this.currentLessonId, this.selectedMonth).pipe(
+    if (this.selectedYear) {
+      if (this.selectedMonth) {
+        this.logService.getNotesByStudentIdAndLessonId(this.currentStudent.ogrenci_id, this.currentLessonId, this.selectedYear, this.selectedMonth).pipe(
+          tap(res => this.datas = res),
+          tap(res => console.log(res))
+        ).subscribe()
+        return
+      }
+
+      this.logService.getNotesByStudentIdAndLessonId(this.currentStudent.ogrenci_id, this.currentLessonId, this.selectedYear).pipe(
         tap(res => this.datas = res),
         tap(res => console.log(res))
       ).subscribe()
+
     }
   }
 

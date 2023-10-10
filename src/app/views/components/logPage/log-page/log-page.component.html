@@ -38,7 +38,14 @@
                     Görüntüle</button>
             </div>
             <div class="col d-flex justify-content-start mb-5 box">
+              <select [(ngModel)]="selectedYear" (ngModelChange)="getNotes()">
+                <option value="" disabled>Yıl Seçiniz</option>
+                  <option *ngFor="let year of years; index as i" [value]="year">{{year}}</option>
+              </select>
+          </div>
+            <div class="col d-flex justify-content-start mb-5 box">
                 <select [(ngModel)]="selectedMonth" (ngModelChange)="getNotes()">
+                  <option value="" disabled>Ay Seçiniz</option>
                     <option *ngFor="let month of months; index as i" [value]="i + 1">{{month}}</option>
                 </select>
             </div>
