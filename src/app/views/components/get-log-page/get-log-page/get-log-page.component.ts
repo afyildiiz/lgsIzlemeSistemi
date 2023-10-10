@@ -26,8 +26,8 @@ export class GetLogPageComponent {
   notes: any[] = []
   categories: any[] = []
   lesson_id: any
-  selectedYear: any
-  selectedMonth: any
+  selectedYear: any=''
+  selectedMonth: any=''
   lesson_name: any
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
