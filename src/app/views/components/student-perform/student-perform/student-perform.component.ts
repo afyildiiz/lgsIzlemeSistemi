@@ -38,8 +38,6 @@ export class StudentPerformComponent {
     this.studentName = history.state.ad
     this.student = history.state.student
     this.lessons = history.state.lessons
-    console.log(this.lessons)
-    console.log(this.studentName, this.studentSurname)
   }
 
   isMenuOpen: boolean = false; // Başlangıçta menü kapalı

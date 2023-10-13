@@ -45,35 +45,36 @@
 
 
 <div class="modal">
-	<article class="modal-container">
-		<header style="border: 0;height: 50px;" class="modal-container-header">
+    <article class="modal-container">
+        <header style="border: 0;height: 50px;" class="modal-container-header">
             <div>
                 <h2 class="font-weight-bold" style="margin-top: 1rem;">{{lesson_name}} Çalışmalarım</h2>
             </div>
-			<button class="icon-button text-end" (click)="close()">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-					<path fill="none" d="M0 0h24v24H0z" />
-					<path fill="currentColor" d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
-				</svg>
-			</button>
-		</header>
-		<section class="modal-container-body rtf">
+            <button class="icon-button text-end" (click)="close()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path fill="currentColor"
+                        d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
+                </svg>
+            </button>
+        </header>
+        <section class="modal-container-body rtf">
 
             <nb-card-body>
                 <div class="col mb-3 d-flex justify-content-center">
                     <form [formGroup]="myForm">
                         <div class="col">
-                            <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control" type="date" formControlName="tarih">
+                            <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control"
+                                type="date" formControlName="tarih">
                         </div>
                     </form>
                 </div>
                 <hr>
                 <div class="col mb-3 box">
-                    <select [(ngModel)]="selectedCategory"  (ngModelChange)="updateCategory()"
-                        >
+                    <select [(ngModel)]="selectedCategory" (ngModelChange)="updateCategory()">
                         <option value="" disabled>Konu seçiniz</option>
-                        <option [value]="category.kategori_id"
-                            *ngFor="let category of categories">{{category.kategori_adi}}</option>
+                        <option [value]="category.kategori_id" *ngFor="let category of categories">
+                            {{category.kategori_adi}}</option>
                     </select>
                 </div>
                 <hr>
@@ -81,25 +82,28 @@
                     <p class="mb-3 text-center font-weight-bold">Çözmem beklenen soru adedi: <b>{{hedef_soru}}</b></p>
                     <div class="row">
                         <label class="mb-2 col-4">Çözülen Soru</label>
-                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control mb-3 col" nbInput type="number" formControlName="cozulen_soru">
+                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control mb-3 col"
+                            nbInput type="number" formControlName="cozulen_soru">
                     </div>
 
                     <hr>
                     <div class="row">
                         <label class="mb-2 col-4">Doğru Sayısı</label>
-                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control mb-3 col" nbInput type="number" formControlName="dogru_sayisi">
+                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control mb-3 col"
+                            nbInput type="number" formControlName="dogru_sayisi">
                     </div>
                     <hr>
                     <div class="row">
                         <label class="mb-2 col-4">Yanlış Sayısı</label>
-                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control col" nbInput type="number" formControlName="yanlis_sayisi">
+                        <input style="background-color:#94cdfc;border-radius: 15px;" class="form-control col" nbInput
+                            type="number" formControlName="yanlis_sayisi">
                     </div>
                 </form>
             </nb-card-body>
-		</section>
-		<footer class="modal-container-footer d-flex justify-content-center">
-                <button class="button is-primary" (click)="action(true)">Kaydet</button>
-                <!-- <button class="button is-primary" (click)="action(false)">Çıkış</button> -->
-		</footer>
-	</article>
+        </section>
+        <footer class="modal-container-footer d-flex justify-content-center">
+            <button class="button is-primary" (click)="action(true)">Kaydet</button>
+            <!-- <button class="button is-primary" (click)="action(false)">Çıkış</button> -->
+        </footer>
+    </article>
 </div>

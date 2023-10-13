@@ -183,14 +183,12 @@ export class LogPageComponent {
       if (this.selectedMonth) {
         this.logService.getNotesByStudentIdAndLessonId(this.currentStudent.ogrenci_id, this.currentLessonId, this.selectedYear, this.selectedMonth).pipe(
           tap(res => this.datas = res),
-          tap(res => console.log(res))
         ).subscribe()
         return
       }
 
       this.logService.getNotesByStudentIdAndLessonId(this.currentStudent.ogrenci_id, this.currentLessonId, this.selectedYear).pipe(
         tap(res => this.datas = res),
-        tap(res => console.log(res))
       ).subscribe()
 
     }
@@ -201,9 +199,9 @@ export class LogPageComponent {
       let cozulen_soru: number = 0
       let dogru_sayisi: number = 0
       let yanlis_sayisi: number = 0
+      let hedef_soru: number = 0
       let performans: any
       let calisma_performansi: any
-      let hedef_soru: any
 
       this.datas.map(data => {
         cozulen_soru += data.cozulen_soru
@@ -211,12 +209,12 @@ export class LogPageComponent {
         yanlis_sayisi += data.yanlis_sayisi
         hedef_soru += data.hedef_soru
       })
-      performans = ((dogru_sayisi / cozulen_soru) * 100)
+      performans = ((dogru_sayisi / cozulen_soru) * 100).toFixed(2)
 
       if (isNaN(cozulen_soru) || isNaN(hedef_soru) || hedef_soru === 0) {
-        calisma_performansi = 0;
+        calisma_performansi = 0
       } else {
-        calisma_performansi = (cozulen_soru / hedef_soru) * 100;
+        calisma_performansi = ((cozulen_soru / hedef_soru) * 100).toFixed(2)
       }
 
       this.dialogService.openPerformModal({

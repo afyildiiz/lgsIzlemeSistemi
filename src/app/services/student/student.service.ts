@@ -178,4 +178,19 @@ export class StudentService {
       })
     );
   }
+
+  getStudentIdByMail(mail: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.studentDataStoreid,
+      "Operation": "read",
+      "Data": `select cast(ogrenci_id as text) from lgs_students where e_posta = '${mail}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
 }

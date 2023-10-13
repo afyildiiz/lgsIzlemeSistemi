@@ -22,9 +22,6 @@ export class RegisterTopBarComponent {
     private toastService: ToastService,
   ) { }
 
-  ngOnInit() {
-  }
-
   parametertypes: ParameterTypes[] = []
 
   ngOnDestroy() {

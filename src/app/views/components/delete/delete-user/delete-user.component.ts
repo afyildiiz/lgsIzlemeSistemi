@@ -16,13 +16,9 @@ export class DeleteUserComponent {
     private studentService: StudentService,
     private teacherService: TeacherService) { }
 
-  ngOnInit() {
-    console.log(this.deleted)
-  }
 
   deleteUser(action: boolean) {
     if (action) {
-      console.log('silindi')
       /*
       if(this.deleted.ogrenci_numarasi){
         this.studentService.deleteStudent(this.deleted.ogrenci_id).subscribe(res => console.log(res))

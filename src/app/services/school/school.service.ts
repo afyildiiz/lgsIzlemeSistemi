@@ -73,4 +73,19 @@ export class SchoolService {
       })
     );
   }
+
+  getSchoolIdByMail(mail: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.schooldataStoreid,
+      "Operation": "read",
+      "Data": `select cast(okul_id as text) from lgs_schools where admin_e_posta='${mail}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
 }

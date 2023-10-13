@@ -42,9 +42,6 @@ export class LessonDetailComponent {
       const valueA = a[column];
       const valueB = b[column];
 
-      console.log(valueA)
-      console.log(valueB)
-
       if (this.sortOrder === 'asc') {
         return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
       } else {

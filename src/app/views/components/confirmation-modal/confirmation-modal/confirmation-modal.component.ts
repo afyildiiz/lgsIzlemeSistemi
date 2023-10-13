@@ -5,6 +5,7 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { LogService } from 'src/app/services/log/log.service';
 import { LessonCategoryService } from 'src/app/services/lesson-category/lesson-category.service';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { TeacherLogService } from 'src/app/services/teacher-log/teacher-log.service';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -17,15 +18,18 @@ export class ConfirmationModalComponent implements OnInit {
     private lessonCategoryService: LessonCategoryService,
     private fb: FormBuilder,
     private toastService: ToastService,
+    private teacherLogService: TeacherLogService,
     private logService: LogService,
     private dialogService: DialogService) { }
 
   @Input() lesson_id: any;
   @Input() student_id: any;
   myForm!: FormGroup;
+  aylik_hedef: any
   hedef_soru: any;
   categories: any[] = []
   selectedCategory: any = ''
+  lesson_name: any
 
   ngOnInit(): void {
     this.getLesson()
@@ -37,16 +41,16 @@ export class ConfirmationModalComponent implements OnInit {
     })
 
     this.myForm.get('tarih')?.valueChanges.subscribe((changes) => {
+      console.log(changes)
       this.getGoals(changes)
     });
 
     this.getCategories()
   }
-  lesson_name: any
+
   getLesson() {
     this.dialogService.getDersAdi().subscribe((res: any) => {
       this.lesson_name = res
-      console.log(this.lesson_name)
     })
   }
 
@@ -55,30 +59,26 @@ export class ConfirmationModalComponent implements OnInit {
   getGoals(changes?: any) {
     let tarih = this.myForm.value.tarih
     let yil = tarih.split('-')[0]
-    let ay = new Date(tarih).getMonth() + 1
+    let ay = new Date(tarih).getMonth() + 1.
 
     if (this.selectedCategory)
-      this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, yil, ay).subscribe(res => {
-        console.log(res)
+      this.teacherLogService.getGoals(this.student_id, this.selectedCategory, yil, ay.toString()).subscribe(res => {
         if (res.length) {
-          this.isUpdated = true
+          this.aylik_hedef = res[0].aylik_hedef_soru
           this.hedef_soru = res[0].hedef_soru
-          this.myForm.get('cozulen_soru')?.setValue(res[0].cozulen_soru)
-          this.myForm.get('dogru_sayisi')?.setValue(res[0].dogru_sayisi)
-          this.myForm.get('yanlis_sayisi')?.setValue(res[0].yanlis_sayisi)
         }
-        else
+        else {
           this.hedef_soru = 0;
+        }
+        this.logService.getNotesByStudentIdAndCategoryId(this.student_id, this.selectedCategory, yil, ay.toString(), tarih).subscribe(res => {
+          if (res.length) {
+            this.isUpdated = true
+            this.myForm.get('cozulen_soru')?.setValue(res[0].cozulen_soru)
+            this.myForm.get('dogru_sayisi')?.setValue(res[0].dogru_sayisi)
+            this.myForm.get('yanlis_sayisi')?.setValue(res[0].yanlis_sayisi)
+          }
+        })
       })
-    /*
-    kodun calısma mantıgı:
-    tarihte veya konularda herhangi bir değişiklik oldugunda gidiyor ve notlar tablosuna mevcut ogrenci id'si ile mevcut kategoride
-    ve mevcut tarihte bir hedef soru var mı diye sorgu atıyor.
-
-    bu sorguda ayı vererek önce secilen konuda bu aya ait hedeflenen soru var mı onu döndür hedef_soru olarak
-    ardından günü vererek kullanıcı belir
-
-    */
   }
 
   getCategories() {
@@ -98,7 +98,7 @@ export class ConfirmationModalComponent implements OnInit {
         if (this.myForm.value.cozulen_soru >= this.myForm.value.dogru_sayisi + this.myForm.value.yanlis_sayisi) {
           this.myForm.value.kategori_id = this.selectedCategory
           this.myForm.value.hedef_soru = this.hedef_soru;
-          console.log(this.myForm.value)
+          this.myForm.value.aylik_hedef_soru = this.aylik_hedef
           this.dialogRef.close({ value: this.myForm.value, isUpdated: this.isUpdated });
         }
       } else {

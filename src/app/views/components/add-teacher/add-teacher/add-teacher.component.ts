@@ -61,8 +61,6 @@ export class AddTeacherComponent {
     if (this.myForm.valid) {
       this.isValid();
     }
-    else
-      console.log(this.myForm.value)
   }
 
 }

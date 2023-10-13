@@ -118,4 +118,19 @@ export class TeacherService {
       })
     );
   }
+
+  getTeacherIdByMail(mail: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.teacherDataStoreid,
+      "Operation": "read",
+      "Data": `select cast(id as text) from lgs_teachers where e_posta = '${mail}'`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
 }

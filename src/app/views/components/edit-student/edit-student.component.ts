@@ -46,6 +46,9 @@ export class EditStudentComponent {
 
   }
 
+  /*
+    performansı gör diyince hedef sorularda çözülen soruların hedef toplamı geliyor
+  */
   getGeneralPerformByStudentIds() {
     let studentids: string = ''
     studentids = this.students.map(student => {

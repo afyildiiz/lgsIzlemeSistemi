@@ -19,13 +19,20 @@ export class ExcelComponent {
 
   private hotRegisterer = new HotTableRegisterer();
 
+  tableSettings: any = {
+    startRows: 0,
+    viewportColumnRenderingOffset: 27,
+    viewportRowRenderingOffset: "auto",
+    manualRowResize: true,
+    manualColumnResize: true,
+    colHeaders: this.columnNames,
+    manualRowMove: true,
+    manualColumnMove: true,
+  };
+
   ngOnInit() {
-    console.log(this.tableData)
-    console.log(this.columns)
-    this.swapHotData(this.tableData, this.columns)
-
+    //this.swapHotData(this.tableData, this.columns)
   }
-
 
   swapHotData(data: any, columns: any) {
     this.hotRegisterer.getInstance(this.id).updateSettings({
@@ -108,6 +115,7 @@ export class ExcelComponent {
 
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
 
     this.columnNames = this.columnNames?.filter(x => !x?.includes('UNKNOWN'))
 

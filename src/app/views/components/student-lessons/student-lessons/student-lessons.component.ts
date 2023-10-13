@@ -36,7 +36,6 @@ export class StudentLessonsComponent {
   getLessons() {
     this.lessonService.getLessons().pipe(
       tap(res => this.lessons = res),
-      tap(res => console.log(res))
     ).subscribe(() => {
       this.getLessonPerforms()
       /*this.lessons.map(e => {
@@ -107,12 +106,10 @@ export class StudentLessonsComponent {
       if (res) {
 
         if (res.isUpdated === true) {
+
           let tarih = res.value.tarih.split('-')[1]
           let yil = res.value.tarih.split('-')[0]
           let ay = new Date(tarih).getMonth() + 1
-
-          console.log(tarih)
-          console.log(yil)
 
           this.logService.updateStudentNote(this.currentStudent.ogrenci_id, {
             cozulen_soru: res.value.cozulen_soru,
@@ -122,6 +119,7 @@ export class StudentLessonsComponent {
             tarih: res.value.tarih,
             lesson_id: lesson_id,
             hedef_soru: res.value.hedef_soru,
+            aylik_hedef_soru: res.aylik_hedef_soru,
             ay: ay,
             yil: yil
           }).subscribe(res => {
@@ -130,22 +128,20 @@ export class StudentLessonsComponent {
           })
         }
         else if (res.isUpdated === false) {
+
           let tarih = res.value.tarih.split('-')[1]
           let yil = res.value.tarih.split('-')[0]
           let ay = new Date(tarih).getMonth() + 1
 
-          console.log(tarih)
-          console.log(yil)
-
           this.logService.insertStudentNote(this.currentStudent.ogrenci_id, {
             lesson_id: lesson_id,
-            hedef_soru: 0,
+            hedef_soru: res.value.hedef_soru,
             kategori_id: res.value.kategori_id,
             cozulen_soru: res.value.cozulen_soru,
             dogru_sayisi: res.value.dogru_sayisi,
             yanlis_sayisi: res.value.yanlis_sayisi,
             tarih: res.value.tarih,
-            aylik_hedef_soru: 0,
+            aylik_hedef_soru: res.value.aylik_hedef_soru || 0,
             ay: ay,
             yil: yil
           }).subscribe(res => {

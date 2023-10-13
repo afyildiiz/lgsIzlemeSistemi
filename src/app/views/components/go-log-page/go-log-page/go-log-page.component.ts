@@ -108,11 +108,9 @@ export class GoLogPageComponent {
   save(indis: any) {
     let sonuc = this.monthForm.controls[indis]
 
-    console.log(indis)
-
     if (sonuc.valid == true) {
       let veriler = sonuc.value
-      this.dialogService.openTextModal(veriler, 'text-modal').onClose.subscribe(res => console.log(res))
+      this.dialogService.openTextModal(veriler, 'text-modal').onClose.subscribe()
     }
   }
 }

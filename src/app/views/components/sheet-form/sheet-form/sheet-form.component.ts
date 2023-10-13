@@ -42,7 +42,6 @@ export class SheetFormComponent implements OnInit, OnChanges {
       if (key > 0)
         this.addNewColumn(item)
       else {
-        // console.log('bura',this.columnTypes,this.initialSheet.sheetName)
         this.sheetForm.patchValue({ 1: item })
         this.sheetForm.patchValue({ "type-1": this.columnTypes?.find(x => x.sheetName == this.initialSheet.sheetName)?.columnTypes?.find((x: any) => x.name == item).type })
       }
@@ -74,10 +73,8 @@ export class SheetFormComponent implements OnInit, OnChanges {
     let controls2 = this.sheetForm.controls
     let controlkeys2 = Object.keys(controls2)
     let newFormControl2: any = {}
-    // console.log('this.columnTypes', this.columnTypes)
     let selectedSheetcoltypelist = this.columnTypes?.find(x => x?.sheetName == this.initialSheet.sheetName)?.columnTypes
     let selectedcol = selectedSheetcoltypelist?.find((x: any) => x.name == initialValue)
-    // console.log(controlName, initialValue, Object.keys(controls))
     newFormControl2['type-' + controlName] = new FormControl(selectedcol?.type);
     this.sheetForm = new FormGroup({ ...controls2, ...newFormControl2 })
 

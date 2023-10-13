@@ -96,7 +96,7 @@ export class LessonsCategoriesComponent {
             dogru_sayisi: res.dogru_sayisi,
             yanlis_sayisi: res.yanlis_sayisi,
             tarih: res.tarih
-          }).subscribe(res => console.log(res))
+          }).subscribe()
         else
           this.logService.updateStudentNote(this.student.ogrenci_id, {
             cozulen_soru: res.cozulen_soru,
@@ -104,7 +104,7 @@ export class LessonsCategoriesComponent {
             yanlis_sayisi: res.yanlis_sayisi,
             tarih: res.tarih,
             kategori_id: category_id
-          }).subscribe(res => console.log(res))
+          }).subscribe()
     });
   }
 }

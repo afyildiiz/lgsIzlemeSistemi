@@ -33,7 +33,6 @@ export class HeaderComponent {
   openRegisterForm() {
     var dialogref: NbDialogRef<any> = this.dialogService.openModal(RegisterComponent, true, true, 'right-modal')
     dialogref.onClose.subscribe(res => {
-      console.log(res);
     })
   }
 

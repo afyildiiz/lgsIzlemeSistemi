@@ -14,6 +14,7 @@ export const Endpoints = {
     lessonDataStoreid: '32265883462378636886',
     lessonCategoryDataStoreid: '61587354583527547431',
     noteDataStoreid: '83364685152224213624',
+    monthlyNoteDataStoreid: '88785125241734377423',
     logout: ServerURLs.bussion + 'Logon/Logout',
 
 };

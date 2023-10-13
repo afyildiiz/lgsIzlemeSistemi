@@ -58,7 +58,7 @@ export class AssignMentorComponent {
     this.students.map(student => {
       let teacher = this.myForm.get(student.ogrenci_numarasi.toString())
       if (teacher?.dirty)
-        this.studentService.setTeacher(student.ogrenci_id, teacher.value).subscribe(res => console.log(res));
+        this.studentService.setTeacher(student.ogrenci_id, teacher.value).subscribe()
     })
   }
 

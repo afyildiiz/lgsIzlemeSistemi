@@ -71,8 +71,6 @@ export class GetLogPageComponent {
     let year = this.selectedYear
     let month = (parseInt(this.selectedMonth) + 1).toString()
 
-    console.log(year)
-
     if (this.selectedYear && this.selectedMonth) {
       this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.yil == year);
     }
@@ -83,16 +81,12 @@ export class GetLogPageComponent {
     else {
       this.filteredNotes = this.notes.filter(f => f.ogrenci_id == month)
     }
-
-    console.log(this.filteredNotes)
   }
 
   onSelectedYear() {
 
     let month = (parseInt(this.selectedMonth) + 1).toString()
     let year = this.selectedYear
-
-    console.log(year)
 
     if (this.selectedStudent && this.selectedMonth) {
       this.filteredNotes = this.notes.filter(note =>
@@ -115,16 +109,12 @@ export class GetLogPageComponent {
     else {
       this.filteredNotes = this.notes.filter(note => note.yil == year)
     }
-    console.log(this.filteredNotes)
-
   }
 
   onSelectedMonth() {
 
     let month = (parseInt(this.selectedMonth) + 1).toString()
     let year = this.selectedYear
-
-    console.log(year)
 
     if (this.selectedStudent && this.selectedYear) {
       this.filteredNotes = this.notes.filter(note => note.ay == month && note.ogrenci_id == this.selectedStudent && note.yil == year);
@@ -135,8 +125,6 @@ export class GetLogPageComponent {
     } else {
       this.filteredNotes = this.notes.filter(note => note.ay == month);
     }
-    console.log(this.filteredNotes)
-
   }
 
   removeFilters() {

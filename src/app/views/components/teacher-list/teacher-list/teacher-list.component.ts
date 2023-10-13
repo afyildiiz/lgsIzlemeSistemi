@@ -33,6 +33,6 @@ export class TeacherListComponent {
   }
 
   deleteTeacher(teacher: any) {
-    this.dialogService.openDeleteModal(teacher).onClose.subscribe(() => console.log('t'))
+    this.dialogService.openDeleteModal(teacher).onClose.subscribe()
   }
 }

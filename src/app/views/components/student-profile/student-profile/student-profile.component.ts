@@ -65,8 +65,6 @@ export class StudentProfileComponent {
     this.studentService.getStudentById(id).pipe(
       tap(res => newStudent = res[0])
     ).subscribe(() => {
-      console.log(this.currentStudent)
-      console.log(newStudent)
       this.currentStudent = newStudent
       localStorage.setItem('currentStudent', JSON.stringify(newStudent))
     })

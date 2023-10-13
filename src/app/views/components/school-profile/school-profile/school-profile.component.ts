@@ -51,7 +51,6 @@ export class SchoolProfileComponent {
     this.schoolService.getSchoolByMail(mail, sifre).pipe(
       tap(res => newSchool = res[0])
     ).subscribe(() => {
-      console.log(this.schoolAdmin)
       this.schoolAdmin = newSchool
       localStorage.setItem('schoolAdmin', JSON.stringify(newSchool))
     })
