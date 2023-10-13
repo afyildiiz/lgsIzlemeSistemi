@@ -110,7 +110,7 @@
         <div class="row">
             <div class="col-xs-12 ">
 
-                <nb-card-body>
+                <!-- <nb-card-body>
                     <div class="row">
                         <div class="grid-container">
                             <div class="card" *ngFor="let lesson of lessons">
@@ -136,7 +136,39 @@
                             </div>
                         </div>
                     </div>
-                </nb-card-body>
+                </nb-card-body> -->
+
+
+                <section id="tabs">
+                    <div class="section_our_solution">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12" *ngFor="let lesson of lessons">
+                          <div class="our_solution_category" >
+                            <div class="solution_cards_box">
+                              <div class="solution_card" >
+                                <div class="hover_color_bubble"></div>
+                                <div class="">
+                                  <div class="text-center">
+                                    <h2 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
+                                    class="category-title">{{lesson.ders_adi}}</h2>
+                                    <hr>
+                                    <b class="mb-2">Ders Performansım: %{{lesson.perform?.performans ||
+                                        0}}</b>
+                                
+                                    <div class=" buttons mt-3">
+                                        <button class="read_more_btn" (click)="insertLog(lesson.ders_id,lesson.ders_adi)">Çalışma Gir</button>
+
+                                        <button class="read_more_btn" (click)="goLogPage(lesson.ders_id,lesson.ders_adi)">Çalışmalarım</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
 
 
 
