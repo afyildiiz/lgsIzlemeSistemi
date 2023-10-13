@@ -25,14 +25,24 @@ export class LessonDetailComponent {
     let studentids = this.students.map((student: any) => `'${student.ogrenci_id}'`).join(',')
 
     this.logService.getGeneralPerformByStudentIdsandLessonId(studentids, lessonid).pipe(
-      tap((res: any) => this.performs = res)
-    ).subscribe(/*() => {
+      tap((res: any) => this.performs = res),
+    ).subscribe(() => this.getAllOfGoalsByStudentIdsAndLessonId())
+  }
+
+  allGoals: any[] = []
+
+  getAllOfGoalsByStudentIdsAndLessonId() {
+    let studentids = this.students.map(student => `'${student.ogrenci_id}'`).join(',')
+    this.logService.getAllOfGoalsByStudentIdsAndLessonId(studentids, this.lesson.ders_id).pipe(
+      tap(res => this.allGoals = res)
+    ).subscribe(() => {
       this.performs.map(perform => {
-        if(perform.performans > 85){
-          
-        }
+        this.allGoals.map(goal => {
+          if (perform.ogrenci_id == goal.ogrenci_id && perform.ders_id == goal.ders_id)
+            perform.hedef = goal.sum
+        })
       })
-    }*/)
+    })
   }
 
   sortOrder = 'asc'; // Sıralama varsayılan olarak artan sıradadır.

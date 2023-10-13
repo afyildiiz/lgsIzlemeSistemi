@@ -70,7 +70,6 @@ export class StudentPerformComponent {
     this.selectedLesson = lesson
     this.getMonthlyPerform()
     this.getWeeklyPerform()
-    this.getDailyPerform()
     this.lessonSelected = true;
 
   }

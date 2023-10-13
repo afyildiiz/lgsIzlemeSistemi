@@ -36,7 +36,7 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `select ls.ad, ls.soyad , ll.ders_adi, COALESCE(SUM(ln.hedef_soru), 0) AS hedef, COALESCE(SUM(ln.cozulen_soru), 0) AS cozulen, COALESCE(SUM(ln.dogru_sayisi), 0) AS dogru, COALESCE(SUM(ln.yanlis_sayisi), 0) AS yanlis, COALESCE(SUM(ln.cozulen_soru - ln.dogru_sayisi - ln.yanlis_sayisi), 0) AS bos, COALESCE(CAST(CAST(SUM(ln.dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS performans, COALESCE(CAST(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.hedef_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS calisma_performans FROM lgs_lessons ll LEFT JOIN lgs_notes ln ON ll.ders_id = ln.ders_id inner join lgs_students ls on ln.ogrenci_id = ls.ogrenci_id  AND ln.ogrenci_id in(${ogrenciids}) where ln.ders_id = '${lessonid}' group by ll.ders_adi, ls.ad, ls.soyad, ln.ogrenci_id`,
+      "Data": `select cast(ls.ogrenci_id as text), ls.ad, ls.soyad , cast(ll.ders_id as text), ll.ders_adi, COALESCE(SUM(ln.hedef_soru), 0) AS hedef, COALESCE(SUM(ln.cozulen_soru), 0) AS cozulen, COALESCE(SUM(ln.dogru_sayisi), 0) AS dogru, COALESCE(SUM(ln.yanlis_sayisi), 0) AS yanlis, COALESCE(SUM(ln.cozulen_soru - ln.dogru_sayisi - ln.yanlis_sayisi), 0) AS bos, COALESCE(CAST(CAST(SUM(ln.dogru_sayisi) AS DOUBLE PRECISION) / NULLIF(CAST(SUM(ln.cozulen_soru) AS DOUBLE PRECISION), 0) * 100 AS NUMERIC(10, 2)), 0) AS performans FROM lgs_lessons ll LEFT JOIN lgs_notes ln ON ll.ders_id = ln.ders_id inner join lgs_students ls on ln.ogrenci_id = ls.ogrenci_id  AND ln.ogrenci_id in(${ogrenciids}) where ln.ders_id = '${lessonid}' group by ls.ogrenci_id, ll.ders_id, ll.ders_adi, ls.ad, ls.soyad, ln.ogrenci_id`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -81,7 +81,8 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT cast(ln2.kategori_id as text), ln2.yil, ln2.aylik_hedef_soru, ln2.ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, (ln2.cozulen_soru - (ln2.dogru_sayisi + ln2.yanlis_sayisi)) as bos_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids}) order by COALESCE(ln2.cozulen_soru, 0) DESC`,
+      //"Data": `SELECT cast(ln2.kategori_id as text), ln2.yil, ln2.aylik_hedef_soru, ln2.ay, cast(ln2.ogrenci_id as text), lc.kategori_adi, ln2.hedef_soru, ln2.cozulen_soru, ln2.dogru_sayisi, ln2.yanlis_sayisi, (ln2.cozulen_soru - (ln2.dogru_sayisi + ln2.yanlis_sayisi)) as bos_sayisi, ll.ders_adi FROM lgs_notes ln2 INNER JOIN lgs_lessons ll ON ll.ders_id = ln2.ders_id INNER JOIN lgs_categories lc ON lc.kategori_id = ln2.kategori_id WHERE ln2.ders_id = '${lesson_id}' AND ln2.ogrenci_id IN (${student_ids}) order by COALESCE(ln2.cozulen_soru, 0) DESC`,
+      "Data": `select cast(ln2.ogrenci_id as text), lc.kategori_adi, cast(ln2.kategori_id as text), ln2.hedef_soru * 30 as hedef_soru, sum(ln2.cozulen_soru) as cozulen_soru , sum(ln2.dogru_sayisi) as dogru_sayisi, sum(ln2.yanlis_sayisi) as yanlis_sayisi, ln2.ay, ln2.yil from lgs_notes ln2  inner join lgs_categories lc on lc.kategori_id = ln2.kategori_id where ln2.ders_id = '${lesson_id}' and ln2.ogrenci_id in (${student_ids}) group by ln2.ogrenci_id, lc.kategori_adi, ln2.kategori_id, ln2.hedef_soru, ln2.ay, ln2.yil`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -158,7 +159,8 @@ export class LogService {
       "Token": this.token,
       "DataStoreId": Endpoints.noteDataStoreid,
       "Operation": "read",
-      "Data": `SELECT lgs_categories.kategori_adi, CAST(lgs_notes.ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), lgs_notes_monthly.hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') as gun, lgs_notes.ay, lgs_notes.yil FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id inner join lgs_notes_monthly on lgs_notes.kategori_id = lgs_notes_monthly.kategori_id and lgs_notes.ogrenci_id = lgs_notes_monthly.ogrenci_id and lgs_notes.yil = lgs_notes_monthly.yil and lgs_notes.ay = lgs_notes_monthly.ay WHERE lgs_notes.ogrenci_id = '${student_id}' AND lgs_notes.ders_id = '${lesson_id}' and lgs_notes.yil='${year}'and lgs_notes.ay='${month}'`,
+      //"Data": `SELECT lgs_categories.kategori_adi, CAST(lgs_notes.ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), lgs_notes_monthly.hedef_soru, cozulen_soru, dogru_sayisi, yanlis_sayisi, TO_CHAR(gun, 'DD-MM-YYYY') as gun, lgs_notes.ay, lgs_notes.yil FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id inner join lgs_notes_monthly on lgs_notes.kategori_id = lgs_notes_monthly.kategori_id and lgs_notes.ogrenci_id = lgs_notes_monthly.ogrenci_id and lgs_notes.yil = lgs_notes_monthly.yil and lgs_notes.ay = lgs_notes_monthly.ay WHERE lgs_notes.ogrenci_id = '${student_id}' AND lgs_notes.ders_id = '${lesson_id}' and lgs_notes.yil='${year}'and lgs_notes.ay='${month}'`,
+      "Data": `SELECT lgs_categories.kategori_adi, CAST(lgs_notes.ogrenci_id AS text), CAST(lgs_categories.kategori_id AS text), lgs_notes_monthly.hedef_soru * 30 as hedef_soru, sum(cozulen_soru) as cozulen_soru, sum(dogru_sayisi) as dogru_sayisi, sum(yanlis_sayisi) as yanlis_sayisi, lgs_notes.ay, lgs_notes.yil FROM lgs_notes INNER JOIN lgs_categories ON lgs_categories.kategori_id = lgs_notes.kategori_id inner join lgs_notes_monthly on lgs_notes.kategori_id = lgs_notes_monthly.kategori_id and lgs_notes.ogrenci_id = lgs_notes_monthly.ogrenci_id and lgs_notes.yil = lgs_notes_monthly.yil and lgs_notes.ay = lgs_notes_monthly.ay WHERE lgs_notes.ogrenci_id = '${student_id}' AND lgs_notes.ders_id = '${lesson_id}' and lgs_notes.yil='${year}'and lgs_notes.ay='${month}' group by lgs_notes.kategori_id, lgs_categories.kategori_adi, lgs_notes.ogrenci_id, lgs_categories.kategori_id, lgs_notes_monthly.hedef_soru, lgs_notes.ay, lgs_notes.yil`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(
@@ -321,6 +323,21 @@ export class LogService {
       })
     );
   }*/
+
+  getAllOfGoalsByStudentIdsAndLessonId(studentids: string, lessonid: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.noteDataStoreid,
+      "Operation": "read",
+      "Data": `WITH temp_sonuclar AS (select cast(ogrenci_id as text), cast(ders_id as text), lnm.aylik_hedef_soru from lgs_notes_monthly lnm where lnm.ogrenci_id IN (${studentids}) and ders_id = '${lessonid}' GROUP by ogrenci_id, ders_id, lnm.aylik_hedef_soru) SELECT ogrenci_id, ders_id, sum(aylik_hedef_soru) FROM temp_sonuclar group by ogrenci_id, ders_id`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
 
 }
 

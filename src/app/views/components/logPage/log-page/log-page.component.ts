@@ -157,8 +157,8 @@ export class LogPageComponent {
   currentStudent: any;
   datas: any[] = []
   currentLessonId: any;
-  selectedYear: any
-  selectedMonth: any
+  selectedYear: any = new Date().getFullYear()
+  selectedMonth: any = new Date().getMonth() + 1;
   months: any[] = [
     'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Agustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'
   ]

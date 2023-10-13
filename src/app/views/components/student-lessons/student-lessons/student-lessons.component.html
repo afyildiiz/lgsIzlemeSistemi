@@ -67,7 +67,6 @@
 </section> -->
 
 
-<app-student-navbar></app-student-navbar>
 
 
 
@@ -119,7 +118,10 @@
                                     <h5 style="font-family: 'Bebas Neue', sans-serif; font-weight: 900;"
                                         class="card-title">{{lesson.ders_adi}}</h5>
                                     <hr>
-                                    <b class="mb-2">Ders Performansım: %{{lesson.perform?.performans ||
+                                    <b class="mb-2">Çalışma Performansım: %{{lesson.perform?.performans ||
+                                        0}}</b>
+                                    <hr>
+                                    <b class="mb-2">Başarı Performansım: %{{lesson.perform?.performans ||
                                         0}}</b>
                                     <hr>
                                     <div class=" buttons">

@@ -20,4 +20,5 @@ export class StudentDetailComponent {
     this.logService.getGeneralPerformByStudentIds(`'${this.student.ogrenci_id}'`).subscribe(res => this.student.perform = res)
   }
 
+
 }
