@@ -11,19 +11,19 @@ export class ToastService {
   showToast(status: string, message: string) {
     switch (status) {
       case 'success':
-        this.toastrService.success(message, status);
+        this.toastrService.success(message, 'Başarılı');
         break;
 
       case 'danger':
-        this.toastrService.danger(message, status);
+        this.toastrService.danger(message, 'Tehlike');
         break;
 
       case 'warning':
-        this.toastrService.warning(message, status);
+        this.toastrService.warning(message, 'Uyarı');
         break;
 
       case 'info':
-        this.toastrService.info(message, status);
+        this.toastrService.info(message, 'Bilgilendirme');
         break;
 
       default:

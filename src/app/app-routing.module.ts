@@ -22,13 +22,18 @@ import { LogByTeacherComponent } from './views/components/log-by-teacher/log-by-
 import { GoLogPageComponent } from './views/components/go-log-page/go-log-page/go-log-page.component';
 import { GetLogPageComponent } from './views/components/get-log-page/get-log-page/get-log-page.component';
 import { StudentPerformComponent } from './views/components/student-perform/student-perform/student-perform.component';
+import { AdminComponent } from './views/pages/admin/admin/admin.component';
+import { AdminFormComponent } from './views/components/admin-form/admin-form/admin-form.component';
 
 const routes: Routes = [
   {
     path: '', component: HomepageComponent
   },
   {
-    path: 'register', component: RegisterComponent
+    path: 'admin', component: AdminComponent, children: [
+      { path: 'login', component: AdminFormComponent },
+      { path: 'register', component: RegisterComponent },
+    ]
   },
   {
     path: 'login', component: LoginFormComponent

@@ -56,6 +56,8 @@ import { StudentNavbarComponent } from './views/components/student-navbar/studen
 import { UpdateNoteComponent } from './views/components/update-note/update-note/update-note.component';
 import { StudentDetailComponent } from './views/components/student-detail/student-detail/student-detail.component';
 import { LessonDetailComponent } from './views/components/lesson-detail/lesson-detail/lesson-detail.component';
+import { AdminComponent } from './views/pages/admin/admin/admin.component';
+import { AdminFormComponent } from './views/components/admin-form/admin-form/admin-form.component';
 
 registerAllModules()
 
@@ -104,7 +106,9 @@ registerAllModules()
     StudentNavbarComponent,
     UpdateNoteComponent,
     StudentDetailComponent,
-    LessonDetailComponent
+    LessonDetailComponent,
+    AdminComponent,
+    AdminFormComponent
   ],
   imports: [
     BrowserModule,

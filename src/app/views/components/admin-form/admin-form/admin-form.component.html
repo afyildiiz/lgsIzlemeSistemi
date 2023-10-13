@@ -1,0 +1,24 @@
+<div class="wrapper">
+    <!-- <div class="logo">
+        <img src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png" alt="">
+    </div> -->
+    <div class="text-center mt-4 name">
+        Admin Girişi
+    </div>
+    <form class="p-4 mt-4" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-field d-flex align-items-center">
+            <!-- <span class="far fa-user"></span> -->
+            <input type="text" id="form2Example1" class="form-control mt-1" formControlName="username"
+                placeholder="Kullanıcı adı">
+        </div>
+        <div class="form-field d-flex align-items-center">
+            <!-- <span class="fas fa-key"></span> -->
+            <input type="password" id="form2Example2" class="form-control mt-1" formControlName="password"
+                placeholder="Sifre">
+        </div>
+        <button class="btn mt-3">Giriş</button>
+    </form>
+    <div class="text-center fs-6">
+        <!-- <a href="register">Şifremi Unuttum</a> -->
+    </div>
+</div>
