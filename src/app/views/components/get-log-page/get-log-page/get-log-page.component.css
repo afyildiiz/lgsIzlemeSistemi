@@ -258,54 +258,7 @@ section {
     font-family: "Open Sans", sans-serif;
 
 }
-/* 
-h2 {
-    margin: 0;
-    font-size: 1.4rem;
-} */
 
-
-
-.cta {
-    padding: 14px;
-    --shadowColor: 187 60% 40%;
-    display: flex;
-    flex-wrap: wrap;
-    background: hsl(180, 5%, 88%);
-    max-width: 50rem;
-    width: 100%;
-    box-shadow: 0.65rem 0.65rem 0 hsl(180, 2%, 75%);
-    border-radius: 0.8rem;
-    overflow: hidden;
-    border: 0.5rem solid;
-}
-
-.cta img {
-    aspect-ratio: 3 / 2;
-    object-fit: cover;
-    flex: 1 1 300px;
-    outline: 0.5rem solid;
-}
-
-.cta__text-column {
-    padding: min(1rem, 4vw) min(1rem, 4vw) min(1rem, 4vw);
-    flex: 1 0 50%;
-}
-
-.cta__text-column>*+* {
-    margin: min(1.5rem, 2.5vw) 0 0 0;
-}
-
-.cta a {
-    display: inline-block;
-    color: black;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    background: hsl(187 75% 64%);
-    border-radius: 0.6rem;
-    font-weight: 700;
-    border: 0.35rem solid;
-}
 
 .grid-container {
     margin-top: 1rem;
