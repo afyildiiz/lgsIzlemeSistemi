@@ -29,6 +29,21 @@ export class TeacherService {
     );
   }
 
+  insertTeachers(teachers: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.teacherDataStoreid,
+      "Operation": "insert",
+      "Data": `insert into lgs_teachers (okul_id, ad, soyad, brans, e_posta, sifre) values ${teachers}`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
   updateTeacher(teacher: any) { //sonradan any türünü düzelt
     const body = {
       "Token": this.token,
@@ -124,7 +139,7 @@ export class TeacherService {
       "Token": this.token,
       "DataStoreId": Endpoints.teacherDataStoreid,
       "Operation": "read",
-      "Data": `select cast(id as text) from lgs_teachers where e_posta = '${mail}'`,
+      "Data": `select e_posta from lgs_teachers where e_posta in(${mail})`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

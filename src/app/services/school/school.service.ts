@@ -79,7 +79,7 @@ export class SchoolService {
       "Token": this.token,
       "DataStoreId": Endpoints.schooldataStoreid,
       "Operation": "read",
-      "Data": `select cast(okul_id as text) from lgs_schools where admin_e_posta='${mail}'`,
+      "Data": `select admin_e_posta from lgs_schools where admin_e_posta in(${mail})`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

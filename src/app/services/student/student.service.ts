@@ -44,6 +44,21 @@ export class StudentService {
     );
   }
 
+  insertStudents(students: string) {
+    const body = {
+      "Token": this.token,
+      "DataStoreId": Endpoints.studentDataStoreid,
+      "Operation": "insert",
+      "Data": `insert into lgs_students (okul_id, ogrenci_numarasi, ad, soyad, e_posta, sifre, veli_ad, veli_soyad, veli_tc) values ${students}`,
+      "Encrypted": "1951",
+    }
+    return this.http.post(Endpoints.dataops, body).pipe(
+      map((response: any) => {
+        return response.message
+      })
+    );
+  }
+
   updateStudent(student: any) { //sonradan any türünü düzelt
     const body = {
       "Token": this.token,
@@ -184,7 +199,7 @@ export class StudentService {
       "Token": this.token,
       "DataStoreId": Endpoints.studentDataStoreid,
       "Operation": "read",
-      "Data": `select cast(ogrenci_id as text) from lgs_students where e_posta = '${mail}'`,
+      "Data": `select e_posta from lgs_students where e_posta in(${mail})`,
       "Encrypted": "1951",
     }
     return this.http.post(Endpoints.dataops, body).pipe(

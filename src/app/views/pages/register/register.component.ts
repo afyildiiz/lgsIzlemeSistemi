@@ -4,11 +4,10 @@ import { RegisterFormComponent } from '../../components/register-form/register-f
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { TeacherRegisterFormComponent } from '../../components/teacher-register-form/teacher-register-form/teacher-register-form.component';
 import { StudentRegisterFormComponent } from '../../components/student-register-form/student-register-form/student-register-form.component';
-import { Router } from '@angular/router';
 import { TeacherService } from 'src/app/services/teacher/teacher.service';
 import { StudentService } from 'src/app/services/student/student.service';
 import { SchoolService } from 'src/app/services/school/school.service';
-import { filter, from, map, mergeMap, of, switchMap, tap, toArray } from 'rxjs';
+import { Observable, forkJoin, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +27,9 @@ export class RegisterComponent {
   @ViewChild(TeacherRegisterFormComponent) teacherRegisterFormComponent!: TeacherRegisterFormComponent;
   @ViewChild(StudentRegisterFormComponent) studentRegisterFormComponent!: StudentRegisterFormComponent;
 
-
+  schoolDatas: any;
+  teacherDatas: any;
+  studentDatas: any;
   stepperIndex: number = 0;
 
   stepperChange(event: any) {
@@ -42,10 +43,6 @@ export class RegisterComponent {
   nextStep() {
     this.stepper.next();
   }
-
-  schoolDatas: any;
-  teacherDatas: any;
-  studentDatas: any;
 
   register() {
 
@@ -65,9 +62,7 @@ export class RegisterComponent {
       let formValues = this.schoolDatas.formValues;
       let school = this.schoolDatas.school;
 
-      //this.insertSchool(formValues, school, students, teachers)
-
-      this.insertTeacher(teachers, school)
+      this.insertSchool(formValues, school, students, teachers)
 
     } else {
       this.toastService.showToast('warning', 'Form verileri geçerli değil.');
@@ -75,15 +70,15 @@ export class RegisterComponent {
   }
 
   insertSchool(formValues: any, school: any, students: any, teachers: any) {
-    this.schoolService.getSchoolIdByMail(formValues.e_posta).subscribe(res => {
+    this.schoolService.getSchoolIdByMail(`'${formValues.e_posta}'`).subscribe(res => {
       if (res.length)
         return
       else
-        this.teacherService.getTeacherIdByMail(formValues.e_posta).subscribe(res => {
+        this.teacherService.getTeacherIdByMail(`'${formValues.e_posta}'`).subscribe(res => {
           if (res.length)
             return
           else
-            this.studentService.getStudentIdByMail(formValues.e_posta).subscribe(res => {
+            this.studentService.getStudentIdByMail(`'${formValues.e_posta}'`).subscribe(res => {
               if (res.length)
                 return
               else
@@ -93,8 +88,8 @@ export class RegisterComponent {
                       if (res == 'Success')
                         this.toastService.showToast('success', 'Okul kaydı eklendi.')
                     }),
-                    //tap(() => this.insertStudent(students, school)),
                     tap(() => this.insertTeacher(teachers, school)),
+                    tap(() => this.insertStudent(students, school)),
                   ).subscribe();
             })
         })
@@ -102,197 +97,133 @@ export class RegisterComponent {
   }
 
   insertTeacher(teachers: any, school: any) {
-    teachers.map((teacher: any) => {
-      if (teacher.E_posta && teacher.Sifre)
-        this.teacherService.getTeacherIdByMail(teacher.E_Posta).subscribe(res => {
+    let mails = teachers.map((teacher: any) => `'${teacher.E_Posta}'`).join(',')
+    let notAlloweds: any[] = []
+    let willAdded: any[] = []
+    this.teacherService.getTeacherIdByMail(mails).pipe(
+      tap(res => {
+        if (res.length)
+          notAlloweds = res
+        this.studentService.getStudentIdByMail(mails).subscribe(res => {
           if (res.length)
-            return
-          else
-            this.studentService.getStudentIdByMail(teacher.E_Posta).subscribe(res => {
-              if (res.length)
-                return
-              else
-                this.schoolService.getSchoolIdByMail(teacher.E_posta).subscribe(res => {
-                  if (res.length)
-                    return
-                  else
-                    this.teacherService.insertTeacher(school.okul_id, teacher.Ad, teacher.Soyad, teacher.Brans, teacher.E_Posta, teacher.Sifre).subscribe(res => console.log(res))
-                })
-            })
+            notAlloweds = [...notAlloweds, ...res]
+          this.schoolService.getSchoolIdByMail(mails).subscribe(res => {
+            if (res.length)
+              notAlloweds = [...notAlloweds, ...res]
+          })
         })
+      })
+    ).subscribe(() => {
+      let e_mails = notAlloweds.map(nA => nA.e_posta)
+      willAdded = teachers.filter((teacher: any) => !e_mails.includes(teacher.E_Posta))
+
+      let query: string = ''
+      let count: number = 0
+      teachers.map((teacher: any) => {
+        willAdded.map((added: any) => {
+          if (added.E_Posta == teacher.E_Posta) {
+            count += 1
+            if (count > 1)
+              query += ','
+            query += `('${school.okul_id}', '${teacher.Ad}', '${teacher.Soyad}', '${teacher.Brans}', '${teacher.E_Posta}', '${teacher.Sifre}')`
+          }
+        })
+      })
+
+      if (query.length) {
+        this.teacherService.insertTeachers(query).subscribe(res => console.log(res))
+      }
+      notAlloweds.map(na => console.log(na))
+      notAlloweds.map(na => this.toastService.showToast('warning', na + ' bu eposta ile daha önce bir kayıt oluşturulmuş.'))
     })
   }
 
   insertStudent(students: any, school: any) {
-    students.map((student: any) => {
-      if (student.E_Posta && student.Sifre)
-        this.studentService.getStudentIdByMail(student.E_Posta).subscribe(res => {
-          if (res.length)
-            return
-          else
-            this.teacherService.getTeacherIdByMail(student.E_Posta).subscribe(res => {
-              if (res.length)
-                return
-              else
-                this.schoolService.getSchoolIdByMail(student.E_Posta).subscribe(res => {
-                  if (res.length)
-                    return
-                  else
-                    this.studentService.insertStudent(school.okul_id, student.Ad, student.Soyad, student.Numara, student.E_Posta, student.Sifre, student.VeliAd, student.VeliSoyad,
-                      student.VeliTcKimlikNo).subscribe(res => console.log(res))
-                })
-            })
+    let mails = students.map((student: any) => `'${student.E_Posta}'`).join(',')
+    let notAlloweds: any[] = []
+    let willAdded: any[] = []
+    this.studentService.getStudentIdByMail(mails).pipe(
+      tap(res => {
+        if (res.length) {
+          notAlloweds = res
+        }
+        this.teacherService.getTeacherIdByMail(mails).subscribe(res => {
+          if (res.length) {
+            notAlloweds = [...notAlloweds, ...res]
+          }
+          this.schoolService.getSchoolIdByMail(mails).subscribe(res => {
+            if (res.length) {
+              notAlloweds = [...notAlloweds, ...res]
+            }
+          })
         })
+      })
+    ).subscribe(() => {
+
+      let emails = notAlloweds.map(nA => nA.e_posta)
+      willAdded = students.filter((student: any) => !emails.includes(student.E_Posta))
+
+      let query: string = ''
+      let count: number = 0
+      students.map((student: any) => {
+        willAdded.map((added: any) => {
+          if (added.E_Posta == student.E_Posta) {
+            count += 1
+            if (count > 1)
+              query += ','
+            query += `('${school.okul_id}', '${student.Numara}', '${student.Ad}', '${student.Soyad}', '${student.E_Posta}', '${student.Sifre}', '${student.VeliAd}', '${student.VeliSoyad}', '${student.VeliTcKimlikNo}')`
+          }
+        })
+      })
+
+      if (query.length) {
+        this.studentService.insertStudents(query).subscribe(res => console.log(res))
+      }
+
+      notAlloweds.map(na => this.toastService.showToast('warning', na + ' bu eposta ile daha önce bir kayıt oluşturulmuş.'))
     })
   }
 
-
   /*
     insertSchool(formValues: any, school: any, students: any, teachers: any) {
-      this.schoolService.getSchoolIdByMail(formValues.e_posta).pipe(
-        filter(schoolId => schoolId.length === 0),
-        switchMap(() => this.teacherService.getTeacherIdByMail(formValues.e_posta)),
-        filter(teacherId => teacherId.length === 0),
-        switchMap(() => this.studentService.getStudentIdByMail(formValues.e_posta)),
-        filter(studentId => studentId.length === 0),
-        switchMap(() => this.schoolService.insertSchool(
-          formValues.e_posta, formValues.password, formValues.phone, school.okul_id
-        )),
-        tap(res => {
-          if (res === 'Success') {
-            this.toastService.showToast('success', 'Okul kaydı eklendi.');
-            this.insertStudent(students, school);
-            this.insertTeacher(teachers, school);
-          }
-        })
-      ).subscribe();
-    }
-    
-    insertTeacher(teachers: any, school: any) {
-      from(teachers).pipe(
-        mergeMap((teacher: any) => {
-          if (teacher.E_posta && teacher.Sifre) {
-            return this.teacherService.getTeacherIdByMail(teacher.E_Posta).pipe(
-              filter(teacherId => teacherId.length === 0),
-              switchMap(() => this.studentService.getStudentIdByMail(teacher.E_Posta)),
-              filter(studentId => studentId.length === 0),
-              switchMap(() => this.schoolService.getSchoolIdByMail(teacher.E_posta)),
-              filter(schoolId => schoolId.length === 0),
-              switchMap(() => this.teacherService.insertTeacher(school.okul_id, teacher.Ad, teacher.Soyad, teacher.Brans, teacher.E_Posta, teacher.Sifre)),
-              map(() => 'Success')
-            );
-          }
-          return of('Skipped');
-        }),
-        toArray()
-      ).subscribe(results => {
-        console.log(results);
+      this.checkIfEmailExists(`'${formValues.e_posta}'`).subscribe(emailExists => {
+        if (emailExists) {
+          this.toastService.showToast('warning', 'Admin e-postası ile bir kayıt bulunuyor.')
+          return
+        } else {
+          this.insertSchoolData(formValues, school)
+          this.insertTeachers(teachers, school)
+          this.insertStudents(students, school)
+        }
       });
     }
-    
-    insertStudent(students: any, school: any) {
-      from(students).pipe(
-        mergeMap((student: any) => {
-          if (student.E_Posta && student.Sifre) {
-            return this.studentService.getStudentIdByMail(student.E_Posta).pipe(
-              filter(studentId => studentId.length === 0),
-              switchMap(() => this.teacherService.getTeacherIdByMail(student.E_Posta)),
-              filter(teacherId => teacherId.length === 0),
-              switchMap(() => this.schoolService.getSchoolIdByMail(student.E_Posta)),
-              filter(schoolId => schoolId.length === 0),
-              switchMap(() => this.studentService.insertStudent(
-                school.okul_id, student.Ad, student.Soyad, student.Numara, student.E_Posta, student.Sifre, student.VeliAd, student.VeliSoyad,
-                student.VeliTcKimlikNo
-              )),
-              map(() => 'Success')
-            );
-          }
-          return of('Skipped');
-        }),
-        toArray()
-      ).subscribe(results => {
-        console.log(results);
-      });
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-    insertSchool(formValues: any, school: any, students: any, teachers: any) {
-      this.schoolService.getSchoolIdByMail(formValues.e_posta).pipe(
-        filter(schoolId => schoolId.length === 0),
-        switchMap(() => this.teacherService.getTeacherIdByMail(formValues.e_posta)),
-        filter(teacherId => teacherId.length === 0),
-        switchMap(() => this.studentService.getStudentIdByMail(formValues.e_posta)),
-        filter(studentId => studentId.length === 0),
-        switchMap(() => this.schoolService.insertSchool(
-          formValues.e_posta, formValues.password, formValues.phone, school.okul_id
-        )),
-        tap(res => {
-          if (res === 'Success') {
-            this.toastService.showToast('success', 'Okul kaydı eklendi.');
-             this.insertStudent(students, school);
-            this.insertTeacher(teachers, school);
-          }
-        })
-      ).subscribe();
+  
+    checkIfEmailExists(email: string): Observable<boolean> {
+      const schoolExists = this.schoolService.getSchoolIdByMail(email).pipe(map(res => res.length > 0))
+      const teacherExists = this.teacherService.getTeacherIdByMail(email).pipe(map(res => res.length > 0))
+      const studentExists = this.studentService.getStudentIdByMail(email).pipe(map(res => res.length > 0))
+  
+      return forkJoin([schoolExists, teacherExists, studentExists]).pipe(
+        map(([schoolExists, teacherExists, studentExists]) => schoolExists || teacherExists || studentExists)
+      )
     }
   
-    async insertTeacher(teachers: any, school: any) {
-      const results = await from(teachers).pipe(
-        mergeMap((teacher: any) => {
-          if (teacher.E_posta && teacher.Sifre) {
-            return this.teacherService.getTeacherIdByMail(teacher.E_Posta).pipe(
-              filter(teacherId => teacherId.length === 0),
-              switchMap(() => this.studentService.getStudentIdByMail(teacher.E_Posta)),
-              filter(studentId => studentId.length === 0),
-              switchMap(() => this.schoolService.getSchoolIdByMail(teacher.E_posta)),
-              filter(schoolId => schoolId.length === 0),
-              switchMap(() => this.teacherService.insertTeacher(school.okul_id, teacher.Ad, teacher.Soyad, teacher.Brans, teacher.E_Posta, teacher.Sifre)),
-              map(() => 'Success') // Instead of returning null, return a success message
-            );
-          }
-          return of('Skipped'); // Return a message for skipped teachers
-        }),
-        toArray()
-      ).toPromise();
-      console.log(results);
+    insertSchoolData(formValues: any, school: any) {
+      this.schoolService.insertSchool(formValues.e_posta, formValues.password, formValues.phone, school.okul_id).subscribe(res => {
+        if (res === 'Success') {
+          this.toastService.showToast('success', 'Okul kaydı eklendi.')
+        }
+      })
     }
   
-    async insertStudent(students: any, school: any) {
-      const results = await from(students).pipe(
-        mergeMap((student: any) => {
-          if (student.E_Posta && student.Sifre) {
-            return this.studentService.getStudentIdByMail(student.E_Posta).pipe(
-              filter(studentId => studentId.length === 0),
-              switchMap(() => this.teacherService.getTeacherIdByMail(student.E_Posta)),
-              filter(teacherId => teacherId.length === 0),
-              switchMap(() => this.schoolService.getSchoolIdByMail(student.E_Posta)),
-              filter(schoolId => schoolId.length === 0),
-              switchMap(() => this.studentService.insertStudent(
-                school.okul_id, student.Ad, student.Soyad, student.Numara,
-                student.E_Posta, student.Sifre, student.VeliAd, student.VeliSoyad,
-                student.VeliTcKimlikNo
-              )),
-              map(() => 'Success')
-            );
-          }
-          return of('Skipped');
-        }),
-        toArray()
-      ).toPromise();
+    insertTeachers(teachers: any, school: any) {
+      let mails = teachers.map((teacher: any) => `'${teacher.E_Posta}'`).join(',')
+      this.checkIfEmailExists(mails).subscribe(res => console.log(res))
+    }
   
-      console.log(results);
+    insertStudents(students: any, school: any) {
+      let mails = students.map((student: any) => `'${student.E_Posta}'`).join(',')
+      this.checkIfEmailExists(mails).subscribe(res => console.log(res))
     }
   */
 }
